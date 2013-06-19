@@ -13,9 +13,9 @@
   <%= label_tag "Desired Username: " %>
   <%= text_field_tag 'username', session[:username] %><br>
   <%= label_tag "Password: " %>
-  <%= password_field_tag 'password' %><br>
+  <%= password_field_tag 'password', session[:email] %><br>
   <%= label_tag "Email: " %>
-  <%= email_field_tag 'email', session[:email] %><br>
+  <%= text_field_tag 'email', session[:email] %><br>
   <%= label_tag "Phone Number:" %>
   <%= phone_field_tag 'phone', session[:phone] %><br>
   <%= submit_tag "Submit", :class => "signup_submit" %>
