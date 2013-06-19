@@ -1,7 +1,7 @@
 require "rubygems"
 require "sequel"
 class Account < ActiveRecord::Base
-  DB = Sequel.connect("mysql2://resell:ciaouser@209.200.231.9:3306/voipswitch")
+  DB = Sequel.connect("mysql2://reports:u2ns8uj28yshu@208.65.111.153:3306/porta-billing")
   def self.authenticate(login, password)
     @users = DB[:users]
     @users.each do |user|
