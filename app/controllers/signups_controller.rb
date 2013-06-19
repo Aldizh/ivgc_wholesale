@@ -38,19 +38,19 @@ class SignupsController < ApplicationController
 	          @result = ActiveSupport::JSON.decode(@response)
           else
             flash[:error] = "Phone Number is not valid"
-            redirect_to "/"
+            redirect_to signups_path
           end
         else
           flash[:error] = "Email is not valid"
-          redirect_to "/"
+          redirect_to signups_path
         end
       else 
         flash[:error] = "Password cannot have fewer than 6 characters"
-        redirect_to "/"
+        redirect_to signups_path
       end
 	  else 
   	  flash[:error] = "Username cannot have fewer than 6 characters"
-  	  redirect_to "/"
+  	  redirect_to signups_path
 	  end
   end
 

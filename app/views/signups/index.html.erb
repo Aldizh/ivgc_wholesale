@@ -1,11 +1,11 @@
 <div class="signup_message">Sign-up now and take advantage of a fast, reliable platform with low-cost voice rates</div>
 
-<div class="signup_form">
-	<div class="error" >
-		<% if flash[:error] %>
-          <%= flash[:error] %>
-        <% end %>
-	</div>
+<div class="common_form", id="signup_form">
+  <% if flash[:error] %>
+	  <div class="error" style="margin-bottom: 15px;" >
+		  <%= flash[:error] %>
+    </div>
+  <% end %>
 <article class="title"><span>Sign Up Form</span></article>
 <%= form_tag(:action => "signUp") do %>
   <%= label_tag "Company Name: (optional)" %>
@@ -18,6 +18,6 @@
   <%= text_field_tag 'email', session[:email] %><br>
   <%= label_tag "Phone Number:" %>
   <%= phone_field_tag 'phone', session[:phone] %><br>
-  <%= submit_tag "Submit", :class => "signup_submit" %>
+  <%= submit_tag "Submit", :class => "submit_button" %>
 <% end %>
 </div>

@@ -1,0 +1,15 @@
+<% if flash[:error] %>
+  <div class="error" >
+    <%= flash[:error] %>
+  </div>
+<% end %>
+<div class="common_form" id="login_panel">
+<article class="title"><span>Login Panel</span></article>
+<%= form_tag sessions_path do %>
+    <%= label_tag :username %>
+    <%= text_field_tag :username, params[:username] %><br />
+    <%= label_tag :password %>
+    <%= password_field_tag :password %><br />
+  <%= submit_tag "Submit", :class => "submit_button" %>
+<% end %>
+</div>
