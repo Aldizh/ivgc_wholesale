@@ -82,10 +82,11 @@ class SignupsController < ApplicationController
     #We should validate the email with regex 
     # taken from http://railscasts.com/episodes/219-active-model?view=asciicast
     email_re = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
-    if email.length() < 6
+    regex = email_re.match(email)
+    if email.length() < 6 or regex.nil?
       return false
-    if email_re.match(email).nil?
-      return false
+    else
+      return true
     end
   end
 
