@@ -14,11 +14,6 @@
 
 $ciao_red: #D00; 
 $footer_grey: #AAA;
-@mixin rounded-corners($radius: 5px) {
-	border-radius: $radius;
-	-moz-border-radius: $radius;
-	-webkit-border-radius: $radius;
-}
 
 html {
 	font-size: 62.5%;
@@ -56,7 +51,9 @@ header {
 .error {
 	text-transform: lowercase;
 	font-size: 1.0rem;
-	color: red;
+	color: $ciao_red;
+	margin: auto;
+	text-align: center;
 }
 footer {
 	background-color: $footer_grey;
