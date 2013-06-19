@@ -1,0 +1,17 @@
+<div class="signup_message">Sign-up now and take advantage of a fast, reliable platform with low-cost voice rates</div>
+
+<div class="signup_form">
+	<article class="error" >
+		<% if flash[:error] %>
+          <%= flash[:error] %>
+        <% end %>
+	</article>
+<article class="title"><span>Sign Up Form</span></article>
+<%= form_tag(:action => "signUp") do %>
+  <%= label_tag "Desired Username: " %>
+  <%= text_field_tag 'username' %><br>
+  <%= label_tag "Password: " %>
+  <%= password_field_tag 'password' %><br>
+  <%= submit_tag "Submit", :class => "signup_submit" %>
+<% end %>
+</div>

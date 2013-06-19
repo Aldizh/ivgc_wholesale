@@ -1,0 +1,78 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.scss, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+$ciao_red: #D00; 
+$footer_grey: #AAA;
+@mixin rounded-corners($radius: 5px) {
+	border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	background-color: white;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 1.2rem;
+}
+
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+header {
+	/*background-image: url("/assets/header_bg.jpg");*/
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color: white;
+	padding: 20px;
+	border-bottom: 3px solid darken($ciao_red, 15%);
+	background-color: lighten($footer_grey, 25%);
+	h1 {
+		font-weight: lighter;
+	}
+	p {
+		font-size: 16px;
+		color: darken($ciao_red, 20%);
+		font-weight: bold;
+	}
+}
+
+.error {
+	text-transform: lowercase;
+	font-size: 1.0rem;
+	color: red;
+}
+footer {
+	background-color: $footer_grey;
+	padding: 10px;
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			list-style-type: none;
+			display: inline-block;
+			a {
+				color: darken($ciao_red, 40%);
+				padding: 0 10px;
+				text-transform: uppercase;
+				font-size: 1.0rem/1.7;
+			}
+		}
+	}
+}
