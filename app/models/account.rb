@@ -19,8 +19,8 @@ class Account < ActiveRecord::Base
       :headers => { :accept => :json, :content_type => :json}).execute
     @result = ActiveSupport::JSON.decode(@response)
     @result["account_list"].each do |account|
-      if account["id"] == login
-       if account["login"] == password
+      if account["login"] == login
+       if account["password"] == password
        return account
        else
        return nil

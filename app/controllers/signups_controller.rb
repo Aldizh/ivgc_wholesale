@@ -31,7 +31,7 @@ class SignupsController < ApplicationController
         if validate_email(@email)
           if validate_phone(@phone)
             if verify_recaptcha
-  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@id}','balance':'0','opening_balance':'0','login':'#{@id}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@phone}' ,'subscriber_email':'#{@email}'}}"
+  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@id}','balance':'0','opening_balance':'0','login':'#{@id}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@phone}' ,'subscriber_email':'#{@email}'}}"
   	          @uri = uriEncoder(@url)
   	          begin 
                 @response = RestClient::Request.new(
