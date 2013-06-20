@@ -1,37 +1,34 @@
 class SignupsController < ApplicationController
   @@session_id = ''
   def index
-    @url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
-    @uri = URI.encode(@url.gsub!("'", '"'))
-    @response = RestClient::Request.new(
-      :method => :post,
-      :url => @uri,
-      :headers => { :accept => :json, :content_type => :json}).execute
-
-    @result = ActiveSupport::JSON.decode(@response)
-    @@session_id = @result["session_id"]
+    @@session_id = get_session
   end
 
   def signUp
     @company_name = params[:company_name]
-  	@id = params[:username]
+  	@login = params[:username]
     @pw = params[:password]
+    @ip1 = params[:ip1]
     @email = params[:email]
     @phone = params[:phone]
+    @cc = params[:cc]
 
     session[:company_name] = @company_name
-    session[:username] = @id
+    session[:username] = @login
+    session[:ip1] = @ip1
     session[:email] = @email
     session[:phone] = @phone
+    session[:cc] = @cc
     session[:session_id] = @@session_id
-    session[:current_user_id] = @id
+    session[:current_user_id] = @login
     session[:password] = @pw
-    if validate_id(@id)
+    if validate_login(@login)
       if validate_pw(@pw)
         if validate_email(@email)
-          if validate_phone(@phone)
+          if validate_cc(@cc) and validate_phone(@phone)
+            @full_phone = @cc + @phone
             if verify_recaptcha
-  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@id}','balance':'0','opening_balance':'0','login':'#{@id}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@phone}' ,'subscriber_email':'#{@email}'}}"
+  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
   	          @uri = uriEncoder(@url)
   	          begin 
                 @response = RestClient::Request.new(
@@ -41,7 +38,7 @@ class SignupsController < ApplicationController
                 @result = ActiveSupport::JSON.decode(@response)
                 redirect_to "/accounts", notice: "Sign up successful!"
               rescue RestClient::InternalServerError
-                flash[:error] = "Sorry, this user name already exists"
+                flash[:error] = "Sorry, either user name or ip exists"
                 redirect_to signups_path
               end
             else
@@ -74,12 +71,29 @@ class SignupsController < ApplicationController
   end
 
   # Validation helper method
-  def validate_id(id)
-  	if id.length() >= 6
+  def validate_login(login)
+  	if login.length() >= 6
   		return true
   	else 
   		return false
   	end
+  end
+
+  def validate_ip(ip)
+    begin
+      ip_array = ip.split('.').map {|i| i.to_i}
+    rescue
+      return false
+    end
+    if ip_array.length != 4
+      return false
+    end
+    ip_array.each do |i|
+      if i > 255 or i < 0
+        return false
+      end
+    end
+    return true
   end
 
   def validate_pw(pw)
@@ -109,6 +123,18 @@ class SignupsController < ApplicationController
     else 
       return false
     end
+  end
+
+  def validate_cc(cc)
+    begin
+      number = cc.to_i
+    rescue
+      return false
+    end
+    if number < 1 or number > 999
+      return false
+    end
+    return true
   end
 
 end

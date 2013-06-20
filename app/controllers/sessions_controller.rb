@@ -11,8 +11,8 @@ class SessionsController < ApplicationController
 
   	if account
       session[:session_id] = get_session
-      session[:current_user_id] = account["id"]
-      session[:password] = account["login"]
+      session[:current_user_id] = account["login"]
+      session[:password] = account["password"]
       flash[:notice] = "You are successfuly logged in!"
       redirect_to '/accounts'
     else
