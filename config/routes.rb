@@ -1,15 +1,12 @@
 IVGCWholeSale::Application.routes.draw do
-  get "accounts/index"
 
-  get "sessions/new"
 
-  get "sessions/create"
-  get "sessions/destroy"
-  get "signups/index"
+  get "accounts/account_list"
 
   get "signups/signUp"
   post "signups/signUp"
 
+  get "sessions/destroy"
   resources :sessions
   resources :accounts
   resources :signups

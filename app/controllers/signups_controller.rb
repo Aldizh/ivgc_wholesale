@@ -10,7 +10,9 @@ class SignupsController < ApplicationController
     @result = ActiveSupport::JSON.decode(@response)
 
     @@session_id = @result["session_id"]
-    session[:session_id] = @result["session_id"]
+    id = ''
+    #Rails.cache.write(id, @@session_id)
+    session[:session_id] = @@session_id
   end
 
   def signUp

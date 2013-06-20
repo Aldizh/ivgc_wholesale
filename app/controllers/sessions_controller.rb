@@ -7,12 +7,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-  	user = Account.authenticate(params[:username], params[:password])
+  	account = Account.authenticate(params[:username], params[:password])
 
-  	if user
-      session[:current_user_id] = user[:id_user]
-      session[:current_user_login] = user[:login]
-      session[:password] = user[:password]
+  	if account
+      session[:current_user_id] = account["id"]
+      session[:password] = account["login"]
       flash[:notice] = "You are successfuly logged in!"
       redirect_to '/accounts'
     else
