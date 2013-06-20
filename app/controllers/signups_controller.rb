@@ -19,10 +19,10 @@ class SignupsController < ApplicationController
     @email = params[:email]
     @phone = params[:phone]
 
-    #session[:company_name] = @company_name
-    #session[:username] = @id
-    #session[:email] = @email
-    #session[:phone] = @phone
+    session[:company_name] = @company_name
+    session[:username] = @id
+    session[:email] = @email
+    session[:phone] = @phone
     session[:session_id] = @@session_id
     session[:current_user_id] = @id
     session[:password] = @pw
