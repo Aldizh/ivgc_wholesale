@@ -18,6 +18,7 @@
   <%= text_field_tag 'email', session[:email] %><br>
   <%= label_tag "Phone Number:" %>
   <%= phone_field_tag 'phone', session[:phone] %><br>
+  <%= recaptcha_tags %>
   <%= submit_tag "Submit", :class => "submit_button" %>
 <% end %>
 </div>

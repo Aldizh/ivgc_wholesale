@@ -30,18 +30,23 @@ class SignupsController < ApplicationController
       if validate_pw(@pw)
         if validate_email(@email)
           if validate_phone(@phone)
-	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@id}','balance':'0','opening_balance':'0','login':'#{@id}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@phone}' ,'subscriber_email':'#{@email}'}}"
-	          @uri = uriEncoder(@url)
-	          begin 
-              @response = RestClient::Request.new(
-                :method => :post,
-                :url => @uri,
-                :headers => { :accept => :json, :content_type => :json}).execute
-              @result = ActiveSupport::JSON.decode(@response)
-              redirect_to "/accounts", notice: "Sign up successful!"
-            rescue RestClient::InternalServerError
-              flash[:error] = "Sorry, this user name already exists"
-              redirect_to signups_path
+            if verify_recaptcha
+  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@id}','balance':'0','opening_balance':'0','login':'#{@id}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@phone}' ,'subscriber_email':'#{@email}'}}"
+  	          @uri = uriEncoder(@url)
+  	          begin 
+                @response = RestClient::Request.new(
+                  :method => :post,
+                  :url => @uri,
+                  :headers => { :accept => :json, :content_type => :json}).execute
+                @result = ActiveSupport::JSON.decode(@response)
+                redirect_to "/accounts", notice: "Sign up successful!"
+              rescue RestClient::InternalServerError
+                flash[:error] = "Sorry, this user name already exists"
+                redirect_to signups_path
+              end
+            else
+               flash[:error] = "Your words do not match the ones in the recaptcha image!"
+               redirect_to signups_path
             end
           else
             flash[:error] = "Phone Number is not valid"
