@@ -1,18 +1,15 @@
 class SignupsController < ApplicationController
+  @@session_id = ''
   def index
-  	@url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
-  	@uri = uriEncoder(@url)
+    @url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
+    @uri = URI.encode(@url.gsub!("'", '"'))
     @response = RestClient::Request.new(
       :method => :post,
       :url => @uri,
       :headers => { :accept => :json, :content_type => :json}).execute
 
     @result = ActiveSupport::JSON.decode(@response)
-
     @@session_id = @result["session_id"]
-    id = ''
-    #Rails.cache.write(id, @@session_id)
-    session[:session_id] = @@session_id
   end
 
   def signUp
@@ -21,11 +18,14 @@ class SignupsController < ApplicationController
     @pw = params[:password]
     @email = params[:email]
     @phone = params[:phone]
-    session[:company_name] = @company_name
-    session[:username] = @id
-    session[:email] = @email
-    session[:phone] = @phone
 
+    #session[:company_name] = @company_name
+    #session[:username] = @id
+    #session[:email] = @email
+    #session[:phone] = @phone
+    session[:session_id] = @@session_id
+    session[:current_user_id] = @id
+    session[:password] = @pw
     if validate_id(@id)
       if validate_pw(@pw)
         if validate_email(@email)
@@ -38,6 +38,7 @@ class SignupsController < ApplicationController
                 :url => @uri,
                 :headers => { :accept => :json, :content_type => :json}).execute
               @result = ActiveSupport::JSON.decode(@response)
+              redirect_to "/accounts", notice: "Sign up successful!"
             rescue RestClient::InternalServerError
               flash[:error] = "Sorry, this user name already exists"
               redirect_to signups_path

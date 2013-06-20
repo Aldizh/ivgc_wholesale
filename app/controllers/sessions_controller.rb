@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   	account = Account.authenticate(params[:username], params[:password])
 
   	if account
+      session[:session_id] = get_session
       session[:current_user_id] = account["id"]
       session[:password] = account["login"]
       flash[:notice] = "You are successfuly logged in!"

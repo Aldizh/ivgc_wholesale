@@ -3,8 +3,9 @@ class AccountsController < ApplicationController
   end
 
   def account_list
-  	#@id = Rails.cache.read(id)
     if session[:current_user_id]
+      puts "In Accountsss"
+      puts session[:session_id]
       @url = "https://208.65.111.144:8444/rest/Account/get_account_list/%7B%22session_id%22:%22377edf68679d89c0c2fd8dd098721778%22%7D/%7B%22offset%22:%2220%22,%20%22i_customer%22:%221552%22%7D"
       @response = RestClient::Request.new(
         :method => :post,
