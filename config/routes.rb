@@ -1,6 +1,8 @@
 IVGCWholeSale::Application.routes.draw do
 
-
+  get "accounts/new_form"
+  get "accounts/update_account"
+  post "accounts/update_account"
   get "accounts/account_list"
 
   get "signups/signUp"
