@@ -1,0 +1,19 @@
+<div class="common_form", id="update_form">
+  <% if flash[:error] %>
+	  <div class="error" style="margin-bottom: 15px;" >
+		  <%= flash[:error] %>
+    </div>
+  <% end %>
+<article class="title"><span>Update your profile</span></article>
+<%= form_tag(:action => "doUpdate") do %>
+  <%= label_tag "Company Name: " %>
+  <%= text_field_tag 'company_name', @comp_name %><br>
+  <%= label_tag "Desired Username: " %>
+  <%= text_field_tag 'username', @user_name %><br>
+  <%= label_tag "Password: " %>
+  <%= password_field_tag 'password' %><br>
+  <%= label_tag "Email: " %>
+  <%= text_field_tag 'email', @e_mail %><br>
+  <%= submit_tag "Save", :class => "submit_button" %>
+<% end %>
+</div>

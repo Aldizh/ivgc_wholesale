@@ -28,6 +28,7 @@ class SessionsController < ApplicationController
         if account["password"] == @pw
           session[:current_login] = @login
           session[:current_pw] = @pw
+          session[:i_account] = account["i_account"]
         end
       end
     end
