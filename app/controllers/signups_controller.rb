@@ -6,7 +6,7 @@ class SignupsController < ApplicationController
 
   def signUp
     @company_name = params[:company_name]
-  	@login = params[:username]
+    @login = params[:username]
     @pw = params[:password]
     @ip1 = params[:ip1]
     @email = params[:email]
@@ -28,9 +28,9 @@ class SignupsController < ApplicationController
           if validate_cc(@cc) and validate_phone(@phone)
             @full_phone = @cc + @phone
             if verify_recaptcha
-  	          @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
-  	          @uri = uriEncoder(@url)
-  	          begin 
+              @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
+              @uri = uriEncoder(@url)
+              begin 
                 @response = RestClient::Request.new(
                   :method => :post,
                   :url => @uri,
@@ -57,10 +57,10 @@ class SignupsController < ApplicationController
         flash[:error] = "Password cannot have fewer than 6 characters"
         redirect_to signups_path
       end
-	  else 
-  	  flash[:error] = "Username cannot have fewer than 6 characters"
-  	  redirect_to signups_path
-	  end
+    else 
+      flash[:error] = "Username cannot have fewer than 6 characters"
+      redirect_to signups_path
+    end
   end
 
   ###### HELPER METHOFS ######
@@ -72,11 +72,11 @@ class SignupsController < ApplicationController
 
   # Validation helper method
   def validate_login(login)
-  	if login.length() >= 6
-  		return true
-  	else 
-  		return false
-  	end
+    if login.length() >= 6
+      return true
+    else 
+      return false
+    end
   end
 
   def validate_ip(ip)
@@ -102,6 +102,39 @@ class SignupsController < ApplicationController
     else 
       return false
     end
+  end
+
+  def validate_email(email)
+    #We should validate the email with regex 
+    # taken from http://railscasts.com/episodes/219-active-model?view=asciicast
+    email_re = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+    regex = email_re.match(email)
+    if email.length() < 6 or regex.nil?
+      return false
+    else
+      return true
+    end
+  end
+
+  def validate_phone(phone)
+    #We should validate the email with regex 
+    if phone.length() == 10
+      return true
+    else 
+      return false
+    end
+  end
+
+  def validate_cc(cc)
+    begin
+      number = cc.to_i
+    rescue
+      return false
+    end
+    if number < 1 or number > 999
+      return false
+    end
+    return true
   end
 
 end

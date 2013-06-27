@@ -11,8 +11,8 @@ class Account < ActiveRecord::Base
     #  :headers => { :accept => :json, :content_type => :json}).execute
 
     #@result = ActiveSupport::JSON.decode(@response)
-
-    @url = "https://208.65.111.144/rest/Account/get_account_list/%7B%22session_id%22:%22a36a398ebd51edcea8ac936b21fa299c%22%7D/%7B%22i_customer%22:%221552%22%7D"
+    #https://208.65.111.144/rest/Account/get_account_list/%7B%22session_id%22:%2211f96267238df64ab05686b88b39b411%22%7D/%7B%22login%22:%22Calling Cards 250000%22%7D
+    @url = "https://208.65.111.144/rest/Account/get_account_list/%7B%22session_id%22:%2282f03b52aa7205074942824a5365be05%22%7D/%7B%22i_customer%22:%221552%22%7D"
     @response = RestClient::Request.new(
       :method => :post,
       :url => @url,

@@ -12,8 +12,45 @@ class ApplicationController < ActionController::Base
     return @result["session_id"]
   end
   
+  ###### HELPER METHOFS ######
+
+  #URI enencoder helper method
   def uriEncoder (uri)
     return URI.encode(uri.gsub!("'", '"'))
+  end
+
+  def validate_ip(ip)
+    begin
+      ip_array = ip.split('.').map {|i| i.to_i}
+    rescue
+      return false
+    end
+    if ip_array.length != 4
+      return false
+    end
+    ip_array.each do |i|
+      if i > 255 or i < 0
+        return false
+      end
+    end
+    return true
+  end
+
+  def validate_pw(pw)
+    if pw.length() >= 6
+      return true
+    else 
+      return false
+    end
+  end
+
+  
+  def validate_login(login)
+    if login.length() >= 6
+      return true
+    else 
+      return false
+    end
   end
   
   def validate_email(email)
