@@ -1,9 +1,9 @@
 IVGCWholeSale::Application.routes.draw do
 
-  get "accounts/new_form"
-  get "accounts/update_account"
-  post "accounts/update_account"
   get "accounts/account_list"
+  get "accounts/updateAccount"
+  get "accounts/doUpdate"
+  post "accounts/doUpdate"
 
   get "signups/signUp"
   post "signups/signUp"
@@ -62,7 +62,7 @@ IVGCWholeSale::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'sessions#new'
+  root :to => 'accounts#index'
 
   # See how all your routes lay out with "rake routes"
 

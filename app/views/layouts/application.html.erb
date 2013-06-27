@@ -12,7 +12,7 @@
 		<%= link_to image_tag("ivgc_logo.png"), root_path %></h1>
 	<p>VOIP Wholesale</p>
 </header>
-<% if session[:current_user_id] %>
+<% if session[:current_login] %>
   <span class="logout_link"><%= link_to "Log out", '/sessions/destroy', :class => 'logout_link' %></span>
 <%end%>
 <%= yield %>
