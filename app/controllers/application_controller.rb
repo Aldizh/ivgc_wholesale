@@ -12,10 +12,20 @@ class ApplicationController < ActionController::Base
     return @result["session_id"]
   end
   
+  def apiRequest(url)
+    uri = uriEncoder(url)
+    request = RestClient::Request.new(
+      method: :post,
+      url: uri,
+      headers: { :accept => :json, :content_type => :json})
+    response = request.execute
+    return ActiveSupport::JSON.decode(response)
+  end
+
   ###### HELPER METHOFS ######
 
   #URI enencoder helper method
-  def uriEncoder (uri)
+  def uriEncoder(uri)
     return URI.encode(uri.gsub!("'", '"'))
   end
 

@@ -8,15 +8,8 @@ class AccountsController < ApplicationController
   def account_list
     if session[:current_login]
       @session_id = get_session
-      puts "HURRAYYYYYY"
-      puts @session_id
       @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@session_id}'}/{'i_customer':'1552'}"
-      @uri = uriEncoder(@url)
-      @response = RestClient::Request.new(
-        :method => :post,
-        :url => @uri,
-        :headers => { :accept => :json, :content_type => :json}).execute
-      @result = ActiveSupport::JSON.decode(@response)
+      @result = apiRequest(@url)
     else
       flash[:error] = " Please login to continue! "
       redirect_to root_path
@@ -30,12 +23,7 @@ class AccountsController < ApplicationController
     if session[:current_login]
       @session_id = get_session
       @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@session_id}'}/{'i_account':'#{session[:i_account]}'}"
-      @uri = uriEncoder(@url)
-      @response = RestClient::Request.new(
-        :method => :post,
-        :url => @uri,
-        :headers => { :accept => :json, :content_type => :json}).execute
-      @result = ActiveSupport::JSON.decode(@response)
+      @result = apiRequest(@url)
     else
       flash[:error] = "Please login to continue!"
       redirect_to root_path
@@ -47,50 +35,37 @@ class AccountsController < ApplicationController
   end
 
   def doUpdate
-    if session[:current_login]
-      @session_id = get_session
-      @company_name = params[:company_name]
-      @login = params[:username]
-      @password = params[:password]
-      @email = params[:email]
-
-      if validate_login(@login)
-        if validate_pw(@password)
-          if validate_email(@email)
-            @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@session_id}'}/{'account_info':{'i_account':#{session[:i_account]},'subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','companyname':'#{@company_name}'}}"
-            @uri = uriEncoder(@url)
-            @response = RestClient::Request.new(
-              :method => :post,
-              :url => @uri,
-              :headers => { :accept => :json, :content_type => :json}).execute
-            @result = ActiveSupport::JSON.decode(@response)
-               
-            if @result["i_account"] == nil
-              flash[:error] = "Oops! Try again!"
-              redirect_to "accounts/updateAccount"
-            else 
-              puts "JDHHDJKHDJKHDJKHDJKHDJKHDJKHDKJHDJKHDJHDKJH"
-              flash[:notice] = "You successfully updated your account infos"
-              redirect_to root_path
-            end
-          else
-            flash[:error] = "Email is not valid"
-            redirect_to "/accounts/updateAccount"
-          end
-        else 
-          flash[:error] = "Password cannot have fewer than 6 characters"
-          redirect_to "/accounts/updateAccount"
-        end
-      else 
-        flash[:error] = "Username cannot have fewer than 6 characters"
-        redirect_to "/accounts/updateAccount"
-      end
-    else
+    if not session[:current_login]
       flash[:error] = "Please login to continue!"
+      return redirect_to root_path
+    end
+    @session_id = get_session
+    @company_name = params[:company_name]
+    @login = params[:username]
+    @password = params[:password]
+    @email = params[:email]
+
+    if not validate_login(@login)
+      flash[:error] = "Username cannot have fewer than 6 characters"
+      return redirect_to "/accounts/updateAccount"
+    elsif not validate_pw(@password)
+      flash[:error] = "Password cannot have fewer than 6 characters"
+      return redirect_to "/accounts/updateAccount"
+    elsif not validate_email(@email)
+      flash[:error] = "Email is not valid"
+      return redirect_to "/accounts/updateAccount"
+    end
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@session_id}'}/{'account_info':{'i_account':#{session[:i_account]},'subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','companyname':'#{@company_name}'}}"
+    @result = apiRequest(@url)
+           
+    if @result["i_account"].nil?
+      flash[:error] = "Oops! Try again!"
+      redirect_to "accounts/updateAccount"
+    else 
+      flash[:notice] = "You successfully updated your account infos"
       redirect_to root_path
     end
   end
-
   # HELPER METHOD
 
   def validate_login(login)

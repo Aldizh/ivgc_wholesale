@@ -3,6 +3,11 @@
     <%= flash[:error] %>
   </div>
 <% end %>
+<% if flash[:notice] %>
+  <div class="error" >
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 <div class="common_form" id="login_panel">
   <article class="title"><span>Login Panel</span></article>
   <%= form_tag sessions_path do %>

@@ -36,7 +36,9 @@ class SignupsController < ApplicationController
                   :url => @uri,
                   :headers => { :accept => :json, :content_type => :json}).execute
                 @result = ActiveSupport::JSON.decode(@response)
-                redirect_to "/accounts", notice: "Sign up successful!"
+                flash[:notice] = "Sign up successful, please log in to continue!"
+                redirect_to "/sessions/new"
+
               rescue RestClient::InternalServerError
                 flash[:error] = "Sorry, either user name or ip exists"
                 redirect_to signups_path

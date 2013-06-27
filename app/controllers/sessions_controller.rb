@@ -1,9 +1,6 @@
 class SessionsController < ApplicationController
   def new
     #look at new views
-    if session[:current_user_id]
-      redirect_to '/accounts'
-    end
   end
 
   def create
@@ -14,7 +11,6 @@ class SessionsController < ApplicationController
 
     @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@session_id}'}/{'i_customer':'1552'}"
     @uri = uriEncoder(@url)
-    puts @uri
 
     @response = RestClient::Request.new(
       :method => :post,
