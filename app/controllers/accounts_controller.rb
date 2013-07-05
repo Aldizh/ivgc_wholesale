@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
 
     if session[:current_login]
       @session_id = get_session
-      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@session_id}'}/{'i_account':'#{session[:i_account]}'}"
+      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'4f6b66fbcfb40016fadd8ac2fb965507'}/{'i_customer':'1552'}"
       @result = apiRequest(@url)
     else
       flash[:error] = "Please login to continue!"
@@ -55,7 +55,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@session_id}'}/{'account_info':{'i_account':#{session[:i_account]},'subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','companyname':'#{@company_name}'}}"
+    @url = "https://208.65.111.144/rest/Account/update_account/{"session_id":"4f6b66fbcfb40016fadd8ac2fb965507"}/{"account_info":{"i_account":"877771"},"subscriber_email":"hey","login":"wesley12345","password":"ghs"}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?

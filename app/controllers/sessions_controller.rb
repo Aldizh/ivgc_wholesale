@@ -19,7 +19,6 @@ class SessionsController < ApplicationController
     @result = ActiveSupport::JSON.decode(@response)
 
     @result["account_list"].each do |account|
-      puts account["password"]
       if account["login"] == @login
         if account["password"] == @pw
           session[:current_login] = @login
@@ -30,6 +29,7 @@ class SessionsController < ApplicationController
     end
 
     if session[:current_login]
+      session[:session_id] = @session_id
       flash[:notice] = "You are successfuly logged in!"
       redirect_to '/accounts'
     else 
@@ -44,5 +44,4 @@ class SessionsController < ApplicationController
     flash[:notice] = "You are successfuly logged out!"
     redirect_to '/sessions/new'
   end
-  	
 end
