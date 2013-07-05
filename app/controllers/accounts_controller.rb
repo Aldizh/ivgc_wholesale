@@ -55,7 +55,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{"session_id":"4f6b66fbcfb40016fadd8ac2fb965507"}/{"account_info":{"i_account":"877771"},"subscriber_email":"hey","login":"wesley12345","password":"ghs"}}"
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@session_id}}/{'account_info':{'i_account':'877771'},'subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}'}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?
