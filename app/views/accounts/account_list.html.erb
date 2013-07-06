@@ -14,7 +14,8 @@
 			<td><%= e["password"] %> </td>
 			<td><%= e["opening_balance"] %> </td>
 			<td><%= e["subscriber_email"] %> </td>
-			<td><%#= link_to "Details", :id => e["id"], :action => "get_account_info" %></td>
+			<td><%= link_to "Details", :i_account => e["i_account"], :action => "account_info" %></td> 
+			<td><strong><%= " | " %></strong><%= link_to "Terminate", :i_account => e["i_account"], :action => "account_terminate" %></td>
 		</tr>
         <% end %>
      </tbody>

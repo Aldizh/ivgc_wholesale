@@ -1,10 +1,12 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "accounts/account_terminate"
+  get "accounts/account_info"
   get "accounts/account_list"
   get "accounts/updateAccount"
   get "accounts/doUpdate"
   post "accounts/doUpdate"
-
+  get "accounts/index"
   get "signups/signUp"
   post "signups/signUp"
 

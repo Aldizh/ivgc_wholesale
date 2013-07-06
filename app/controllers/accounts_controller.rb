@@ -5,10 +5,29 @@ class AccountsController < ApplicationController
     end
   end
 
+  def account_info
+    if session[:current_login]
+      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
+      @result = apiRequest(@url)
+    else
+      flash[:error] = " Please login to continue! "
+      redirect_to root_path
+    end
+  end
+
+  def account_terminate
+    if session[:current_login]
+      @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{@@session_id}'}/{'i_account':'#{params[:i_account]}'}"
+      @result = apiRequest(@url)
+    else
+      flash[:error] = " Please login to continue! "
+      redirect_to root_path
+    end
+  end
+
   def account_list
     if session[:current_login]
-      @session_id = get_session
-      @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@session_id}'}/{'i_customer':'1552'}"
+      @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552'}"
       @result = apiRequest(@url)
     else
       flash[:error] = " Please login to continue! "
@@ -21,8 +40,7 @@ class AccountsController < ApplicationController
     # and then can change it there and pass to another method whether the request for update will be sent.
 
     if session[:current_login]
-      @session_id = get_session
-      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'4f6b66fbcfb40016fadd8ac2fb965507'}/{'i_customer':'1552'}"
+      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}'}}"
       @result = apiRequest(@url)
     else
       flash[:error] = "Please login to continue!"
@@ -40,7 +58,7 @@ class AccountsController < ApplicationController
       return redirect_to root_path
     end
     @session_id = get_session
-    @company_name = params[:company_name]
+    @company_name = params[:companyname]
     @login = params[:username]
     @password = params[:password]
     @email = params[:email]
@@ -55,7 +73,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@session_id}}/{'account_info':{'i_account':'877771'},'subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}'}}"
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}'}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?
@@ -97,3 +115,12 @@ class AccountsController < ApplicationController
   end
 
 end
+
+#working methods for accounts
+#https://208.65.111.144/rest/Session/login/{"login":"soap-webpanel","password":"wsw@c@8am"}
+#https://208.65.111.144/rest/Account/get_account_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552"}
+#https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877771"}
+#https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877771","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
+#https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
+
+

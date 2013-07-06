@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  @@session_id = ''
   def get_session
   	@url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
     @uri = URI.encode(@url.gsub!("'", '"'))
@@ -14,6 +15,8 @@ class ApplicationController < ActionController::Base
   
   def apiRequest(url)
     uri = uriEncoder(url)
+    puts "URIIIII"
+    puts uri
     request = RestClient::Request.new(
       method: :post,
       url: uri,

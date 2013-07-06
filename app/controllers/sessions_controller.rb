@@ -24,12 +24,12 @@ class SessionsController < ApplicationController
           session[:current_login] = @login
           session[:current_pw] = @pw
           session[:i_account] = account["i_account"]
+          @@session_id = @session_id
         end
       end
     end
 
     if session[:current_login]
-      session[:session_id] = @session_id
       flash[:notice] = "You are successfuly logged in!"
       redirect_to '/accounts'
     else 
@@ -44,4 +44,5 @@ class SessionsController < ApplicationController
     flash[:notice] = "You are successfuly logged out!"
     redirect_to '/sessions/new'
   end
+
 end
