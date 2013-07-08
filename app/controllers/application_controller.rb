@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
   
   def apiRequest(url)
     uri = uriEncoder(url)
-    puts "URIIIII"
-    puts uri
     request = RestClient::Request.new(
       method: :post,
       url: uri,

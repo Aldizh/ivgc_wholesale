@@ -1,0 +1,9 @@
+<%= form_tag(:action => "updateIP") do %>
+  <%= label_tag "Primary IP address: " %>
+  <%= text_field_tag 'ip', @primary %><br>
+  <%= label_tag "Add Secondary IP" %>
+  <%= text_field_tag 'secondary_ip', session[:secondary_ip]  %><br>
+  <%= label_tag "Add tertiary IP" %>
+  <%= text_field_tag 'tertiary_ip', session[:tertiary_ip] %><br>
+  <%= submit_tag "Save", :class => "submit_button" %>
+<% end %>
