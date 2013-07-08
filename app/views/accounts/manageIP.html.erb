@@ -2,8 +2,8 @@
   <%= label_tag "Primary IP address: " %>
   <%= text_field_tag 'ip', @primary %><br>
   <%= label_tag "Add Secondary IP" %>
-  <%= text_field_tag 'secondary_ip', session[:secondary_ip]  %><br>
+  <%= text_field_tag 'secondary_ip', @secondary %><br>
   <%= label_tag "Add tertiary IP" %>
-  <%= text_field_tag 'tertiary_ip', session[:tertiary_ip] %><br>
+  <%= text_field_tag 'tertiary_ip', @tertiary %><br>
   <%= submit_tag "Save", :class => "submit_button" %>
 <% end %>
