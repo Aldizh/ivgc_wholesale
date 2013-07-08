@@ -1,51 +1,37 @@
 class AccountsController < ApplicationController
-  def index
+  before_filter :validateLoggedIn
+
+  def validateLoggedIn
     if not session[:current_login]
-      redirect_to "/sessions/new"
+      flash[:error] = "Please login to continue!"
+      return redirect_to "/sessions/new"
     end
+  end
+
+  def index
   end
 
   def accountInfo
-    if session[:current_login]
-      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
-      @result = apiRequest(@url)
-    else
-      flash[:error] = " Please login to continue! "
-      redirect_to root_path
-    end
+    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
+    @result = apiRequest(@url)
   end
 
   def accountTerminate
-    if session[:current_login]
-      @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{@@session_id}'}/{'i_account':'#{params[:i_account]}'}"
-      @result = apiRequest(@url)
-    else
-      flash[:error] = " Please login to continue! "
-      redirect_to root_path
-    end
+    @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{@@session_id}'}/{'i_account':'#{params[:i_account]}'}"
+    @result = apiRequest(@url)
   end
 
   def accountList
-    if session[:current_login]
-      @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552'}"
-      @result = apiRequest(@url)
-    else
-      flash[:error] = " Please login to continue! "
-      redirect_to root_path
-    end
+    @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552'}"
+    @result = apiRequest(@url)
   end
 
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
 
-    if session[:current_login]
-      @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
-      @result = apiRequest(@url)
-    else
-      flash[:error] = "Please login to continue!"
-      redirect_to root_path
-    end
+    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
     @comp_name = @result["account_info"]["companyname"]
@@ -54,10 +40,6 @@ class AccountsController < ApplicationController
   end
 
   def doUpdate
-    if not session[:current_login]
-      flash[:error] = "Please login to continue!"
-      return redirect_to root_path
-    end
     @company_name = params[:companyname]
     @login = params[:username]
     @password = params[:password]
