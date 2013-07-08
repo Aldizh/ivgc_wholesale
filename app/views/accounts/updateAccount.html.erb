@@ -8,12 +8,20 @@
 <%= form_tag(:action => "doUpdate") do %>
   <%= label_tag "Company Name: " %>
   <%= text_field_tag 'companyname', @comp_name %><br>
-  <%= label_tag "Desired Username: " %>
+  <%= label_tag "Username/Login: " %>
   <%= text_field_tag 'username', @user_name %><br>
   <%= label_tag "Password: " %>
-  <%= password_field_tag 'password' %><br>
+  <%= password_field_tag 'password', @password %><br>
+  <%= label_tag "First Name: " %>
+  <%= text_field_tag 'first_name', @first_name %><br>
+  <%= label_tag "Last Name: " %>
+  <%= text_field_tag 'last_name', @last_name %><br>
   <%= label_tag "Email: " %>
   <%= text_field_tag 'email', @e_mail %><br>
+  <%= label_tag "Primary Phone: " %>
+  <%= text_field_tag 'phone1', @phone1 %><br>
+  <%= label_tag "Secondary Phone: " %>
+  <%= text_field_tag 'phone2', @phone2 %><br>
   <%= submit_tag "Save", :class => "submit_button" %>
 <% end %>
 </div>

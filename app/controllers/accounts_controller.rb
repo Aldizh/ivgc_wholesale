@@ -34,8 +34,13 @@ class AccountsController < ApplicationController
     @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
+    @password = @result["account_info"]["password"]
     @comp_name = @result["account_info"]["companyname"]
+    @first_name = @result["account_info"]["firstname"]
+    @last_name = @result["account_info"]["lastname"]
     @e_mail = @result["account_info"]["subscriber_email"]
+    @phone1 = @result["account_info"]["phone1"]
+    @phone2 = @result["account_info"]["phone2"]
     @ip = @result["account_info"]["id"]
   end
 
@@ -43,7 +48,11 @@ class AccountsController < ApplicationController
     @company_name = params[:companyname]
     @login = params[:username]
     @password = params[:password]
+    @first_name = params[:first_name]
+    @last_name = params[:last_name]
     @email = params[:email]
+    @phone1 = params[:phone1]
+    @phone2 = params[:phone2]
 
     if not validate_login(@login)
       flash[:error] = "Username cannot have fewer than 6 characters"
@@ -55,7 +64,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}'}}"
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?
