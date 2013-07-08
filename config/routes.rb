@@ -1,5 +1,6 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "accounts/deleteIP"
   post "accounts/updateIP"
   get "accounts/updateIP"
   get "accounts/manageIP"

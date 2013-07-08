@@ -43,7 +43,7 @@ class AccountsController < ApplicationController
     @login = params[:username]
     @password = params[:password]
     @email = params[:email]
-
+    @ip = params[:id]
     if not validate_login(@login)
       flash[:error] = "Username cannot have fewer than 6 characters"
       return redirect_to "/accounts/updateAccount"
@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}'}}"
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}'}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?
@@ -67,9 +67,13 @@ class AccountsController < ApplicationController
   end
 
   def manageIP
+    #to get sesssion id
+    @url_id = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @result_id = apiRequest(@url_id)
+
+    #to get alias list
     @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
-    @primary = @result["alias_list"][0]["id"]
     if @result["alias_list"][1]
       @secondary = @result["alias_list"][1]["id"] || ''
     else
@@ -83,9 +87,18 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:secondary_id]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
     flash[:notice] = "you successfully added an alias IP address"
+    redirect_to "/accounts/manageIP"
+  end
+
+
+  def deleteIP
+    @url = "https://208.65.111.144/rest/Account/delete_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:id]}','i_master_account':'#{session[:i_account]}'}}"
+    @result = apiRequest(@url)
+    flash[:notice] = "You successfully deleted this IP address!"
+    redirect_to "/accounts/manageIP"
   end
 
 end

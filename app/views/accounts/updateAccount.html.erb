@@ -6,6 +6,8 @@
   <% end %>
 <article class="title"><span>Update your profile</span></article>
 <%= form_tag(:action => "doUpdate") do %>
+  <%= label_tag "IP: " %>
+  <%= text_field_tag 'id', @ip %><br>
   <%= label_tag "Company Name: " %>
   <%= text_field_tag 'companyname', @comp_name %><br>
   <%= label_tag "Desired Username: " %>

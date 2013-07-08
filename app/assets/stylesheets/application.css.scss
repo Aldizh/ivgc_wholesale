@@ -179,3 +179,27 @@ footer {
 		}
 	}
 }
+
+table {
+	border-collapse: collapse;
+	margin-top: 10px;
+	text-align: center;
+}
+th {
+	color: #FFF;
+	background-color: #FF0000;
+	text-transform: uppercase;
+}
+th, td {
+	padding:5px;
+	text-align: left;
+}
+table, th, td {
+	border: 1px solid black;
+}
+.list a {
+	color: #600;
+}
+.list a:hover {
+	text-decoration: underline;
+}
