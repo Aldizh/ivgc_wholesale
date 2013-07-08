@@ -29,7 +29,6 @@ class AccountsController < ApplicationController
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
-
     @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
@@ -68,9 +67,19 @@ class AccountsController < ApplicationController
   end
 
   def manageIP
-    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
-    @primary = @result["account_info"]["id"]
+    @primary = @result["alias_list"][0]["id"]
+    if @result["alias_list"][1]
+      @secondary = @result["alias_list"][1]["id"] || ''
+    else
+      @secondary = ''
+    end
+    if @result["alias_list"][2]
+      @tertiary = @result["alias_list"][2]["id"] || ''
+    else
+      @tertiary = ''
+    end
   end
 
   def updateIP
@@ -88,6 +97,8 @@ end
 #https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877815","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
 #https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
 #https://208.65.111.144/rest/Account/add_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877771","blocked":"Y","id":"23.43.13.3","i_master_account":"877783"}}
+#https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"877783"}
+#https://208.65.111.144/rest/Account/delete_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877815","blocked":"Y","id":"23.43.13.3","i_master_account":"877815"}}
 
 
 
