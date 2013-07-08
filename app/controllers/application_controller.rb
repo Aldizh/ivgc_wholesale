@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  @@session_id = ''
+  @@session_id = get_session rescue ''
   def get_session
   	@url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
     @uri = URI.encode(@url.gsub!("'", '"'))

@@ -92,11 +92,9 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    puts "UPDATEEE"
-    puts params.inspect
-    puts session[:i_account]
-    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}', 'blocked':'Y', 'id':'#{params[:secondary_id]}', 'i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:secondary_id]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
+    flash[:notice] = "you successfully added an alias IP address"
   end
 
 end
@@ -104,8 +102,8 @@ end
 #working methods for accounts
 #https://208.65.111.144/rest/Session/login/{"login":"soap-webpanel","password":"wsw@c@8am"}
 #https://208.65.111.144/rest/Account/get_account_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552"}
-#https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877783"}
-#https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877771","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
+#https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877815"}
+#https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877815","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
 #https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
 #https://208.65.111.144/rest/Account/add_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877771","blocked":"Y","id":"23.43.13.3","i_master_account":"877783"}}
 
