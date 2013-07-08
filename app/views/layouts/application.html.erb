@@ -13,8 +13,16 @@
 	<p>VOIP Wholesale</p>
 </header>
 <% if session[:current_login] %>
-  <span class="logout_link"><%= link_to "Log out", '/sessions/destroy', :class => 'logout_link' %></span>
+  <section class="logout_link"><%= link_to "Log out", '/sessions/destroy', :class => 'logout_link' %></section>
 <%end%>
+<nav class="main_menu">
+	<ul>
+		<li><%= link_to "Account Overview", '/accounts' %></li>
+		<li><%= link_to "See account lists", "/accounts/accountList" %></li>
+		<li><%= link_to "Account Settings", "/accounts/updateAccount" %></li>
+		<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
+	</ul>
+</nav>
 <%= yield %>
 
 <footer>
