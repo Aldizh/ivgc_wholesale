@@ -135,7 +135,8 @@ class AccountsController < ApplicationController
     puts details.payer_id
     puts (details.params["PaymentDetails"]["OrderTotal"]).to_i
     @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-    EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
+    response = EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
+    
   end
 
 end
