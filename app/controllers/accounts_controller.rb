@@ -19,7 +19,8 @@ class AccountsController < ApplicationController
     #puts details.params["PayerInfo"]["PayerID"]
 
     #this is where we process teh purchase
-    #EXPRESS_GATEWAY.purchase((details.params["PaymentDetails"]["OrderTotal"]*100).to_i, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
+    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
+    EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
   end
 
 
