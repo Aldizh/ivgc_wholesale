@@ -64,4 +64,13 @@ IVGCWholeSale::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    paypal_options = {
+      :login => "bhuten-facilitator_api1.gmail.com",
+      :password => "MG3HAE6R8CCG6H99",
+      :signature => "APTTJPKlmv11Bc1UAfnDX-j9w.lVAfzVe7YcZQw8.IF97hfFPbKM2b.1"
+    }
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
 end

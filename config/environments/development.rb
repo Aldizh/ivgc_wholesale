@@ -34,4 +34,14 @@ IVGCWholeSale::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    paypal_options = {
+      :login => "bhuten-facilitator_api1.gmail.com",
+      :password => "MG3HAE6R8CCG6H99",
+      :signature => "APTTJPKlmv11Bc1UAfnDX-j9w.lVAfzVe7YcZQw8.IF97hfFPbKM2b.1"
+    }
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
 end

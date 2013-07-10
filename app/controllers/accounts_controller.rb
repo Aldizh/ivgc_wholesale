@@ -9,7 +9,19 @@ class AccountsController < ApplicationController
   end
 
   def index
+    details = EXPRESS_GATEWAY.details_for(session[:token])
+    puts "DETTTT"
+    puts details.payer_id
+    puts (details.params["PaymentDetails"]["OrderTotal"]).to_i
+    #:ip => "107.1.109.42",
+    #:token => express_token
+    #:payer_id => express_payer_id
+    #puts details.params["PayerInfo"]["PayerID"]
+
+    #this is where we process teh purchase
+    #EXPRESS_GATEWAY.purchase((details.params["PaymentDetails"]["OrderTotal"]*100).to_i, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
   end
+
 
   def accountInfo
     @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
@@ -108,6 +120,17 @@ class AccountsController < ApplicationController
     @result = apiRequest(@url)
     flash[:notice] = "You successfully deleted this IP address!"
     redirect_to "/accounts/manageIP"
+  end
+
+  def payment
+    @amount = 100
+    response = EXPRESS_GATEWAY.setup_purchase(@amount,
+    :ip                => "107.1.109.42",
+    :return_url        => accounts_url,
+    :cancel_return_url => accounts_url
+    )
+    session[:token] = response.token
+    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
 
 end
