@@ -1,9 +1,12 @@
 IVGCWholeSale::Application.routes.draw do
 
-  get "accounts/paymentSubmit"
-  post "accounts/payment"
-  get "accounts/payment"
-  get "accounts/prePayment"
+  post "accounts/paymentConfirm"
+  get "accounts/paymentConfirm"
+  post "accounts/addCredits"
+  get "accounts/addCredits"
+  get "accounts/addCreditsSubmit"
+  post "accounts/addCreditsSubmit"
+  get "accounts/creditAdded"
   get "accounts/deleteIP"
   post "accounts/updateIP"
   get "accounts/updateIP"
