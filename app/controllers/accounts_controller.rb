@@ -1,3 +1,4 @@
+require 'socket'
 class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
@@ -9,18 +10,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    details = EXPRESS_GATEWAY.details_for(session[:token])
-    puts "DETTTT"
-    puts details.payer_id
-    puts (details.params["PaymentDetails"]["OrderTotal"]).to_i
-    #:ip => "107.1.109.42",
-    #:token => express_token
-    #:payer_id => express_payer_id
-    #puts details.params["PayerInfo"]["PayerID"]
-
-    #this is where we process teh purchase
-    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-    EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
+    
   end
 
 
@@ -123,15 +113,29 @@ class AccountsController < ApplicationController
     redirect_to "/accounts/manageIP"
   end
 
+  def prePayment
+  end
+
   def payment
-    @amount = 100
+    @amount = params[:payment_amount].to_i
+    ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
+    ip.ip_address if ip
     response = EXPRESS_GATEWAY.setup_purchase(@amount,
-    :ip                => "107.1.109.42",
-    :return_url        => accounts_url,
-    :cancel_return_url => accounts_url
+    :ip                => ip,
+    :return_url        => accounts_paymentSubmit_url,
+    :cancel_return_url => accounts_payment_url
     )
     session[:token] = response.token
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+  end
+
+  def paymentSubmit
+    details = EXPRESS_GATEWAY.details_for(session[:token])
+    puts "DETTTT"
+    puts details.payer_id
+    puts (details.params["PaymentDetails"]["OrderTotal"]).to_i
+    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
+    EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
   end
 
 end
