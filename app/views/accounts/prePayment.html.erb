@@ -1,5 +1,0 @@
-<%= form_tag(:action => "payment") do %> 
-  <%= label_tag "Amount: " %>
-  <%= number_field_tag 'payment_amount', 100 %><br>
-  <%= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "payment" %>
-<% end %>

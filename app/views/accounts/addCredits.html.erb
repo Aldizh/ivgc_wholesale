@@ -1,0 +1,7 @@
+
+  <%#= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "accounts/payment" %>
+<%= form_tag(:action => "addCreditsSubmit") do %>
+  <%= label_tag "Amount: " %>
+  <%= number_field_tag 'amount' %><br>
+  <%= submit_tag "Add", :class => "add_credit_btm" %>
+<% end %>

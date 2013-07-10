@@ -113,27 +113,25 @@ class AccountsController < ApplicationController
     redirect_to "/accounts/manageIP"
   end
 
-  def prePayment
+  def addCredits
+    
   end
 
-  def payment
-    @amount = params[:payment_amount].to_i
+  def addCreditsSubmit
+    @amount = params[:amount].to_i * 10000
     ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
     ip.ip_address if ip
     response = EXPRESS_GATEWAY.setup_purchase(@amount,
     :ip                => ip,
-    :return_url        => accounts_paymentSubmit_url,
-    :cancel_return_url => accounts_payment_url
+    :return_url        => accounts_creditAdded_url,
+    :cancel_return_url => accounts_addCredits_url
     )
     session[:token] = response.token
-    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token) 
   end
 
-  def paymentSubmit
+  def creditAdded
     details = EXPRESS_GATEWAY.details_for(session[:token])
-    puts "DETTTT"
-    puts details.payer_id
-    puts (details.params["PaymentDetails"]["OrderTotal"]).to_i
     @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
     EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
   end

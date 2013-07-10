@@ -22,6 +22,9 @@ class SignupsController < ApplicationController
     session[:session_id] = @@session_id
     session[:current_user_id] = @login
     session[:password] = @pw
+
+    puts "SESSION ID"
+    puts @@session_id
     if validate_login(@login)
       if validate_pw(@pw)
         if validate_email(@email)
@@ -30,14 +33,16 @@ class SignupsController < ApplicationController
             if verify_recaptcha
               @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
               @uri = uriEncoder(@url)
-              begin 
+              begin
                 @response = RestClient::Request.new(
                   :method => :post,
                   :url => @uri,
                   :headers => { :accept => :json, :content_type => :json}).execute
                 @result = ActiveSupport::JSON.decode(@response)
+                session[:current_login] = @login
+                session[:i_account] = @result["i_account"]
                 flash[:notice] = "Sign up successful, please log in to continue!"
-                redirect_to "/sessions/new"
+                redirect_to "/accounts/addCredits"
 
               rescue RestClient::InternalServerError
                 flash[:error] = "Sorry, either user name or ip exists"
@@ -55,11 +60,11 @@ class SignupsController < ApplicationController
           flash[:error] = "Email is not valid"
           redirect_to signups_path
         end
-      else 
+      else
         flash[:error] = "Password cannot have fewer than 6 characters"
         redirect_to signups_path
       end
-    else 
+    else
       flash[:error] = "Username cannot have fewer than 6 characters"
       redirect_to signups_path
     end
@@ -76,7 +81,7 @@ class SignupsController < ApplicationController
   def validate_login(login)
     if login.length() >= 6
       return true
-    else 
+    else
       return false
     end
   end
@@ -101,13 +106,13 @@ class SignupsController < ApplicationController
   def validate_pw(pw)
     if pw.length() >= 6
       return true
-    else 
+    else
       return false
     end
   end
 
   def validate_email(email)
-    #We should validate the email with regex 
+    #We should validate the email with regex
     # taken from http://railscasts.com/episodes/219-active-model?view=asciicast
     email_re = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
     regex = email_re.match(email)
@@ -119,10 +124,10 @@ class SignupsController < ApplicationController
   end
 
   def validate_phone(phone)
-    #We should validate the email with regex 
+    #We should validate the email with regex
     if phone.length() == 10
       return true
-    else 
+    else
       return false
     end
   end
