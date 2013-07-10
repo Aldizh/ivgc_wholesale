@@ -118,10 +118,8 @@ class AccountsController < ApplicationController
 
   def addCreditsSubmit
     @amount = params[:amount].to_i * 10000
-    ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
-    ip.ip_address if ip
     response = EXPRESS_GATEWAY.setup_purchase(@amount,
-    :ip                => ip,
+    :ip                => getIP,
     :return_url        => accounts_creditAdded_url,
     :cancel_return_url => accounts_addCredits_url
     )
@@ -131,8 +129,25 @@ class AccountsController < ApplicationController
 
   def creditAdded
     details = EXPRESS_GATEWAY.details_for(session[:token])
+    @first = details.params["first_name"]
+    @last = details.params["last_name"]
+    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i/100 || 0
+  end
+
+  def paymentConfirm
+    details = EXPRESS_GATEWAY.details_for(session[:token])
     @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-    EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => "107.1.109.42", :token => session[:token], :payer_id => details.payer_id})
+    response = EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
+    if details.message != "Success"
+      flash[:error] = "There was a problem processing your request, please check the amount you entered!"
+      redirect_to "/accounts/addCredits"
+    end
+  end
+
+  def getIP
+    ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
+    ip.ip_address if ip
+    return ip
   end
 
 end

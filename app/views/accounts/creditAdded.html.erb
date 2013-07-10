@@ -1,1 +1,3 @@
-THanks!
+<%= "Welcome Mr." + "#{@first}" + " " + "#{@last}" %><br>
+<%= "Your total payment amount will be " + "#{@payment_amount}" %>
+<%= button_to "Confirm", "/accounts/paymentConfirm" %>

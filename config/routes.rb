@@ -1,5 +1,8 @@
 IVGCWholeSale::Application.routes.draw do
 
+  post "accounts/paymentConfirm"
+  get "accounts/paymentConfirm"
+  post "accounts/addCredits"
   get "accounts/addCredits"
   get "accounts/addCreditsSubmit"
   post "accounts/addCreditsSubmit"

@@ -1,5 +1,5 @@
 class SignupsController < ApplicationController
-  @@session_id = ''
+  #@@session_id = ''
   def index
     @@session_id = get_session
   end
@@ -23,8 +23,6 @@ class SignupsController < ApplicationController
     session[:current_user_id] = @login
     session[:password] = @pw
 
-    puts "SESSION ID"
-    puts @@session_id
     if validate_login(@login)
       if validate_pw(@pw)
         if validate_email(@email)

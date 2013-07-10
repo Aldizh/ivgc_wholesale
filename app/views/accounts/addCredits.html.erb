@@ -1,7 +1,13 @@
-
-  <%#= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "accounts/payment" %>
+<% if flash[:error] %>
+    <div class="error" style="margin-bottom: 15px;" >
+      <%= flash[:error] %>
+    </div>
+<%end%>
 <%= form_tag(:action => "addCreditsSubmit") do %>
   <%= label_tag "Amount: " %>
   <%= number_field_tag 'amount' %><br>
   <%= submit_tag "Add", :class => "add_credit_btm" %>
 <% end %>
+
+ <%#= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "accounts/payment" %>
+
