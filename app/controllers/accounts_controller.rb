@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
     @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
-    @password = @result["account_info"]["password"]
+    @password = @result["account_info"]["h323_password"]
     @comp_name = @result["account_info"]["companyname"]
     @first_name = @result["account_info"]["firstname"]
     @last_name = @result["account_info"]["lastname"]
@@ -65,8 +65,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
-    @result = apiRequest(@url)
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"    @result = apiRequest(@url)
            
     if @result["i_account"].nil?
       flash[:error] = "Oops! Try again!"
