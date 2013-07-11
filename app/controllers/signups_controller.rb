@@ -48,18 +48,13 @@ class SignupsController < ApplicationController
     @full_phone = @cc + @phone
     error = signup_error    # check if any errors will occurr when attempting to signup
     if error.nil?
-      begin
-        activation_date = Time.new.strftime("%Y-%m-%d")
-        @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
-        @result = apiRequest(@url)
-        session[:current_login] = @login
-        session[:i_account] = @result["i_account"]
-        flash[:notice] =  "Sign up successful!"
-        redirect_to "/accounts/addCredits"
-      rescue Exception => e
-        puts "EEEEEEEEEEEEE"
-        puts e.inspect
-      end
+      activation_date = Time.new.strftime("%Y-%m-%d")
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+      @result = apiRequest(@url)
+      session[:current_login] = @login
+      session[:i_account] = @result["i_account"]
+      flash[:notice] =  "Sign up successful!"
+      redirect_to "/accounts/addCredits"
     else
       flash[:error] = error
       redirect_to signups_path
@@ -70,9 +65,9 @@ class SignupsController < ApplicationController
   ###### HELPER METHOFS ######
   def signup_error
     activation_date = Time.new.strftime("%Y-%m-%d")
-    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
     begin
-      @result = apiRequest(url)
+      @result = apiRequest(@url)
       return  # no errors
     rescue RestClient::InternalServerError => e
       # get the error message given from api

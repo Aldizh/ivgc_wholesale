@@ -65,7 +65,8 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"    @result = apiRequest(@url)
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    @result = apiRequest(@url)
            
     if @result["i_account"].nil?
       flash[:error] = "Oops! Try again!"
@@ -141,7 +142,7 @@ class AccountsController < ApplicationController
     else
       @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
       response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
-      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'9dd4eccdcd7b97039fc6ce95e1a68b9f'}/{'i_account':'877815', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'#{get_session}'}/{'i_account':'#{session[:i_account]}', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
       apiRequest(@url)
       flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end
