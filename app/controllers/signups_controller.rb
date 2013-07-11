@@ -78,7 +78,7 @@ class SignupsController < ApplicationController
         return 'Internal server error'  # invalid session id
       when 'Auth info missed' #due to session id being empty
         @@session_id = get_session
-        return nil
+        return signup_error
       else
         return 'Unknown error has occurred'   # shouldn't happen
       end
