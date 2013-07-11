@@ -1,1 +1,10 @@
-Payment Successful!
+<% if flash[:notice] %>
+    <div class="notice" style="margin-bottom: 15px;" >
+      <%= flash[:notice] %>
+    </div>
+<% end %>
+<% if flash[:error] %>
+    <div class="error" style="margin-bottom: 15px;" >
+      <%= flash[:error] %>
+    </div>
+<% end %>

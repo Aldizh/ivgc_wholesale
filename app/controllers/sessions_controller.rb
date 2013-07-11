@@ -3,30 +3,20 @@ class SessionsController < ApplicationController
     #look at new views
   end
 
-  def create
-    @login = params[:username]
-    @pw = params[:password]
+   def create
+    login = params[:username]
+    pw = params[:password]
 
-    @session_id = get_session
+    session_id = get_session
+    url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{session_id}'}/{'i_customer':'1552','login':'#{login}'}"
+    result = apiRequest(url)
 
-    @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@session_id}'}/{'i_customer':'1552'}"
-    @uri = uriEncoder(@url)
-
-    @response = RestClient::Request.new(
-      :method => :post,
-      :url => @uri,
-      :headers => { :accept => :json, :content_type => :json}).execute
-    @result = ActiveSupport::JSON.decode(@response)
-
-    @result["account_list"].each do |account|
-      if account["login"] == @login
-        if account["password"] == @pw
-          session[:current_login] = @login
-          session[:current_pw] = @pw
-          session[:i_account] = account["i_account"]
-          @@session_id = @session_id
-        end
-      end
+    if !result.empty? and (pw == result["account_info"]["password"])
+      reset_session
+      @@session_id = session_id
+      session[:current_login] = login
+      session[:current_pw] = pw
+      session[:i_account] = result["account_info"]["i_account"]
     end
 
     if session[:current_login]

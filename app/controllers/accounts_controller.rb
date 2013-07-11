@@ -117,7 +117,7 @@ class AccountsController < ApplicationController
   end
 
   def addCreditsSubmit
-    @amount = params[:amount].to_i * 10000
+    @amount = params[:amount].to_i*100
     response = EXPRESS_GATEWAY.setup_purchase(@amount,
     :ip                => getIP,
     :return_url        => accounts_creditAdded_url,
@@ -131,16 +131,26 @@ class AccountsController < ApplicationController
     details = EXPRESS_GATEWAY.details_for(session[:token])
     @first = details.params["first_name"]
     @last = details.params["last_name"]
-    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i/100 || 0
+    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
   end
 
   def paymentConfirm
     details = EXPRESS_GATEWAY.details_for(session[:token])
     @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-    response = EXPRESS_GATEWAY.purchase(@payment_amount, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
+    response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
     if details.message != "Success"
       flash[:error] = "There was a problem processing your request, please check the amount you entered!"
       redirect_to "/accounts/addCredits"
+    else
+      @url_info = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'877815'}"
+      @result_info = apiRequest(@url_info)
+      if @payment_amount < @result_info["account_info"]["credit_limit"].to_i
+        @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'9dd4eccdcd7b97039fc6ce95e1a68b9f'}/{'i_account':'877815', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+        apiRequest(@url)
+        flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
+      else
+        flash[:error] = "There was a problem processing your request, payment can't exceed credit limit!"
+      end
     end
   end
 
@@ -154,13 +164,13 @@ end
  
 #working methods for accounts
 #https://208.65.111.144/rest/Session/login/{"login":"soap-webpanel","password":"wsw@c@8am"}
-#https://208.65.111.144/rest/Account/get_account_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552"}
+#https://208.65.111.144/rest/Account/get_account_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_customer":"1552"}
 #https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877815"}
 #https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877815","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
 #https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
 #https://208.65.111.144/rest/Account/add_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877771","blocked":"Y","id":"23.43.13.3","i_master_account":"877783"}}
 #https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"877783"}
 #https://208.65.111.144/rest/Account/delete_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877815","blocked":"Y","id":"23.43.13.3","i_master_account":"877815"}}
-
+#https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877864", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
 
 
