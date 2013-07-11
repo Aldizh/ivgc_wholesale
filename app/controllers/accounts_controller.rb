@@ -13,7 +13,6 @@ class AccountsController < ApplicationController
     
   end
 
-
   def accountInfo
     @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
     @result = apiRequest(@url)
