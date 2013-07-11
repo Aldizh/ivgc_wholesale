@@ -136,15 +136,15 @@ class AccountsController < ApplicationController
 
   def paymentConfirm
     details = EXPRESS_GATEWAY.details_for(session[:token])
-    @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-    response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
     if details.message != "Success"
       flash[:error] = "There was a problem processing your request, please check the amount you entered!"
       redirect_to "/accounts/addCredits"
     else
       @url_info = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'877815'}"
       @result_info = apiRequest(@url_info)
+      @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
       if @payment_amount < @result_info["account_info"]["credit_limit"].to_i
+        response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
         @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'9dd4eccdcd7b97039fc6ce95e1a68b9f'}/{'i_account':'877815', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
         apiRequest(@url)
         flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
