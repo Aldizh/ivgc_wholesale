@@ -1,6 +1,5 @@
 class SignupsController < ApplicationController
   def index
-    @@session_id = get_session
   end
 
   def signUp
@@ -18,11 +17,13 @@ class SignupsController < ApplicationController
     session[:email] = @email
     session[:phone] = @phone
     session[:cc] = @cc
-    session[:session_id] = @@session_id
     session[:current_user_id] = @login
     session[:password] = @pw
 
-    if not validate_ip(@ip1)
+    if not validate_company_name(@company_name)
+      flash[:error] = "Company name is too long (41 characters max)!"
+      return redirect_to signups_path
+    elsif not validate_ip(@ip1)
       flash[:error] = "IP Invalid!"
       return redirect_to signups_path
     elsif not validate_login(@login)
@@ -84,7 +85,7 @@ class SignupsController < ApplicationController
       when 'Authentification failed'
         return 'Internal server error'  # invalid session id
       when 'Auth info missed' #due to session id being empty
-        @@session_id = get_session
+        get_session = get_session
         return signup_error
       else
         return 'Unknown error has occurred'   # shouldn't happen
@@ -99,6 +100,15 @@ class SignupsController < ApplicationController
   end
 
   # Validation helper method
+
+  def validate_company_name(companyname)
+    if companyname.length < 42
+      return true
+    else
+      return false
+    end
+  end
+
   def validate_login(login)
     if login.length() >= 6
       return true

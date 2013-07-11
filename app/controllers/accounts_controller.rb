@@ -14,24 +14,24 @@ class AccountsController < ApplicationController
   end
 
   def accountInfo
-    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
+    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
     @result = apiRequest(@url)
   end
 
   def accountTerminate
-    @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{@@session_id}'}/{'i_account':'#{params[:i_account]}'}"
+    @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{get_session}'}/{'i_account':'#{params[:i_account]}'}"
     @result = apiRequest(@url)
   end
 
   def accountList
-    @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552'}"
+    @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{get_session}'}/{'i_customer':'1552'}"
     @result = apiRequest(@url)
   end
 
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
-    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
@@ -65,8 +65,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','h323_password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
-    @result = apiRequest(@url)
+    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"    @result = apiRequest(@url)
            
     if @result["i_account"].nil?
       flash[:error] = "Oops! Try again!"
@@ -79,11 +78,11 @@ class AccountsController < ApplicationController
 
   def manageIP
     #to get sesssion id
-    @url_id = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @url_id = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
     @result_id = apiRequest(@url_id)
 
     #to get alias list
-    @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
+    @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{get_session}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
     if @result["alias_list"][1]
       @secondary = @result["alias_list"][1]["id"] || ''
@@ -98,7 +97,7 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{get_session}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
     flash[:notice] = "you successfully added an alias IP address"
     redirect_to "/accounts/manageIP"
@@ -106,7 +105,7 @@ class AccountsController < ApplicationController
 
 
   def deleteIP
-    @url = "https://208.65.111.144/rest/Account/delete_alias/{'session_id':'#{@@session_id}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:id]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144/rest/Account/delete_alias/{'session_id':'#{get_session}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:id]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
     flash[:notice] = "You successfully deleted this IP address!"
     redirect_to "/accounts/manageIP"
@@ -140,17 +139,11 @@ class AccountsController < ApplicationController
       flash[:error] = "There was a problem processing your request, please check the amount you entered!"
       redirect_to "/accounts/addCredits"
     else
-      @url_info = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{@@session_id}'}/{'i_customer':'1552', 'i_account':'877815'}"
-      @result_info = apiRequest(@url_info)
       @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-      if @payment_amount < @result_info["account_info"]["credit_limit"].to_i
-        response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
-        @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'9dd4eccdcd7b97039fc6ce95e1a68b9f'}/{'i_account':'877815', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
-        apiRequest(@url)
-        flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
-      else
-        flash[:error] = "There was a problem processing your request, payment can't exceed credit limit!"
-      end
+      response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
+      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'9dd4eccdcd7b97039fc6ce95e1a68b9f'}/{'i_account':'877815', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+      apiRequest(@url)
+      flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end
   end
 
