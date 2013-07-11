@@ -1,6 +1,5 @@
 class SignupsController < ApplicationController
   def index
-    @@session_id = get_session
   end
 
   def signUp
@@ -18,11 +17,13 @@ class SignupsController < ApplicationController
     session[:email] = @email
     session[:phone] = @phone
     session[:cc] = @cc
-    session[:session_id] = @@session_id
     session[:current_user_id] = @login
     session[:password] = @pw
 
-    if not validate_ip(@ip1)
+    if not validate_company_name(@company_name)
+      flash[:error] = "Company name is too long (41 characters max)!"
+      return redirect_to signups_path
+    elsif not validate_ip(@ip1)
       flash[:error] = "IP Invalid!"
       return redirect_to signups_path
     elsif not validate_login(@login)
@@ -47,7 +48,7 @@ class SignupsController < ApplicationController
     @full_phone = @cc + @phone
     error = signup_error    # check if any errors will occurr when attempting to signup
     if error.nil?
-      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
       @result = apiRequest(@url)
       session[:current_login] = @login
       session[:i_account] = @result["i_account"]
@@ -62,7 +63,7 @@ class SignupsController < ApplicationController
 
   ###### HELPER METHOFS ######
   def signup_error
-    url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{@@session_id}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
+    url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'2009-2-23','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}'}}"
     begin
       @result = apiRequest(url)
       return  # no errors
@@ -77,7 +78,7 @@ class SignupsController < ApplicationController
       when 'Authentification failed'
         return 'Internal server error'  # invalid session id
       when 'Auth info missed' #due to session id being empty
-        @@session_id = get_session
+        get_session = get_session
         return signup_error
       else
         return 'Unknown error has occurred'   # shouldn't happen
@@ -92,6 +93,15 @@ class SignupsController < ApplicationController
   end
 
   # Validation helper method
+
+  def validate_company_name(companyname)
+    if companyname.length < 42
+      return true
+    else
+      return false
+    end
+  end
+
   def validate_login(login)
     if login.length() >= 6
       return true
