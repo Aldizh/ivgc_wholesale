@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{session_id}'}/{'i_customer':'1552','login':'#{login}'}"
     result = apiRequest(url)
 
-    if !result.empty? and (pw == result["account_info"]["password"])
+    if !result.empty? and (pw == result["account_info"]["h323_password"])
       reset_session
       @@session_id = session_id
       session[:current_login] = login
