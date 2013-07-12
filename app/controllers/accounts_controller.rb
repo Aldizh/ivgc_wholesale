@@ -156,8 +156,20 @@ class AccountsController < ApplicationController
 
 end
  
+
+
+
 #working methods for accounts
 # important to know that for credit account, use h323_password instead of password
+
+# Access
+# It is available for: 
+# 1. Admin (https://<WEB-server>:443/rest/)  this is default. So you don't need to specify this.
+# 2. Reseller (https://<WEB-server>:8444/rest/) 
+# 3. Retail Customer (https://<WEB-server>:8444/rest/) 
+# 4. Account (https://<WEB-server>:8445/rest/)
+
+
 #https://208.65.111.144/rest/Session/login/{"login":"soap-webpanel","password":"wsw@c@8am"}
 #https://208.65.111.144/rest/Account/get_account_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_customer":"1552"}
 #https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877815"}
