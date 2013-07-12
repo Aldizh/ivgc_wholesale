@@ -25,12 +25,12 @@ class AccountsController < ApplicationController
   end
 
   def accountList
-    @url = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552'}"
+    @url = "https://208.65.111.144:8444/rest/Account/get_account_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552'}"
     @result = apiRequest(@url)
   end
 
   def viewCDR
-    @url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{session[:i_account]}', 'from_date':'2011-10-20 16:27:25', 'to_date':'2013-06-30 16:27:25'}"
+    @url = "https://208.65.111.144:8444/rest/Account/get_xdr_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{session[:i_account]}', 'from_date':'2011-10-20 16:27:25', 'to_date':'2013-06-30 16:27:25'}"
     @result = apiRequest(@url)
     @calls = @result["xdr_list"]
     puts @calls.inspect
@@ -39,7 +39,7 @@ class AccountsController < ApplicationController
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
-    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
@@ -87,11 +87,11 @@ class AccountsController < ApplicationController
 
   def manageIP
     #to get sesssion id
-    @url_id = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
+    @url_id = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{session[:i_account]}'}"
     @result_id = apiRequest(@url_id)
 
     #to get alias list
-    @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
+    @url =  "https://208.65.111.144:8444/rest/Account/get_alias_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_master_account':'#{session[:i_account]}'}"
     @result = apiRequest(@url)
     if @result["alias_list"][1]
       @secondary = @result["alias_list"][1]["id"] || ''
@@ -106,7 +106,7 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144:8444/rest/Account/add_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'N','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
     flash[:notice] = "you successfully added an alias IP address"
     redirect_to "/accounts/manageIP"
@@ -114,7 +114,7 @@ class AccountsController < ApplicationController
 
 
   def deleteIP
-    @url = "https://208.65.111.144/rest/Account/delete_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:id]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144:8444/rest/Account/delete_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'N','id':'#{params[:id]}','i_master_account':'#{session[:i_account]}'}}"
     @result = apiRequest(@url)
     flash[:notice] = "You successfully deleted this IP address!"
     redirect_to "/accounts/manageIP"

@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
   
 
   def get_session(signup, logged_in_as_customer)
-  	begin
-      return @@session_id
-    rescue
       if signup==true
         @url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
         @result = apiRequest(@url)
@@ -21,20 +18,28 @@ class ApplicationController < ActionController::Base
         @result2 = apiRequest(@url2)
         @@session_id = @result2["session_id"]
       end
-    end
     return @@session_id
-    puts "SESSS"
-    puts @@session_id
   end
   
   def apiRequest(url)
+    puts "@@@@ API REQUEST@@@@@@@@@@@@@@"
+    puts url.gsub("'", '"')
     uri = uriEncoder(url)
     request = RestClient::Request.new(
       method: :post,
       url: uri,
       headers: { :accept => :json, :content_type => :json})
-    response = request.execute
-    return ActiveSupport::JSON.decode(response)
+    begin
+      puts "@@@@@ API RESPONSE @@@@"
+      response = request.execute
+      puts ActiveSupport::JSON.decode(response)
+      return ActiveSupport::JSON.decode(response)
+    rescue Exception => e
+      puts "@@@@@ API RESCUE @@@@@"
+      puts e.inspect
+      raise Exception
+    end
+    #return ActiveSupport::JSON.decode(response)
   end
 
   ###### HELPER METHODS ######
