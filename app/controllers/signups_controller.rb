@@ -24,7 +24,7 @@ class SignupsController < ApplicationController
     error = signup_error(@company_name, @ip1, @login, @pw, @email, @cc, @phone)
     if error.nil?
       activation_date = Time.new.strftime("%Y-%m-%d")
-      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session(true, false)}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session(true, false)}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}', 'password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
       @result = apiRequest(@url)
       session[:current_login] = @login
       session[:i_account] = @result["i_account"]
@@ -62,7 +62,7 @@ class SignupsController < ApplicationController
     # if made it this far, form fields pass validation
     # validate that account can be made
     activation_date = Time.new.strftime("%Y-%m-%d")
-    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session(true, false)}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session(true, false)}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}', 'password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
     begin
       @result = apiRequest(@url)
       return  # no errors
