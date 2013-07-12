@@ -17,12 +17,14 @@ class ApplicationController < ActionController::Base
           @url1 = "https://208.65.111.144/rest/Session/logout/{'session_id':'#{@@session_id}'}"
           apiRequest(@url1)
         end
-        @url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
-        @result = apiRequest(@url)
-        @@session_id = @result["session_id"]
+        @url2 = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
+        @result2 = apiRequest(@url2)
+        @@session_id = @result2["session_id"]
       end
     end
     return @@session_id
+    puts "SESSS"
+    puts @@session_id
   end
   
   def apiRequest(url)
