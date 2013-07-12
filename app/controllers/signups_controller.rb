@@ -12,44 +12,19 @@ class SignupsController < ApplicationController
     @cc = params[:cc]
 
     session[:company_name] = @company_name
-    session[:username] = @login
     session[:ip1] = @ip1
-    session[:email] = @email
-    session[:phone] = @phone
-    session[:cc] = @cc
-    session[:current_user_id] = @login
+    session[:username] = @login
     session[:password] = @pw
+    session[:email] = @email
+    session[:cc] = @cc
+    session[:phone] = @phone
+    session[:current_user_id] = @login
 
-    if not validate_company_name(@company_name)
-      flash[:error] = "Company name is too long (41 characters max)!"
-      return redirect_to signups_path
-    elsif not validate_ip(@ip1)
-      flash[:error] = "IP Invalid!"
-      return redirect_to signups_path
-    elsif not validate_login(@login)
-      flash[:error] = "Username cannot have fewer than 6 characters"
-      return redirect_to signups_path
-    elsif not validate_pw(@pw)
-      flash[:error] = "Password must have 6-16 characters"
-      return redirect_to signups_path
-    elsif not validate_email(@email)
-      flash[:error] = "Email is not valid"
-      return redirect_to signups_path
-    elsif not validate_cc(@cc)
-      flash[:error] = "Country code is not valid"
-      return redirect_to signups_path
-    elsif not validate_phone(@phone)
-      flash[:error] = "Phone Number is not valid"
-      return redirect_to signups_path
-    elsif not verify_recaptcha
-      flash[:error] = "Your words do not match the ones in the recaptcha image!"
-      return redirect_to signups_path
-    end
-    @full_phone = @cc + @phone
-    error = signup_error    # check if any errors will occurr when attempting to signup
+    # check if any errors will occurr when attempting to signup
+    error = signup_error(@company_name, @ip1, @login, @pw, @email, @cc, @phone)
     if error.nil?
       activation_date = Time.new.strftime("%Y-%m-%d")
-      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
       @result = apiRequest(@url)
       session[:current_login] = @login
       session[:i_account] = @result["i_account"]
@@ -62,10 +37,32 @@ class SignupsController < ApplicationController
 
   end
 
-  ###### HELPER METHOFS ######
-  def signup_error
+  ###### HELPER METHODS ######
+
+  def signup_error(company_name, ip, login, pw, email, cc, phone)
+    # first validate form fields
+    if not validate_company_name(company_name)
+      return 'Company name is too long (41 characters max)!'
+    elsif not validate_ip(ip)
+      return 'IP Invalid!'
+    elsif not validate_login(login)
+      return 'Username cannot have fewer than 6 characters'
+    elsif not validate_pw(pw)
+      return 'Password must have 6-16 characters'
+    elsif not validate_email(email)
+      return 'Email is not valid'
+    elsif not validate_cc(cc)
+      return 'Country code is not valid'
+    elsif not validate_phone(phone)
+      return 'Phone Number is not valid'
+    elsif not verify_recaptcha
+      return 'Your words do not match the ones in the recaptcha image!'
+    end
+
+    # if made it this far, form fields pass validation
+    # validate that account can be made
     activation_date = Time.new.strftime("%Y-%m-%d")
-    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@full_phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','h323_password':'#{@pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
     begin
       @result = apiRequest(@url)
       return  # no errors
@@ -80,24 +77,15 @@ class SignupsController < ApplicationController
       when 'Authentification failed'
         return 'Internal server error'  # invalid session id
       when 'Auth info missed' #due to session id being empty
-        get_session = get_session
-        return signup_error
+        return 'Session error'
       else
         return 'Unknown error has occurred'   # shouldn't happen
       end
     end
   end
 
-
-  #URI enencoder helper method
-  def uriEncoder (uri)
-    return URI.encode(uri.gsub("'", '"'))
-  end
-
-  # Validation helper method
-
-  def validate_company_name(companyname)
-    if companyname.length < 42
+  def validate_company_name(company_name)
+    if company_name.length <= 41
       return true
     else
       return false
