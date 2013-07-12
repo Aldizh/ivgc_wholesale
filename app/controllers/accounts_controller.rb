@@ -28,6 +28,12 @@ class AccountsController < ApplicationController
     @result = apiRequest(@url)
   end
 
+  def viewCDR
+    @url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session}'}/{'i_account':'#{session[:i_account]}', 'from_date':'2011-10-20 16:27:25', 'to_date':'2013-06-30 16:27:25'}"
+    @result = apiRequest(@url)
+    @calls = @result["xdr_list"]
+  end
+
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
@@ -167,5 +173,7 @@ end
 #https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"877783"}
 #https://208.65.111.144/rest/Account/delete_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877815","blocked":"Y","id":"23.43.13.3","i_master_account":"877815"}}
 #https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877864", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
+##https://208.65.111.144/rest/Account/get_xdr_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877815", "from_date":"2011-10-20 16:27:25", "to_date":"2013-06-30 16:27:25"}
+
 
 
