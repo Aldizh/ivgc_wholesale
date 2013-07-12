@@ -1,0 +1,22 @@
+<table class = "list">
+    <thead>
+      <tr>
+        <th> caller id </th>
+        <th> cost (in USD) </th>
+        <th> start time </th>
+        <th> end time</th>
+        <th> duration </th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @calls.each do |r| %>
+     	<tr>
+       	<td> <%= c[:caller_id] %></td>
+       	<td> <%= c[:cost] %></td>
+       	<td> <%= c[:call_start] %></td>
+       	<td> <%= c[:call_end] %> </td>
+       	<td> <%= c[:duration] %> s </td>
+   		</tr>
+   	<% end %>
+    </tbody>
+  </table>
