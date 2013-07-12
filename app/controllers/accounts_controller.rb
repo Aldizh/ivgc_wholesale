@@ -33,6 +33,7 @@ class AccountsController < ApplicationController
     @url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{session[:i_account]}', 'from_date':'2011-10-20 16:27:25', 'to_date':'2013-06-30 16:27:25'}"
     @result = apiRequest(@url)
     @calls = @result["xdr_list"]
+    puts @calls.inspect
   end
 
   def updateAccount
