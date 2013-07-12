@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
       else
         if not logged_in_as_customer
           @url1 = "https://208.65.111.144/rest/Session/logout/{'session_id':'#{@@session_id}'}"
-          apiRequest(@url1)
+          @result1 =apiRequest(@url1)
+          @@session_id = @result1["session_id"]
         end
         @url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
         @result = apiRequest(@url)
