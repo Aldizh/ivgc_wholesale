@@ -1,0 +1,12 @@
+<% subjects = ["Subject 1", "Subject 2", "Subject 3", "Others"] %>
+<br><article class="ticket"><span>Ticket Submission Form</span></article><br>
+<%= form_tag(:action => "submitTicket") do %>
+  <%= label_tag "Select a subject: " %>
+  <%= select :ticket, :subject, subjects.collect {|s| s} %> <br><br>
+  <%= label_tag "Title:" %>
+  <%= text_field_tag 'title', session[:title] %><br><br>
+  <%= label_tag "Messsage: " %>
+  <%= text_area_tag 'message', session[:message] %><br><br>
+  <%= submit_tag "Submit", :class => "submit_button" %>
+<% end %>
+</div>

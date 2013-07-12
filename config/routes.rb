@@ -1,5 +1,8 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "accounts/submitTicket"
+  post "accounts/submitTicket"
+  get "accounts/tickets"
   post "accounts/paymentConfirm"
   get "accounts/paymentConfirm"
   post "accounts/addCredits"
@@ -18,6 +21,7 @@ IVGCWholeSale::Application.routes.draw do
   get "accounts/doUpdate"
   post "accounts/doUpdate"
   get "accounts/index"
+
   get "signups/signUp"
   post "signups/signUp"
 

@@ -1,4 +1,5 @@
 require 'socket'
+require 'mail'
 class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
@@ -146,6 +147,40 @@ class AccountsController < ApplicationController
       apiRequest(@url)
       flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end
+  end
+
+  def tickets
+    
+  end
+
+  def submitTicket
+
+    to = "its.ciaotelecom@gmail.com"
+    from = session[:current_login]
+    temp_hash = params[:ticket]
+    subject = temp_hash["subject"] rescue nil
+    title = params[:title]
+    message = params[:message]
+    
+    options = { :address              => "smtp.gmail.com",
+            :port                 => 587,
+            :domain               => 'ciaotelecom.net',
+            :user_name            => 'its.ciaotelecom@gmail.com',
+            :password             => 'Ci402013',
+            :authentication       => 'plain',
+            :enable_starttls_auto => true  }
+
+    Mail.defaults do
+      delivery_method :smtp, options
+    end
+
+    Mail.deliver do
+      to 'its.ciaotelecom@gmail.com'
+      from "#{from}"
+      subject "Ticket for #{subject}"
+      body "Title: #{title} \nMessage: #{message}"
+end
+
   end
 
   def getIP
