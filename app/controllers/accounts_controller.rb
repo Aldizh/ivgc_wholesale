@@ -161,6 +161,9 @@ class AccountsController < ApplicationController
     subject = temp_hash["subject"] rescue nil
     title = params[:title]
     message = params[:message]
+
+    session[:title] = title
+    session[:message] = message
     
     options = { :address              => "smtp.gmail.com",
             :port                 => 587,
@@ -174,12 +177,19 @@ class AccountsController < ApplicationController
       delivery_method :smtp, options
     end
 
-    Mail.deliver do
-      to 'its.ciaotelecom@gmail.com'
-      from "#{from}"
-      subject "Ticket for #{subject}"
-      body "Title: #{title} \nMessage: #{message}"
-end
+    begin 
+      Mail.deliver do
+        to 'its.ciaotelecom@gmail.com'
+        from "#{from}"
+        subject "Ticket for #{subject}"
+        body "Title: #{title} \nMessage: #{message}"
+      end
+      flash[:notice] = "Ticket successfully submitted"
+      redirect_to "/accounts"
+    rescue Exception => e
+      flash[:error] = "Ticket couldn't be submitted. Please try again"
+      redirect_to "/accounts/tickets"
+    end
 
   end
 
