@@ -35,11 +35,18 @@ class ApplicationController < ActionController::Base
     return ActiveSupport::JSON.decode(response)
   end
 
-  ###### HELPER METHOFS ######
+  ###### HELPER METHODS ######
 
-  #URI enencoder helper method
   def uriEncoder(uri)
     return URI.encode(uri.gsub!("'", '"'))
+  end
+
+  def validate_company_name(company_name)
+    if company_name.length <= 41
+      return true
+    else
+      return false
+    end
   end
 
   def validate_ip(ip)
@@ -59,17 +66,16 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  def validate_pw(pw)
-    if pw.length() >= 6
+def validate_login(login)
+    if login.length() >= 6
       return true
     else 
       return false
     end
   end
 
-  
-  def validate_login(login)
-    if login.length() >= 6
+  def validate_pw(pw)
+    if pw.length() >= 6
       return true
     else 
       return false
@@ -88,15 +94,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def validate_phone(phone)
-    #We should validate the email with regex 
-    if phone.length() == 10
-      return true
-    else 
-      return false
-    end
-  end
-
   def validate_cc(cc)
     begin
       number = cc.to_i
@@ -108,4 +105,13 @@ class ApplicationController < ActionController::Base
     end
     return true
   end
+
+  def validate_phone(phone)
+    if phone.length() == 10
+      return true
+    else 
+      return false
+    end
+  end
+
 end
