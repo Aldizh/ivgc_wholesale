@@ -2,17 +2,25 @@ require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def get_new_session
-    @url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
-    @result = apiRequest(@url)
-    return @result["session_id"]
-  end
+  
 
-  def get_session
+  def get_session(signup, logged_in_as_customer)
   	begin
       return @@session_id
     rescue
-      @@session_id = get_new_session
+      if signup==true
+        @url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
+        @result = apiRequest(@url)
+        @@session_id = @result["session_id"]
+      else
+        if not logged_in_as_customer
+          @url1 = "https://208.65.111.144/rest/Session/logout/{'session_id':'#{@@session_id}'}"
+          apiRequest(@url1)
+        end
+        @url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
+        @result = apiRequest(@url)
+        @@session_id = @result["session_id"]
+      end
     end
     return @@session_id
   end
