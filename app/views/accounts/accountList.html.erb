@@ -5,6 +5,7 @@
 		<th>Password</th>
 		<th>Openning Balance</th>
 		<th>email</th>
+		<th>ID</th>
 		<th></th>
 	</thead>
 	<tbody>
@@ -14,6 +15,7 @@
 			<td><%= e["password"] %> </td>
 			<td><%= e["opening_balance"] %> </td>
 			<td><%= e["subscriber_email"] %> </td>
+			<td><%= e["id"] %> </td>
 			<td><%= link_to "Details", :i_account => e["i_account"], :action => "accountInfo" %></td> 
 			<td><strong><%= " | " %></strong><%= link_to "Terminate", :i_account => e["i_account"], :action => "accountTerminate" %></td>
 		</tr>

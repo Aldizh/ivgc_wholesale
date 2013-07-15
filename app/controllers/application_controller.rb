@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
         @result = apiRequest(@url)
         @@session_id = @result["session_id"]
       else
-        if not logged_in_as_customer
+        if not logged_in_as_customer#but logged in as soap-webpanel
           @url1 = "https://208.65.111.144/rest/Session/logout/{'session_id':'#{@@session_id}'}"
           apiRequest(@url1)
         end

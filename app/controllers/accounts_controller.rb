@@ -15,12 +15,12 @@ class AccountsController < ApplicationController
   end
 
   def accountInfo
-    @url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
+    @url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_customer':'1552', 'i_account':'#{params[:i_account]}'}"
     @result = apiRequest(@url)
   end
 
   def accountTerminate
-    @url = "https://208.65.111.144/rest/Account/terminate_account/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{params[:i_account]}'}"
+    @url = "https://208.65.111.144:8444/rest/Account/terminate_account/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{params[:i_account]}'}"
     @result = apiRequest(@url)
   end
 
@@ -73,7 +73,7 @@ class AccountsController < ApplicationController
       flash[:error] = "Email is not valid"
       return redirect_to "/accounts/updateAccount"
     end
-    @url = "https://208.65.111.144/rest/Account/update_account/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    @url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}', 'companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     @result = apiRequest(@url)
            
     if @result["i_account"].nil?
@@ -106,7 +106,7 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    @url = "https://208.65.111.144:8444/rest/Account/add_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'N','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
+    @url = "https://208.65.111.144:8444/rest/Account/add_alias/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'N','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}-1'}}"
     @result = apiRequest(@url)
     flash[:notice] = "you successfully added an alias IP address"
     redirect_to "/accounts/manageIP"
@@ -150,7 +150,7 @@ class AccountsController < ApplicationController
     else
       @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
       response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
-      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{session[:i_account]}', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+      @url = "https://208.65.111.144:8445/rest/Account/make_transaction/{'session_id':'#{get_session(false, @@login_in_as_customer)}'}/{'i_account':'#{session[:i_account]}', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
       apiRequest(@url)
       flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end
@@ -225,7 +225,7 @@ end
 #https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877815","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
 #https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
 #https://208.65.111.144/rest/Account/add_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877771","blocked":"Y","id":"23.43.13.3","i_master_account":"877783"}}
-#https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"877783"}
+#https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"637824637"}
 #https://208.65.111.144/rest/Account/delete_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877815","blocked":"Y","id":"23.43.13.3","i_master_account":"877815"}}
 #https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877864", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
 ##https://208.65.111.144/rest/Account/get_xdr_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877815", "from_date":"2011-10-20 16:27:25", "to_date":"2013-06-30 16:27:25"}
