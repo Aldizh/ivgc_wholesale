@@ -96,8 +96,7 @@ class ApplicationController < ActionController::Base
       return ActiveSupport::JSON.decode(response)
     rescue Exception => e
       puts "@@@@@ API RESCUE @@@@@"
-      puts e.inspect
-      raise Exception
+      raise e.inspect
     end
     #return ActiveSupport::JSON.decode(response)
   end
