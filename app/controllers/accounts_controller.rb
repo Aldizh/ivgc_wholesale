@@ -1,17 +1,9 @@
 require 'socket'
-require 'mail'
+
 class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
-  def validateLoggedIn
-    if not session[:current_login]
-      flash[:error] = "Please login to continue!"
-      return redirect_to "/sessions/new"
-    end
-  end
-
   def index
-    
   end
 
   def accountInfo
@@ -177,49 +169,6 @@ class AccountsController < ApplicationController
       apiRequest(@url)
       flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end
-  end
-
-  def tickets
-    
-  end
-
-  def submitTicket
-    to = "its.ciaotelecom@gmail.com"
-    from = session[:current_login]
-    temp_hash = params[:ticket]
-    subject = temp_hash["subject"] rescue nil
-    title = params[:title]
-    message = params[:message]
-
-    session[:title] = title
-    session[:message] = message
-    
-    options = { :address              => "smtp.gmail.com",
-                :port                 => 587,
-                :domain               => 'ciaotelecom.net',
-                :user_name            => 'its.ciaotelecom@gmail.com',
-                :password             => 'Ci402013',
-                :authentication       => 'plain',
-                :enable_starttls_auto => true  }
-
-    Mail.defaults do
-      delivery_method :smtp, options
-    end
-
-    begin 
-      Mail.deliver do
-        to 'its.ciaotelecom@gmail.com'
-        from "#{from}"
-        subject "Ticket for #{subject}"
-        body "Title: #{title} \nMessage: #{message}"
-      end
-      flash[:notice] = "Ticket successfully submitted"
-      redirect_to "/accounts"
-    rescue Exception => e
-      flash[:error] = "Ticket couldn't be submitted. Please try again"
-      redirect_to "/accounts/tickets"
-    end
-
   end
 
   def getIP

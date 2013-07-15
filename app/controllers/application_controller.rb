@@ -2,6 +2,7 @@ require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+
   def get_new_session
     url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
     @result = apiRequest(url)
@@ -99,6 +100,13 @@ class ApplicationController < ActionController::Base
       raise e.inspect
     end
     #return ActiveSupport::JSON.decode(response)
+  end
+
+def validateLoggedIn
+    if not session[:current_login]
+      flash[:error] = "Please login to continue!"
+      return redirect_to "/sessions/new"
+    end
   end
 
   ###### HELPER METHODS ######

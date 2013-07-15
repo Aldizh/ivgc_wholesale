@@ -1,0 +1,23 @@
+<h1>Listing tickets</h1>
+
+<table>
+  <tr>
+    <th>Owner</th>
+    <th>Title</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tickets.each do |ticket| %>
+  <tr>
+    <td><%= ticket.owner %></td>
+    <td><%= ticket.title %></td>
+    <td><%= ticket.body %></td>
+    <td><%= link_to 'Show', ticket %></td>
+    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

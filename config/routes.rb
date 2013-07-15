@@ -1,8 +1,7 @@
 IVGCWholeSale::Application.routes.draw do
 
-  get "accounts/submitTicket"
-  post "accounts/submitTicket"
-  get "accounts/tickets"
+  resources :tickets
+
   post "accounts/paymentConfirm"
   get "accounts/paymentConfirm"
   post "accounts/addCredits"
