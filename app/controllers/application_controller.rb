@@ -79,7 +79,6 @@ class ApplicationController < ActionController::Base
       end
     end
     @@session_id = nil
-    @@privileged = false
   end
 
   def apiRequest(url)
