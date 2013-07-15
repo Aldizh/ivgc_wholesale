@@ -5,7 +5,7 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'pg'
 gem "sequel", "~> 3.47.0"
 gem "rest-client", "~>1.6.7"
 gem 'recaptcha', :require => 'recaptcha/rails'
