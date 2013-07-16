@@ -4,8 +4,12 @@ gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'pg'
-gem 'mysql2'
+group :production do 
+	gem 'pg'
+end
+group :development, :test do
+	gem 'sqlite3'
+end
 gem "sequel", "~> 3.47.0"
 gem "rest-client", "~>1.6.7"
 gem 'recaptcha', :require => 'recaptcha/rails'
