@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
 
   def get_new_session
-    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'wsw@c@8am'}"
+    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'ivgc123'}"
     @result = apiRequest(url)
     return @result["session_id"]
   end
@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
     begin
       puts "@@@@@ API RESPONSE @@@@"
       response = request.execute
-      #puts ActiveSupport::JSON.decode(response)
+      puts ActiveSupport::JSON.decode(response)
       return ActiveSupport::JSON.decode(response)
     rescue Exception => e
       puts "@@@@@ API RESCUE @@@@@"
