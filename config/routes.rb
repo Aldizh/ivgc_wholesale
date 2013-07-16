@@ -15,6 +15,7 @@ IVGCWholeSale::Application.routes.draw do
   get "accounts/updateIP"
   get "accounts/manageIP"
   get "accounts/viewCDR"
+  post "accounts/formatDate"
   get "accounts/accountTerminate"
   get "accounts/accountInfo"
   get "accounts/accountList"

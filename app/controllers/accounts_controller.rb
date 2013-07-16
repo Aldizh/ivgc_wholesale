@@ -30,8 +30,63 @@ class AccountsController < ApplicationController
   end
 
   def viewCDR
-    url = "https://208.65.111.144:8444/rest/Account/get_xdr_list/{'session_id':'#{get_session}'}/{'i_account':'#{session[:i_account]}','from_date':'2011-10-20 16:27:25','to_date':'2013-06-30 16:27:25'}"
-    @result = apiRequest(url)
+    # tmp should be a hash of date_select
+    if params['to']
+      @to_date = Time.new(*params['to'].split('-'))
+    else
+      @from_date = Time.now - 1.days
+    end
+    if params['from']
+      @from_date = Time.new(*params['from'].split('-'))
+    else
+      @to_date = Time.now
+    end
+
+    @from_date_str = @from_date.strftime("%Y-%m-%d") + ' 00:00:00'
+    @to_date_str = @to_date.strftime("%Y-%m-%d") + ' 23:59:59'
+
+
+    url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'#{@from_date_str}','to_date':'#{@to_date_str}'}"
+    @calls = apiRequest(url)["xdr_list"]
+  end
+
+  def viewCDR
+    # tmp should be a hash of date_select
+    if !params['page'].nil?
+      @page = params['page'].to_i
+    else
+      @page = 1
+    end
+    @page_size = 20
+    if params['to']
+      @to_date = Time.new(*params['to'].split('-'))
+    else
+      @from_date = Time.now - 1.days
+    end
+    if params['from']
+      @from_date = Time.new(*params['from'].split('-'))
+    else
+      @to_date = Time.now
+    end
+
+    @from_date_str = @from_date.strftime("%Y-%m-%d") + ' 00:00:00'
+    @to_date_str = @to_date.strftime("%Y-%m-%d") + ' 23:59:59'
+    offset = @page_size * (@page - 1)
+    url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'#{@from_date_str}','to_date':'#{@to_date_str}','offset':'#{offset}','limit':'#{@page_size}'}"
+    @calls = apiRequest(url)["xdr_list"]
+  end
+
+
+  # POST method to redirect to properly pass parameters to viewCDR
+  def formatDate
+    tmp = params['viewCDR']
+    if !tmp.nil? and tmp.class==ActiveSupport::HashWithIndifferentAccess
+      from_date = Time.new(tmp['from_date(1i)'], tmp['from_date(2i)'], tmp['from_date(3i)'])
+      from_date_param = from_date.strftime("%Y-%m-%d")
+      to_date = Time.new(tmp['to_date(1i)'], tmp['to_date(2i)'], tmp['to_date(3i)'])
+      to_date_param = to_date.strftime("%Y-%m-%d")
+    end
+    redirect_to "/accounts/viewCDR?to=#{to_date_param}&from=#{from_date_param}"
   end
 
   def updateAccount
