@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
     begin
       puts "@@@@@ API RESPONSE @@@@"
       response = request.execute
-      puts ActiveSupport::JSON.decode(response)
+      #puts ActiveSupport::JSON.decode(response)
       return ActiveSupport::JSON.decode(response)
     rescue Exception => e
       puts "@@@@@ API RESCUE @@@@@"
