@@ -7,7 +7,7 @@ class ResponsesController < ApplicationController
 
   def show
     begin
-       @response = Response.find(params[:id])
+      @response = Response.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = 'No response!'
       redirect_to '/responses'
@@ -17,6 +17,27 @@ class ResponsesController < ApplicationController
   def new
      @response = Response.new
      session[:id] = params[:id]
+  end
+
+  def edit
+    @response = Response.find(params[:id])
+    puts "RESSSS"
+    puts @response.inspect
+  end
+
+  def update
+    @response = Response.find(params[:id])
+    puts "ugdsgfad"
+    puts @response.inspect
+    respond_to do |format|
+      if @response.update_attributes(params[:response])
+        format.html { redirect_to @response, notice: 'Response was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @response.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def create

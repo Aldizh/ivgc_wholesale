@@ -6,6 +6,7 @@
     <th>Associated ticket</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @responses.each do |r| %>
@@ -14,6 +15,7 @@
     <td><%= Ticket.where(:id => r.id)[0].title rescue nil %>
     <td><%= link_to 'Show', r %></td>
     <td><%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Update', edit_response_path(r) %></td>
   </tr>
 <% end %>
 </table>

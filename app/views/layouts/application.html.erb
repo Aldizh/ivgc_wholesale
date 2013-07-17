@@ -18,6 +18,7 @@
 		<ul>
 			<%if session[:admin] == true %>
 				<li><%= link_to "View Tickets", "/admin/viewTickets" %></li>
+			    <li><%= link_to "View Responses", "/responses" %></li>
 				<li><%= link_to "See account lists", "/accounts/accountList" %></li>
 			<%else%>
 				<li><%= link_to "Account Overview", '/accounts/accountInfo' %></li>
