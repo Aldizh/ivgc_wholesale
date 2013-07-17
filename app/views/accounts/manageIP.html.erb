@@ -1,26 +1,28 @@
-<% if @result["alias_list"] %>
-	<table class = "ip_list">
-		<thead>
-		  <tr>
-		    <th> IP </th>
-		    <th> </th>
-		  </tr>
-		</thead>
-		<tbody>
-	    <tr><td><%= @result_id["account_info"]["id"] %> </td><td><strong><%= "Primary" %><strong></td></tr>
-		<% @result["alias_list"].each do |r| %>
-		    <tr>
-		      <td><%= r["id"] %> </td>
-		      <td><%= link_to "Delete", :id => r["id"], :action => "deleteIP" %></td>
-		    </tr>
+<% if session[:admin] != true %>
+	<% if @result["alias_list"] %>
+		<table class = "ip_list">
+			<thead>
+			  <tr>
+			    <th> IP </th>
+			    <th> </th>
+			  </tr>
+			</thead>
+			<tbody>
+		    <tr><td><%= @result_id["account_info"]["id"] %> </td><td><strong><%= "Primary" %><strong></td></tr>
+			<% @result["alias_list"].each do |r| %>
+			    <tr>
+			      <td><%= r["id"] %> </td>
+			      <td><%= link_to "Delete", :id => r["id"], :action => "deleteIP" %></td>
+			    </tr>
+			<% end %>
+			</tbody>
+		</table><br>
+	<%end%>
+	<% if @result["alias_list"].size < 2 %> 
+		<%= form_tag(:action => "updateIP") do %>
+		  <%= label_tag "IP: " %>
+		  <%= text_field_tag 'ip'%>
+		  <%= submit_tag "Save", :class => "submit_button" %>
 		<% end %>
-		</tbody>
-	</table><br>
-<%end%>
-<% if @result["alias_list"].size < 2 %> 
-	<%= form_tag(:action => "updateIP") do %>
-	  <%= label_tag "IP: " %>
-	  <%= text_field_tag 'ip'%>
-	  <%= submit_tag "Save", :class => "submit_button" %>
-	<% end %>
-<%end%>
+	<%end%>
+<% end %>

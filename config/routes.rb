@@ -6,6 +6,7 @@ IVGCWholeSale::Application.routes.draw do
 
   post "/responses/new"
   resources :responses
+  post "tickets/new"
   get "tickets/viewResponses"
   resources :tickets
 

@@ -1,24 +1,26 @@
-<%= link_to "Go back to accounts", '/accounts' %>
-<table>
-	<thead>
-		<th>Login</th>
-		<th>Password</th>
-		<th>Openning Balance</th>
-		<th>email</th>
-		<th>ID</th>
-		<th></th>
-	</thead>
-	<tbody>
-		<% @result["account_list"].each do |e|%>
-		<tr>
-			<td><%= e["login"] %> </td>
-			<td><%= e["password"] %> </td>
-			<td><%= e["opening_balance"] %> </td>
-			<td><%= e["subscriber_email"] %> </td>
-			<td><%= e["id"] %> </td>
-			<td><%= link_to "Details", :i_account => e["i_account"], :action => "accountInfo" %></td> 
-			<td><strong><%= " | " %></strong><%= link_to "Terminate", :i_account => e["i_account"], :action => "accountTerminate" %></td>
-		</tr>
-        <% end %>
-     </tbody>
-</table>
+<% if session[:admin] == true %>
+	<%= link_to "Return to home page", '/accounts' %>
+	<table>
+		<thead>
+			<th>Login</th>
+			<th>Password</th>
+			<th>Openning Balance</th>
+			<th>email</th>
+			<th>ID</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<% @result["account_list"].each do |e|%>
+			<tr>
+				<td><%= e["login"] %> </td>
+				<td><%= e["password"] %> </td>
+				<td><%= e["opening_balance"] %> </td>
+				<td><%= e["subscriber_email"] %> </td>
+				<td><%= e["id"] %> </td>
+				<td><%= link_to "Details", :i_account => e["i_account"], :action => "accountInfo" %></td> 
+				<td><strong><%= " | " %></strong><%= link_to "Terminate", :i_account => e["i_account"], :action => "accountTerminate" %></td>
+			</tr>
+	        <% end %>
+	     </tbody>
+	</table>
+<% end %>

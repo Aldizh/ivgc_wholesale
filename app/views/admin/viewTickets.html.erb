@@ -1,24 +1,26 @@
-<h1>Listing tickets</h1>
+<% if session[:admin] == true %>
+  <h1>Listing tickets</h1>
 
-<table>
-  <tr>
-    <th>Owner</th>
-    <th>Title</th>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table>
+    <tr>
+      <th>Owner</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<% @tickets.each do |ticket| %>
-  <tr>
-    <td><%= ticket.owner %></td>
-    <td><%= truncate(ticket.title, length: 40) %></td>
-    <td><%= truncate(ticket.body, length: 60) %></td>
-    <td><%= link_to 'Show', ticket %></td>
-    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <td><%= link_to 'Respond', :id => ticket.id, :controller => "responses", :action => "new" %></td>
-  </tr>
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.owner %></td>
+      <td><%= truncate(ticket.title, length: 40) %></td>
+      <td><%= truncate(ticket.body, length: 60) %></td>
+      <td><%= link_to 'Show', ticket %></td>
+      <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Respond', :id => ticket.id, :controller => "responses", :action => "new" %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
 <% end %>
-</table>
-
-<br />

@@ -1,52 +1,54 @@
-<%= form_tag(:action => 'formatDate') do %>
-  <%= label_tag "From: " %>
-  <%= date_select("viewCDR", "from_date", :default => @from_date, :order => [:day, :month, :year]) %><br>
-  <%= label_tag "To: " %>
-  <%= date_select("viewCDR", "to_date", :default => @to_date ,:order => [:day, :month, :year])%>
-  <%= submit_tag "Filter" %>
-<% end %>
+<% if session[:admin] != true %>
+  <%= form_tag(:action => 'formatDate') do %>
+    <%= label_tag "From: " %>
+    <%= date_select("viewCDR", "from_date", :default => @from_date, :order => [:day, :month, :year]) %><br>
+    <%= label_tag "To: " %>
+    <%= date_select("viewCDR", "to_date", :default => @to_date ,:order => [:day, :month, :year])%>
+    <%= submit_tag "Filter" %>
+  <% end %>
 
-<% if @page > 1 %>
-  <%= link_to '<- Previous', params.merge({:page => @page - 1}) %>
-<% else %>
-  <%= '<- Previous' %>
-<% end %>
- | 
-<% if !@calls.empty? and @calls.length == @page_size %>
-  <%= link_to 'Next ->', params.merge({:page => @page + 1}) %>
-<% else %>
-  <%= 'Next ->' %>
-<% end %>
+  <% if @page > 1 %>
+    <%= link_to '<- Previous', params.merge({:page => @page - 1}) %>
+  <% else %>
+    <%= '<- Previous' %>
+  <% end %>
+   | 
+  <% if !@calls.empty? and @calls.length == @page_size %>
+    <%= link_to 'Next ->', params.merge({:page => @page + 1}) %>
+  <% else %>
+    <%= 'Next ->' %>
+  <% end %>
 
-<table class = "list">
-  <thead>
-    <tr>
-      <th>From</th>
-      <th>To</th>
-      <th>Country</th>
-      <th>Call start</th>
-      <th>Call end</th>
-      <th>Charged time</th>
-      <th>Cost (USD)</th>
-    </tr>
-  </thead>
-  <% if !@calls.empty? %>
-    <tbody>
-    <% @calls.each do |c| %>
+  <table class = "list">
+    <thead>
       <tr>
-        <td><%= c['CLI'] %></td>
-        <td><%= c['CLD'] %></td>
-        <td><%= c['country'] %></td>
-        <td><%= c['connect_time'] %></td>
-        <td><%= c['disconnect_time'] %></td>
-        <td><%= (c['charged_quantity'].to_i / 60).to_s + ':' + (c['charged_quantity'].to_i % 60).to_s.rjust(2, "0") %></td>
-        <td><%= c['charged_amount'] %></td>
+        <th>From</th>
+        <th>To</th>
+        <th>Country</th>
+        <th>Call start</th>
+        <th>Call end</th>
+        <th>Charged time</th>
+        <th>Cost (USD)</th>
+      </tr>
+    </thead>
+    <% if !@calls.empty? %>
+      <tbody>
+      <% @calls.each do |c| %>
+        <tr>
+          <td><%= c['CLI'] %></td>
+          <td><%= c['CLD'] %></td>
+          <td><%= c['country'] %></td>
+          <td><%= c['connect_time'] %></td>
+          <td><%= c['disconnect_time'] %></td>
+          <td><%= (c['charged_quantity'].to_i / 60).to_s + ':' + (c['charged_quantity'].to_i % 60).to_s.rjust(2, "0") %></td>
+          <td><%= c['charged_amount'] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    <% else %>
+      <tr>
+        <td colspan="7">No calls</td>
       </tr>
     <% end %>
-    </tbody>
-  <% else %>
-    <tr>
-      <td colspan="7">No calls</td>
-    </tr>
-  <% end %>
-</table>
+  </table>
+<% end %>

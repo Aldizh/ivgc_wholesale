@@ -3,4 +3,7 @@
     <%= flash[:notice] %>
   </div>
 <% end %>
+<% if session[:admin] == true %>
+  <p><strong>You are now logged in as an admin!</p></strong>
+<%end%>
 <p>Welcome to IVGC Wholesale Panel </p>

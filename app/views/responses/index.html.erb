@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Description</th>
+    <th>Associated ticket</th>
     <th></th>
     <th></th>
   </tr>
@@ -10,6 +11,7 @@
 <% @responses.each do |r| %>
   <tr>
     <td><%= r.description %></td>
+    <td><%= Ticket.where(:id => r.id)[0].title rescue nil %>
     <td><%= link_to 'Show', r %></td>
     <td><%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

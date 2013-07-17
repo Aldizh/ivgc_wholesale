@@ -1,10 +1,12 @@
-| <%= link_to "Go back to accounts", '/accounts' %><br><br>
-<%= "These are your details!" %><br>
-<%= "Login :" %>
-<strong><%= @result["account_info"]["login"] %></strong><br>
-<%= "Opening balance :" %>
-<strong><%= @result["account_info"]["opening_balance"] %></strong><br>
-<%= "Email:" %>
-<strong><%= @result["account_info"]["subscriber_email"] %></strong><br>
-<%= "ID:" %>
-<strong><%= @result["account_info"]["id"] %></strong><br><br>
+<% if session[:admin] != true %>
+	| <%= link_to "Go back to accounts", '/accounts' %><br><br>
+	<%= "These are your details!" %><br>
+	<%= "Login :" %>
+	<strong><%= @result["account_info"]["login"] %></strong><br>
+	<%= "Opening balance :" %>
+	<strong><%= @result["account_info"]["opening_balance"] %></strong><br>
+	<%= "Email:" %>
+	<strong><%= @result["account_info"]["subscriber_email"] %></strong><br>
+	<%= "ID:" %>
+	<strong><%= @result["account_info"]["id"] %></strong><br><br>
+<%end%>

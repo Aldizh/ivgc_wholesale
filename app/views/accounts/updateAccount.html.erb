@@ -1,29 +1,31 @@
-<div class="common_form", id="update_form">
-  <% if flash[:error] %>
-    <div class="error" style="margin-bottom: 15px;" >
-      <%= flash[:error] %>
-    </div>
+<% if session[:admin] != true %>
+  <div class="common_form", id="update_form">
+    <% if flash[:error] %>
+      <div class="error" style="margin-bottom: 15px;" >
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+  <article class="title"><span>Update your profile</span></article>
+  <%= form_tag(:action => "doUpdate") do %>
+    <%= label_tag "IP: " %>
+    <%= text_field_tag 'id', @ip %><br>
+    <%= label_tag "Company Name: " %>
+    <%= text_field_tag 'companyname', @comp_name %><br>
+    <%= label_tag "Username/Login: " %>
+    <%= text_field_tag 'username', @user_name %><br>
+    <%= label_tag "Password: " %>
+    <%= password_field_tag 'password', @password %><br>
+    <%= label_tag "First Name: " %>
+    <%= text_field_tag 'first_name', @first_name %><br>
+    <%= label_tag "Last Name: " %>
+    <%= text_field_tag 'last_name', @last_name %><br>
+    <%= label_tag "Email: " %>
+    <%= text_field_tag 'email', @e_mail %><br>
+    <%= label_tag "Primary Phone: " %>
+    <%= text_field_tag 'phone1', @phone1 %><br>
+    <%= label_tag "Secondary Phone: " %>
+    <%= text_field_tag 'phone2', @phone2 %><br>
+    <%= submit_tag "Save", :class => "submit_button" %>
   <% end %>
-<article class="title"><span>Update your profile</span></article>
-<%= form_tag(:action => "doUpdate") do %>
-  <%= label_tag "IP: " %>
-  <%= text_field_tag 'id', @ip %><br>
-  <%= label_tag "Company Name: " %>
-  <%= text_field_tag 'companyname', @comp_name %><br>
-  <%= label_tag "Username/Login: " %>
-  <%= text_field_tag 'username', @user_name %><br>
-  <%= label_tag "Password: " %>
-  <%= password_field_tag 'password', @password %><br>
-  <%= label_tag "First Name: " %>
-  <%= text_field_tag 'first_name', @first_name %><br>
-  <%= label_tag "Last Name: " %>
-  <%= text_field_tag 'last_name', @last_name %><br>
-  <%= label_tag "Email: " %>
-  <%= text_field_tag 'email', @e_mail %><br>
-  <%= label_tag "Primary Phone: " %>
-  <%= text_field_tag 'phone1', @phone1 %><br>
-  <%= label_tag "Secondary Phone: " %>
-  <%= text_field_tag 'phone2', @phone2 %><br>
-  <%= submit_tag "Save", :class => "submit_button" %>
-<% end %>
-</div>
+  </div>
+<%end%>

@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
   end
 
   def accountInfo
-    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{params[:i_account]}'}"
+    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
     @result = apiRequest(url)
   end
 
@@ -71,8 +71,8 @@ class AccountsController < ApplicationController
     @first_name = @result["account_info"]["firstname"]
     @last_name = @result["account_info"]["lastname"]
     @e_mail = @result["account_info"]["subscriber_email"]
-    @phone1 = @result["account_info"]["phone1"].gsub(/[^0-9]/, "")  # remove non-numeric characters
-    @phone2 = @result["account_info"]["phone2"].gsub(/[^0-9]/, "")
+    @phone1 = @result["account_info"]["phone1"].to_s.gsub(/[^0-9]/, "")  # remove non-numeric characters
+    @phone2 = @result["account_info"]["phone2"].to_s.gsub(/[^0-9]/, "")
     @ip = @result["account_info"]["id"]
   end
 

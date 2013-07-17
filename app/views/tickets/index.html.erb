@@ -1,34 +1,38 @@
-<% if flash[:error] %>
-<div class="error"><%= flash[:error] %></div>
-<% elsif flash[:notice] %>
-<div class="notice"><%= flash[:notice] %></div>
+<% if session[:admin] != true %>
+  <% if flash[:error] %>
+  <div class="error"><%= flash[:error] %></div>
+  <% elsif flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
+
+
+  <h1>Listing tickets</h1>
+
+  <table>
+    <tr>
+      <th>Submitted</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.created_at %></td>
+      <td><%= truncate(ticket.title, length: 40) %></td>
+      <td><%= truncate(ticket.body, length: 50) %></td>
+      <td><%= link_to 'View ticket', ticket %></td>
+      <% if ticket.responded_to == true %>
+      <td><%= link_to 'Show responses', :id => ticket.id, action: "viewResponses" %></td>
+      <% else %>
+      <td></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+  <%if session[:admin] != true %>
+    <%= button_to "Submit new ticket", new_ticket_path %>
+  </br>
+  <% end %>
 <% end %>
-
-
-<h1>Listing tickets</h1>
-
-<table>
-  <tr>
-    <th>Submitted</th>
-    <th>Title</th>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tickets.each do |ticket| %>
-  <tr>
-    <td><%= ticket.created_at %></td>
-    <td><%= truncate(ticket.title, length: 40) %></td>
-    <td><%= truncate(ticket.body, length: 50) %></td>
-    <td><%= link_to 'View ticket', ticket %></td>
-    <% if ticket.responded_to == true %>
-    <td><%= link_to 'Show responses', :id => ticket.id, action: "viewResponses" %></td>
-    <% else %>
-    <td></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
