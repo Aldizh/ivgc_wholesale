@@ -22,28 +22,6 @@ class AccountsController < ApplicationController
   end
 
   def viewCDR
-    # tmp should be a hash of date_select
-    if params['to']
-      @to_date = Time.new(*params['to'].split('-'))
-    else
-      @from_date = Time.now - 1.days
-    end
-    if params['from']
-      @from_date = Time.new(*params['from'].split('-'))
-    else
-      @to_date = Time.now
-    end
-
-    @from_date_str = @from_date.strftime("%Y-%m-%d") + ' 00:00:00'
-    @to_date_str = @to_date.strftime("%Y-%m-%d") + ' 23:59:59'
-
-
-    url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'#{@from_date_str}','to_date':'#{@to_date_str}'}"
-    @calls = apiRequest(url)["xdr_list"]
-  end
-
-  def viewCDR
-    # tmp should be a hash of date_select
     if !params['page'].nil?
       @page = params['page'].to_i
     else

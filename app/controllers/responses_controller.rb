@@ -27,6 +27,14 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
+        @ticket = Ticket.where(:id => @response.ticket_id)[0]
+        @ticket.update_attributes(:responded_to => true)
+        puts "@@@@@@@@@@@@@@@"
+        puts @ticket.inspect
+        #puts @ticket.responded_to
+        puts @ticket.methods
+        #@ticket(:reponded_to => true#.responded_to = true
+        #@ticket.save
         format.html { redirect_to '/responses' }
       else
         format.html { render action: "new" }
