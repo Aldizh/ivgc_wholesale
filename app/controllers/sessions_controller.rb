@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       if result['account_info']['login'] == 'wesley123456'
         @@admin = true
         session[:admin] = true
+        flash[:notice] = "You are now logged in as an admin!"
         return redirect_to '/admin/index'
       end
     end
