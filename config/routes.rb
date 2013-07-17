@@ -1,5 +1,8 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "admin/accountInfo"
+  post "admin/accountTerminate"
+  get "admin/accountList"
   post "admin/viewTickets"
   get "admin/viewTickets"
   get "admin/index"  
@@ -24,12 +27,10 @@ IVGCWholeSale::Application.routes.draw do
   get "accounts/manageIP"
   get "accounts/viewCDR"
   post "accounts/formatDate"
-  get "accounts/accountTerminate"
-  get "accounts/accountInfo"
-  get "accounts/accountList"
   get "accounts/updateAccount"
   get "accounts/doUpdate"
   post "accounts/doUpdate"
+  get "accounts/accountInfo"
   get "accounts/index"
 
   get "signups/signUp"
