@@ -1,5 +1,11 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "admin/viewTickets"
+  get "admin/index"  
+  resources :admin, :only => [:index]
+
+  post "/responses/new"
+  resources :responses
   resources :tickets
 
   post "accounts/paymentConfirm"

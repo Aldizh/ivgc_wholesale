@@ -22,7 +22,11 @@
 			<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
 			<li><%= link_to "Add Credits", "/accounts/addCredits" %></li>
 			<li><%= link_to "View CDR", "/accounts/viewCDR" %></li>
-			<li><%= link_to "Submit Tickets", "/tickets/new" %></li>
+			<%if session[:admin] == true %>
+				<li><%= link_to "View Tickets", "/admin/viewTickets" %></li>
+			<%else%>
+				<li><%= link_to "Submit Tickets", "/tickets/new" %></li>
+			<%end%>
 		</ul>
 	</nav>
 <%end%>

@@ -9,12 +9,18 @@ class SessionsController < ApplicationController
 
     url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session2}'}/{'i_customer':'1552','login':'#{login}'}"
     result = apiRequest(url)
-
+    @@admin = false
+    session[:admin] = false
     if !result.empty? and (pw == result["account_info"]["h323_password"])
       reset_session
       session[:current_login] = login
       session[:current_pw] = pw
       session[:i_account] = result["account_info"]["i_account"]
+      if result['account_info']['login'] == 'wesley123456'
+        @@admin = true
+        session[:admin] = true
+        return redirect_to '/admin/index'
+      end
     end
 
     if session[:current_login]

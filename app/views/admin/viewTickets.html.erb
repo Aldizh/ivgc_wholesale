@@ -6,6 +6,7 @@
     <th>Title</th>
     <th>Body</th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @tickets.each do |ticket| %>
@@ -14,6 +15,8 @@
     <td><%= ticket.title %></td>
     <td><%= ticket.body %></td>
     <td><%= link_to 'Show', ticket %></td>
+    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Respond', :id => ticket.id, :controller => "responses", :action => "new" %></td>
   </tr>
 <% end %>
 </table>

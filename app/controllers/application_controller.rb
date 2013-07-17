@@ -1,7 +1,23 @@
 require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
+  @@admin = false
+  begin
+      @@admin
+  rescue
+      @@admin == false
+  end
+  
+  def validateAdmin
+    begin
+      @@admin
+    rescue
+      return redirect_to root_path
+    end
+    if @@admin == false
+      return redirect_to root_path
+    end
+  end
 
   def get_new_session
     url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'ivgc123'}"

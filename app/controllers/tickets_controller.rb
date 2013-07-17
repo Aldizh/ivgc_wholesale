@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   before_filter :validateLoggedIn
 
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.where(:owner => session[:current_login])
   end
 
   def show
@@ -21,7 +21,6 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(params[:ticket])
     @ticket.owner = session[:current_login]
-
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to '/tickets' }
