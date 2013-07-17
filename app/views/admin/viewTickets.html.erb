@@ -1,10 +1,19 @@
 <h1>Listing tickets</h1>
 
+<%= form_tag(:action => 'viewTickets') do %>
+  Owner: 
+  <%= text_field_tag "owner", @ownerFilter %><br>
+  Responded_to
+  <%= select :display, :responded_to, options_for_select([["all", "all"], ["yes", "yes"],["no","no"]], @displayFilter) %><br>
+  <%= submit_tag "Filter" %>
+<% end %>
+
 <table>
   <tr>
     <th>Owner</th>
     <th>Title</th>
     <th>Body</th>
+    <th>Status</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,6 +23,11 @@
     <td><%= ticket.owner %></td>
     <td><%= truncate(ticket.title, length: 40) %></td>
     <td><%= truncate(ticket.body, length: 60) %></td>
+    <% if ticket.responded_to == true %>
+    <td>Responded to already</td>
+    <% else %>
+    <td>No responses yet</td>
+    <% end %>
     <td><%= link_to 'Show', ticket %></td>
     <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <td><%= link_to 'Respond', :id => ticket.id, :controller => "responses", :action => "new" %></td>

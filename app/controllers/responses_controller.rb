@@ -17,8 +17,6 @@ class ResponsesController < ApplicationController
   def new
      @response = Response.new
      session[:id] = params[:id]
-     puts "sesss"
-     puts session[:id]
   end
 
   def create
@@ -29,12 +27,6 @@ class ResponsesController < ApplicationController
       if @response.save
         @ticket = Ticket.where(:id => @response.ticket_id)[0]
         @ticket.update_attributes(:responded_to => true)
-        puts "@@@@@@@@@@@@@@@"
-        puts @ticket.inspect
-        #puts @ticket.responded_to
-        puts @ticket.methods
-        #@ticket(:reponded_to => true#.responded_to = true
-        #@ticket.save
         format.html { redirect_to '/responses' }
       else
         format.html { render action: "new" }
