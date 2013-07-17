@@ -1,5 +1,6 @@
 IVGCWholeSale::Application.routes.draw do
 
+  post "admin/viewTickets"
   get "admin/viewTickets"
   get "admin/index"  
   resources :admin, :only => [:index]
