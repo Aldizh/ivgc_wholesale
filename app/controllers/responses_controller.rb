@@ -21,14 +21,10 @@ class ResponsesController < ApplicationController
 
   def edit
     @response = Response.find(params[:id])
-    puts "RESSSS"
-    puts @response.inspect
   end
 
   def update
     @response = Response.find(params[:id])
-    puts "ugdsgfad"
-    puts @response.inspect
     respond_to do |format|
       if @response.update_attributes(params[:response])
         format.html { redirect_to @response, notice: 'Response was successfully updated.' }
@@ -43,7 +39,6 @@ class ResponsesController < ApplicationController
   def create
     @response = Response.new(params[:response])
     @response.ticket_id = session[:id]
-
     respond_to do |format|
       if @response.save
         @ticket = Ticket.where(:id => @response.ticket_id)[0]

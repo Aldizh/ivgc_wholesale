@@ -99,23 +99,20 @@ class ApplicationController < ActionController::Base
   end
 
   def apiRequest(url)
-    puts "@@@@ API REQUEST@@@@@@@@@@@@@@"
-    puts url.gsub("'", '"')
+    #puts "@@@@ API REQUEST@@@@@@@@@@@@@@"
     uri = uriEncoder(url)
     request = RestClient::Request.new(
       method: :post,
       url: uri,
       headers: { :accept => :json, :content_type => :json})
     begin
-      puts "@@@@@ API RESPONSE @@@@"
+      #puts "@@@@@ API RESPONSE @@@@"
       response = request.execute
-      puts ActiveSupport::JSON.decode(response)
+      #puts ActiveSupport::JSON.decode(response)
       return ActiveSupport::JSON.decode(response)
     rescue Exception => e
-      puts "@@@@@ API RESCUE @@@@@"
       raise e.inspect
     end
-    #return ActiveSupport::JSON.decode(response)
   end
 
   def validateLoggedIn
@@ -173,8 +170,6 @@ def validate_login(login)
   end
   
   def validate_email(email)
-    #We should validate the email with regex 
-    # taken from http://railscasts.com/episodes/219-active-model?view=asciicast
     email_re = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
     regex = email_re.match(email)
     if email.length() < 6 or regex.nil?
