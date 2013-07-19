@@ -1,13 +1,19 @@
 require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  helper_method :url_for
+  
   @@admin = false
   begin
       @@admin
   rescue
       @@admin == false
   end
-  
+
+  def default_url_options(options)
+   { :only_path => false, :port => 80 }
+  end
+
   def validateAdmin
     begin
       @@admin
@@ -214,5 +220,4 @@ def validate_login(login)
       return true
     end
   end
-
 end
