@@ -1,15 +1,7 @@
-$ciao_red: #dd0000; 
-
-
-
-.signup_message {
-	font-family: Georgia, serif;
-	font-size: 1.7rem;
-	font-weight: bold;
+h3 {
+	font-weight: 300;
 	text-align: center;
-	margin-top: 10px;
 }
-
 #country_code input[type="text"] {
 	width: 40px;
 	float: left;
@@ -20,3 +12,11 @@ $ciao_red: #dd0000;
 #phone input[type="text"] {
     width: 177px;
  }
+#sign_up_btn {
+	background-color: #3498db;
+	display: inline-block;
+	margin: 20px 0 20px 90px;
+}
+#sign_up_btn:hover {
+	background-color: green;
+}
