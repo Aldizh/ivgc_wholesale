@@ -1,9 +1,12 @@
+<div class="content_wrapper">
+<h2>Manage your IP Addressess</h2>
+<p style="text-align: center;">*You can add upto three IP Addresses</p>
 <% if session[:admin] != true %>
 	<% if @result["alias_list"] %>
-		<table class = "ip_list">
+		<table id = "ip_list">
 			<thead>
 			  <tr>
-			    <th> IP </th>
+			    <th>IP Addresses</th>
 			    <th> </th>
 			  </tr>
 			</thead>
@@ -12,17 +15,22 @@
 			<% @result["alias_list"].each do |r| %>
 			    <tr>
 			      <td><%= r["id"] %> </td>
-			      <td><%= link_to "Delete", :id => r["id"], :action => "deleteIP" %></td>
+			      <td><span><%= link_to "Delete", :id => r["id"], :action => "deleteIP" %></span></td>
 			    </tr>
 			<% end %>
 			</tbody>
-		</table><br>
+		</table>
 	<%end%>
+
 	<% if @result["alias_list"].size < 2 %> 
-		<%= form_tag(:action => "updateIP") do %>
-		  <%= label_tag "IP: " %>
-		  <%= text_field_tag 'ip'%>
-		  <%= submit_tag "Save", :class => "submit_button" %>
-		<% end %>
+		<div id="add_ip_field">
+			<%= form_tag(:action => "updateIP") do %>
+				<strong>Enter IP:</strong>
+			 	<%= text_field_tag 'ip'%>
+			  	<%= submit_tag "Add", :class => "common_btn sub_common_btn", :id => "add_ip_btn" %>
+			<% end %>
+		</div>
 	<%end%>
+
 <% end %>
+</div>

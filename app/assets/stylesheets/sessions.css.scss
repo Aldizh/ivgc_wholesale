@@ -7,3 +7,74 @@
   color: green;
   font-weight: bold;
 }
+
+#slide_show {
+	height: 270px;
+	margin-top: 5px;
+	background-color: #600;
+	border: 1px solid CCC;
+}
+
+
+#left_section_home, #right_section_home {
+	width: 380px;
+	text-align: justify;
+	margin-bottom: 20px;
+}
+#right_section_home header {
+	background-image: url('icon_globe_1.png');
+	padding-left: 50px;
+	letter-spacing: 2.3px;
+}
+#left_section_home header {
+	background-image: url('icon_globe_1.png');
+	padding-left: 50px;
+	letter-spacing: 1.5px;
+}
+#right_section_home header, #left_section_home header{
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-top: 10px;
+	height: 40px;
+	margin-top: 10px;
+	font-size: 1.4rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-family: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, "Lucida Grande", sans-serif; 
+	border-bottom: 1px solid #E60000;
+}
+#left_section_home article, #right_section_home article {
+	border: 1px red solid;
+	width: 100%;
+	margin: auto;
+	background-image: url('signup_now_bg.png');
+	background-repeat: repeat-x;
+	height: 30px;
+	text-align: center;
+	display: block;
+}
+#left_section_home article a, #right_section_home article a {
+	color: #FFF;
+	font-size: 1.3rem;
+	letter-spacing: 3px;
+}
+#left_section_home article:hover, #right_section_home article:hover {
+	background-image: url('signup_now_bg_hover.png');	
+}
+#left_section_home, #right_section_home {
+	ul {
+		    margin: 20px 0;
+		    list-style: none;
+		li {
+			/*margin: 0;
+			padding: 0;
+			list-style-image: url('list_icon_for_home_page.png');
+			*/
+			background-image: url('list_icon_for_home_page.png');
+    		background-repeat: no-repeat; 
+    		background-position: left top;
+    		margin: 1.00em 0 0 -30px;
+    		padding: 0 0 0 30px;
+		}
+	}
+}

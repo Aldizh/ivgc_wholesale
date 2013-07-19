@@ -1,20 +1,24 @@
-<% if session[:admin] != true %>
-	<% if flash[:notice] %>
-	    <div class="notice" style="margin-bottom: 15px;" >
-	      <%= flash[:notice] %>
-	    </div>
-	<%end%>
-	<% if flash[:error] %>
-	    <div class="error" style="margin-bottom: 15px;" >
-	      <%= flash[:error] %>
-	    </div>
-	<%end%>
-	<%= form_tag(:action => "addCreditsSubmit") do %>
-	  <%= label_tag "Amount: " %>
-	  <%= number_field_tag 'amount' %><br>
-	  <%= submit_tag "Add", :class => "add_credit_btm" %>
-	<% end %>
-<% end %>
-
+<div class="content_wrapper">
+	<h2>Add credits to your account</h2>
+		<% if session[:admin] != true %>
+			<% if flash[:notice] %>
+			    <div class="notice" style="margin-bottom: 15px;" >
+			      <%= flash[:notice] %>
+			    </div>
+			<%end%>
+			<% if flash[:error] %>
+			    <div class="error" style="margin-bottom: 15px;" >
+			      <%= flash[:error] %>
+			    </div>
+			<%end%>
+			<div id="add_credit_block">
+				<%= form_tag(:action => "addCreditsSubmit") do %>
+				  <%= label_tag "Amount: " %>
+				  <%= number_field_tag 'amount' %>
+				  <%= submit_tag "Add", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+				<% end %>
+		<% end %>
+</div>
+</div>
  <%#= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "accounts/payment" %>
 

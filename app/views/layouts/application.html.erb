@@ -2,47 +2,91 @@
 <html>
 <head>
   <title>IVGC Voip Wholesale Platform</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "nivo-slider", :media => "screen" %>
+  <%= stylesheet_link_tag "themes/default/default", :media => "screen" %>
+  <%= stylesheet_link_tag "themes/light/light", :media => "screen" %>
+  <%= stylesheet_link_tag "themes/dark/dark", :media => "screen" %>
+  <%= stylesheet_link_tag "themes/bar/bar", :media => "screen" %>
+
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<header>
-	<h1>
-		<%= link_to image_tag("ivgc_logo.png"), root_path %></h1>
-	<p>VOIP Wholesale</p>
-</header>
-<% if session[:current_login] %>
-	<section class="logout_link"><%= link_to "Log out", '/sessions/destroy', :class => 'logout_link' %></section>
-	<nav class="main_menu">
-		<ul>
-			<%if session[:admin] == true %>
-				<li><%= link_to "View Tickets", "/admin/viewTickets" %></li>
-			    <li><%= link_to "View Responses", "/responses" %></li>
-				<li><%= link_to "See account lists", "/admin/accountList" %></li>
-			<%else%>
-				<li><%= link_to "Account Overview", '/accounts/accountInfo' %></li>
-				<li><%= link_to "Update your account", "/accounts/updateAccount" %></li>
-				<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
-				<li><%= link_to "Add Credits", "/accounts/addCredits" %></li>
-				<li><%= link_to "View CDR", "/accounts/viewCDR" %></li>
-				<li><%= link_to "Tickets", "/tickets" %></li>
-			<%end%>
-		</ul>
-	</nav>
-<%end%>
-<%= yield %>
+<header id="banner"> <!-- The top header section where we have the logos, login panel and the main menus -->
+		<span id="title"><h1><%= link_to image_tag("ivgc_logo.png", border: "0"), root_path %></h1></span> <!-- MAIN TITLE -->
+		<span id="login_and_nav_wrapper">	
+			<% if !session[:current_login] %>
+				<section id="login_panel_main" class="login_signout_panel"> <!-- The login panel that appears on the top right corner of the page -->
+					<% if flash[:error] %>
+					  <span class="error" id="error-login-home" >
+					    <%= flash[:error] %>
+					  </span>
+					<% end %>
+					<%= form_tag sessions_path do %>
+					    <%= text_field_tag :username, nil, :placeholder =>'username', class: "feedback-input", id: "username_home" %>
+					    <%= password_field_tag :password, nil, :placeholder =>'password', class: "feedback-input", id: "password_home" %>
+  						<%= submit_tag "Login", id: "btn-login", class: "common_btn" %>
+					<% end %>
+				</section>
+			<% else %>
+				<section id="signout_panel_main" class="login_signout_panel">
+					Welcome, you are logged in as <span><%= session[:current_login] %></span>
+					<%= link_to 'LOGOUT', '/sessions/destroy' %>
+				</section>
+			<% end %>
 
-<footer>
-	<nav>
-		<ul>
-			<li><%= link_to "About", "#" %></li>
-			<li><%= link_to "Disclaimer", "#" %></li>
-			<li><%= link_to "Contact Us", "#" %></li>
-			<li><%= link_to "Copyrights", "#" %></li>
-		</ul>
-	</nav>
-</footer>
+			<nav id="main_navs"> <!-- The main menu -->
+				<ul>
+					<li><a href="#">home</a></li>
+					<li><a href="#">about us</a></li>
+					<li><a href="#">services</a></li>
+					<li><a href="#">rates</a></li>
+					<li><a href="#">contact us</a></li>
+				</ul>
+			</nav>
+		<span>
+	</header>
+	<div id="main_wrapper">
+		<% if session[:current_login] %>
+			<nav class="users_menu">
+				<ul>
+					<%if session[:admin] == true %>
+						<li><%= link_to "View Tickets", "/admin/viewTickets" %></li>
+					    <li><%= link_to "View Responses", "/responses" %></li>
+						<li><%= link_to "See account lists", "/admin/accountList" %></li>
+					<%else%>
+						<li><%= link_to "Account Overview", '/accounts' %></li>
+						<li><%= link_to "Update your account", "/accounts/updateAccount" %></li>
+						<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
+						<li><%= link_to "Add Credits", "/accounts/addCredits" %></li>
+						<li><%= link_to "View CDR", "/accounts/viewCDR" %></li>
+						<li><%= link_to "Tickets", "/tickets" %></li>
+					<%end%>
+				</ul>
+			</nav>
+		<%end%>
+
+		<%= yield %>
+
+		<footer>
+			<nav>
+				<ul>
+					<li><%= link_to "Powered by Ciao Telecome, INC. USA", "#" %></li>
+				</ul>
+			</nav>
+		</footer>
+	</div>
+
+
+
+<%= javascript_include_tag "jquery-1.9.0.min" %>
+<%= javascript_include_tag "jquery.nivo.slider" %>
+<script type="text/javascript">
+  $(window).load(function() {
+    $('#slider').nivoSlider();
+  });
+</script>
 
 </body>
 </html>

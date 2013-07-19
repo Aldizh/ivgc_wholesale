@@ -1,24 +1,31 @@
-<% if flash[:error] %>
-  <div class="error" >
-    <%= flash[:error] %>
+  <div class="slider-wrapper theme-default">
+    <div id="slider" class="nivoSlider">
+      <%= image_tag("slide1.jpg") %>
+      <%= image_tag("slide2.jpg") %>
+      <%= image_tag("slide3.jpg") %>
+      <%= image_tag("slide4.jpg") %>
+    </div>
   </div>
-<% end %>
-<% if flash[:notice] %>
-  <div class="error" >
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-<div class="common_form" id="login_panel">
-  <article class="title"><span>Login Panel</span></article>
-  <%= form_tag sessions_path do %>
-    <%= label_tag :username %>
-    <%= text_field_tag :username, params[:username] %><br />
-    <%= label_tag :password %>
-    <%= password_field_tag :password %><br />
-  <%= submit_tag "Login", :class => "submit_button" %>
-  <% end %>
-  <div id="signup_link_from_login_page">
-    Don't have an account yet?
-    <%= link_to "Sign up here", signups_path %>
-  </div>
+<div class="left_section" id="left_section_home">
+  <section>
+    <header>VOIP Reseller Services</header>
+    <ul>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+    </ul>
+    <article><%= link_to "sign up now", "#" %></article>
+  </section>
+</div>
+
+<div class="right_section" id="right_section_home">
+  <section>
+    <header>Wholesale A-Z Routes</header>
+    <ul>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+      <li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+    </ul>
+    <article><%= link_to "sign up now", "#" %></article>
+  </section>
 </div>

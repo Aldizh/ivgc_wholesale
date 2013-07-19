@@ -1,9 +1,29 @@
-<% if flash[:notice] %>
-  <div class="notice" >
-    <%= flash[:notice] %>
-  </div>
-<% end %>
+<div class="content_wrapper" style="text-align: left;">
 <% if session[:admin] == true %>
   <p><strong>You are now logged in as an admin!</p></strong>
 <%end%>
-<p>Welcome to IVGC Wholesale Panel </p>
+
+<section id="account_overview">
+<h2 >Account Overview</h2>
+<table>
+	<tbody>
+		<tr>
+			<td><strong><%= "Login:" %></strong></td>
+			<td><%= @result["account_info"]["login"] %></td>
+		</tr>
+		<tr>
+			<td><strong><%= "Account balance:" %></strong></td>
+			<td><%= @result["account_info"]["balance"] %></td>
+		</tr>
+		<tr>
+			<td><strong><%= "Email: " %></strong></td>
+			<td><%= @result["account_info"]["subscriber_email"] %></td>
+		</tr>
+		<tr>
+			<td><strong><%= "Your primary IP: " %></strong></td>
+			<td><%= @result["account_info"]["id"] %></td>
+		</tr>
+	</tbody>
+</table>
+</section>
+</div>

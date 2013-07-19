@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     result = apiRequest(url)
     @@admin = false
     session[:admin] = false
-    if !result.empty? and (pw == result["account_info"]["h323_password"])
+    if !result.empty? and (pw == result["account_info"]["password"])
       reset_session
       session[:current_login] = login
       session[:current_pw] = pw

@@ -16,47 +16,201 @@ $ciao_red: #D00;
 $footer_grey: #AAA;
 
 html {
-	font-size: 62.5%;
 }
 
 body {
-	background-color: white;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 1.2rem;
+	width: 100%;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 300;
+   	font-size: 1.0rem;
+   	line-height: 1.4;
+   	margin-top: 5px;
+   	background-color: #FFF;
 }
-
 a {
-	text-decoration: none;
-	&:hover {
-		text-decoration: underline;
-	}
-}
-header {
-	/*background-image: url("/assets/header_bg.jpg");*/
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	color: white;
-	padding: 20px;
-	border-bottom: 3px solid darken($ciao_red, 15%);
-	background-color: lighten($footer_grey, 25%);
-	h1 {
-		font-weight: lighter;
-	}
-	p {
-		font-size: 16px;
-		color: darken($ciao_red, 20%);
-		font-weight: bold;
-	}
+	text-decoration: none;	
+	color: #000;
 }
 
-.logout_link {
-	background-color: $ciao_red;
-	color: white;
+#error-login-home {
+	color: yellow;
+	font-size: 65%;
+	position: absolute;
+	top: 5px;
+}
+header#banner {
+	height: 100px;
+	color: #FFF;
+	width: 800px;
+	margin: auto;
+	background-image: url('header_bg.png');
+	background-repeat: repeat-y;
+	background-position: right;
+}
+h1, h2 {
+	padding: 0;
+	margin: 0;
+	font-weight: 300;
+}
+span#title {
+	display: inline-block;
+	float: left;
+	img {
+		border: none;
+	}
+}
+span#login_and_nav_wrapper {
+	display: inline-block;
+	float: right;
+}
+.login_signout_panel {
+	margin: 30px 10px 0 10px ;
+}
+.feedback-input {
+	color:#000;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	border-radius: 2px;
+	line-height: 22px;
+	background-color: #fbfbfb;
+	padding: 2px 2px 2px 30px;
+	margin-bottom: 0;
+	width:160px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+  border: 2px solid rgba(0,0,0,0);
+}
+
+.feedback-input:focus{
+	background: #fff;
+	box-shadow: 0;
+	color: #600;
+	outline: none;
+}
+#username_home {
+	background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+	background-size: 17px 17px;
+	background-position: 5px 2px;
+	background-repeat: no-repeat;
+}
+#username_home:focus {
+	background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);	
+}
+#username_home, #username_home:focus {
+	background-size: 17px 17px;
+	background-position: 5px 2px;
+	background-repeat: no-repeat;
+}
+#password_home {
+	background-image: url('icon_lock.png');
+}
+#password_home:focus{
+	background-image: url('icon_lock.png');
+}
+#password_home, #password_home:focus {
+	background-size: 15px 15px;
+	background-position: 5px 2px;
+	background-repeat: no-repeat;
+}
+#signout_panel_main {
+	margin-left: 110px;
+	font-size: 80%;
+	font-weight: light;
+}
+#signout_panel_main span {
+	font-weight: bold;
+	color: yellow;
+}
+.common_btn, #signout_panel_main a {
 	width: 60px;
-	padding: 5px;
-	margin: 3px 0;
+	border-radius: 2px;
+	border: #CCC solid 1px;
+	cursor: pointer;
+	color: white;
+	font-size: 12px;
+	padding: 3px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.sub_common_btn {
+	background-color: #3498db;
+	height: 30px;
+	border-radius: 3px;
+	&:hover {
+		background-color: green;
+	}
+}
+#btn-login {
+	background-color: #3498db;
+}
+#signout_panel_main a {
+	background-color: green;
+}
+#btn-login:hover {
+	background-color: green;
+}
+#signout_panel_main a:hover {
+	background-color: #3498db;
+}
+	
+.submit:hover {
+	color: #3498db;
+}
+nav#main_navs {
+	margin-top: 20px;
+	text-transform: capitalize;
+	letter-spacing: 1px;
 }
 
-.main_menu {
+nav#main_navs ul {
+	margin: 0;
+	padding: 0;
+}
+nav#main_navs ul li {
+	list-style-type: none;
+	display: inline-block;
+}
+nav#main_navs ul li a {
+	color: #FFF;
+	font-weight: 400;
+	padding: 5px;
+}
+nav#main_navs ul li a:hover {
+	text-decoration: underline;
+}
+#main_wrapper {
+	width: 800px;
+	margin: auto;
+}
+.content_wrapper {
+	background-color: lighten(#CCC, 10%);
+	border-radius: 3px;
+	padding: 10px;
+	text-align: center;
+}
+
+/* SOME COMMON STYLES - BETTER BE HERE LOL! */
+
+.left_section, .right_section {
+	text-align: justify;;
+}
+.left_section li, .right_section li {
+	padding: 3px 0;
+}
+.left_section {
+	float: left;
+}
+.right_section {
+	float: right;
+}
+
+.users_menu {
+	margin: 0 20px;
+	padding:10px 0 5px 0;
+	font-size: 90%;
 	ul {
 		padding: 0;
 		margin: 0;
@@ -64,10 +218,104 @@ header {
 			list-style-type: none;
 			display: inline-block;
 			padding: 3px 5px;
-			border: 1px $ciao_red solid;
+			a {
+				font-weight: 300;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
 		}
 	}
 }
+.common_form {
+	width: 250px;
+	margin: auto;
+	margin-top: 20px;
+	text-transform: uppercase;
+
+	input {
+		display: block;
+	}
+	.title {
+		width: 100%;
+		height: 35px;
+		background-color: darken($ciao_red, 10%);
+		text-align: center;
+		border-radius:3px 3px 0 0;
+   		padding-top:10px;
+   		color: white;
+   		margin-bottom: 20px;
+	}
+
+	.title:after {
+		content:'';
+		border-top: 10px solid darken($ciao_red, 10%);
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		display: block;
+		position: absolute;
+		margin: 35px 0 0 15px;
+	}
+	.title  span {
+		position:absolute;
+		display:block;
+		margin-left: 40px;
+	}
+
+	label {
+		text-align: justify;
+		margin-left: 5px;
+		padding: 5px 0;
+	}
+
+	input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+		padding: 5px;
+		outline: none;
+		width: 235px;
+		height: 20px;
+		border: 1px solid #CCC;
+		border-radius: 5px;
+		color: darken($ciao_red, 10%);
+		font-size: 12px;
+		transition: linear 0.4s;
+	}
+}
+footer {
+	height: 40px;
+	width: 800px;
+	margin-top: 10px;
+	font-size: 0.7rem; 
+	text-align: center;
+	padding-top: 2px;
+
+	li {
+		list-style-type: none;
+	}
+}
+.prev_link, .next_link {
+		font-size: 80%;
+		font-weight: bold;
+	}
+.prev_link {
+	float: left;
+}
+.next_link {
+	float: right;
+}
+table.list {
+	width: 100%;
+	th {
+		font-weight: 400;
+	}
+	td {
+		font-size: 80%;
+	}
+}
+
+
+
+
+
 
 .notice {
 	font-size: 1.0rem;
@@ -84,101 +332,9 @@ header {
 	margin-bottom: -10px;
 }
 
-.common_form {
-	width: 250px;
-	margin: auto;
-	margin-top: 20px;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	text-transform: uppercase;
-	font-size: 1.1rem;
 
-	input {
-		display: block;
-	}
-	.title {
-		width: 100%;
-		height: 35px;
-		background-color: darken($ciao_red, 10%);
-		text-align: center;
-		font-size: 1.4rem;
-		border-radius:3px 3px 0 0;
-   		padding-top:10px;
-   		color: white;
-   		margin-bottom: 20px;
-	}
 
-	.title:after {
-		content:'';
-		border-top: 10px solid darken($ciao_red, 10%);
-		border-left: 10px solid transparent;
-		border-right: 10px solid transparent;
-		display: block;
-		position: absolute;
-		margin:35px 0 0 15px;
-	}
-	.title  span {
-		position:absolute;
-		display:block;
-		margin-left:75px;
-	}
 
-	label {
-		text-align: justify;
-		margin-left: 5px;
-		padding:5px 0;
-	}
-
-	input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
-		padding: 5px;
-		outline: none;
-		width: 235px;
-		height: 20px;
-		border: 1px solid lighten($ciao_red, 40%);
-		border-radius: 5px;
-		color: darken($ciao_red, 10%);
-		font-size: 12px;
-		transition: linear 0.4s;
-	}
-
-	.submit_button {
-		display: inline-block;
-		cursor: pointer;
-		position: relative;
-		width: 100px;
-		height: 30px;
-		color: darken($ciao_red, 30%);
-		background-color: #EE8943;
-		border: none;
-		transition: text-shadow 0.3s ease;
-		text-transform: uppercase;
-		font-size: 1.6rem;
-		margin-left: 70px;
-		margin-bottom: 10px;
-
-		&:hover {
-			color: white;
-		}
-	}
-}
-
-footer {
-	background-color: $footer_grey;
-	padding: 10px;
-	ul {
-		margin: 0;
-		padding: 0;
-		li {
-			list-style-type: none;
-			display: inline-block;
-			a {
-				color: darken($ciao_red, 40%);
-				padding: 0 10px;
-				text-transform: uppercase;
-				font-size: 1.0rem/1.7;
-			}
-		}
-	}
-}
 
 table {
 	border-collapse: collapse;
@@ -186,9 +342,8 @@ table {
 	text-align: center;
 }
 th {
-	color: #FFF;
-	background-color: #FF0000;
-	text-transform: uppercase;
+	font-size: 1.0rem;
+	font-weight: 300;
 }
 th, td {
 	padding:5px;

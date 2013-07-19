@@ -1,3 +1,4 @@
+<div class="content_wrapper" style="text-align: left;">
 <% if session[:admin] != true %>
   <div class="common_form", id="update_form">
     <% if flash[:error] %>
@@ -11,7 +12,7 @@
     <%= text_field_tag 'id', @ip %><br>
     <%= label_tag "Company Name: " %>
     <%= text_field_tag 'companyname', @comp_name %><br>
-    <%= label_tag "Username/Login: " %>
+    <%= label_tag "Username: " %>
     <%= text_field_tag 'username', @user_name %><br>
     <%= label_tag "Password: " %>
     <%= password_field_tag 'password', @password %><br>
@@ -25,7 +26,8 @@
     <%= text_field_tag 'phone1', @phone1 %><br>
     <%= label_tag "Secondary Phone: " %>
     <%= text_field_tag 'phone2', @phone2 %><br>
-    <%= submit_tag "Save", :class => "submit_button" %>
+    <%= submit_tag "Save", :class => "common_btn", :id => "update_btn" %>
   <% end %>
   </div>
 <%end%>
+</div>

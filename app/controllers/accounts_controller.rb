@@ -4,6 +4,8 @@ class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
   def index
+    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
+    @result = apiRequest(url)
   end
 
   def viewCDR
@@ -42,11 +44,6 @@ class AccountsController < ApplicationController
       to_date_param = to_date.strftime("%Y-%m-%d")
     end
     redirect_to "/accounts/viewCDR?to=#{to_date_param}&from=#{from_date_param}"
-  end
-
-  def accountInfo
-    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
-    @result = apiRequest(url)
   end
 
   def updateAccount

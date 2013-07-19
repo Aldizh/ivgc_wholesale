@@ -1,3 +1,76 @@
 // Place all the styles related to the accounts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.notice {
+	font-size: 80%;
+	font-weight: 300;
+	color: green;
+	text-align: center;
+	margin-top: 10px;
+}
+#account_overview {
+	padding: 20px;
+	border-radius: 3px;
+}
+#account_overview table {
+	border: none;
+	td {
+		border: none;	
+	}
+}
+#update_btn {
+	background-color: #3498db;
+	display: inline-block;
+	margin-left: 90px;
+	margin-bottom: 20px;
+}
+#update_btn:hover {
+	background-color: green;
+}
+table#ip_list {
+	text-align: center;
+	margin: auto;
+	margin-bottom: 20px;
+	th {
+		background-color: darken(#CCC, 30%);
+		color: #FFF;
+		padding: 5px 10px;
+	}
+	td {
+		font-size: 90%;
+		span {
+			a {
+				color: red;
+			}
+		}
+	}
+}
+
+#add_ip_field, #add_credit_block {
+	text-align: center;	
+	margin: 5px 0 20px 0;
+	input[type="text"], input[type="number"] {
+		padding: 5px;
+		outline: none;
+		width: 165px;
+		height: 20px;
+		border: 1px solid #CCC;
+		border-radius: 5px;
+		color: darken(red, 10%);
+		font-size: 12px;
+		transition: linear 0.4s;
+	}
+}
+
+#add_credit_block {
+	margin-top: 20px;
+}
+#filter_cdr {
+	border: 1px lighten(#CCC, 0%%) solid;
+	padding: 0 0 10px 0;
+	border-radius: 5px;
+	margin: 20px 0;
+}
+section#cdr_block_wrapper {
+	
+}

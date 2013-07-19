@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
 
   def validateLoggedIn
     if not session[:current_login]
-      flash[:error] = "Please login to continue!"
+      flash[:warning] = "Please login to continue!"
       return redirect_to "/sessions/new"
     end
   end

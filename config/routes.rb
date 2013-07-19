@@ -30,7 +30,6 @@ IVGCWholeSale::Application.routes.draw do
   get "accounts/updateAccount"
   get "accounts/doUpdate"
   post "accounts/doUpdate"
-  get "accounts/accountInfo"
   get "accounts/index"
 
   get "signups/signUp"
