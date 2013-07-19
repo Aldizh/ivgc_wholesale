@@ -1,5 +1,13 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "contact_us/index"
+
+  get "rates/index"
+
+  get "services/index"
+
+  get "about_us/index"
+
   get "admin/accountInfo"
   post "admin/accountTerminate"
   get "admin/accountList"
@@ -35,10 +43,18 @@ IVGCWholeSale::Application.routes.draw do
   get "signups/signUp"
   post "signups/signUp"
 
+  get "contact_us/contactUs"
+  post "contact_us/contactUs"
+  get "contact_us/thanksForContacting"
+
   get "sessions/destroy"
   resources :sessions
   resources :accounts
   resources :signups
+  resources :about_us
+  resources :services
+  resources :rates
+  resources :contact_us
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -39,7 +39,7 @@ a {
 	top: 5px;
 }
 header#banner {
-	height: 100px;
+	height: 110px;
 	color: #FFF;
 	width: 800px;
 	margin: auto;
@@ -51,6 +51,13 @@ h1, h2 {
 	padding: 0;
 	margin: 0;
 	font-weight: 300;
+}
+h2 {
+	margin-top: 20px;
+}
+p {
+	text-align: justify;
+
 }
 span#title {
 	display: inline-block;
@@ -268,7 +275,7 @@ nav#main_navs ul li a:hover {
 		padding: 5px 0;
 	}
 
-	input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+	input[type="text"], input[type="password"], input[type="email"], input[type="tel"], textarea {
 		padding: 5px;
 		outline: none;
 		width: 235px;
@@ -278,6 +285,9 @@ nav#main_navs ul li a:hover {
 		color: darken($ciao_red, 10%);
 		font-size: 12px;
 		transition: linear 0.4s;
+	}
+	textarea {
+		height: 150px;
 	}
 }
 footer {

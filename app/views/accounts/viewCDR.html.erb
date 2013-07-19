@@ -2,7 +2,7 @@
   <h2>CDR (Call Detail Record)</h2>
   <% if session[:admin] != true %>
     <article id="filter_cdr">
-      <p> FILTER <p>
+      <p style="text-align: center;">FILTER</p>
       <%= form_tag(:action => 'formatDate') do %>
         <%= label_tag "From: " %>
         <%= date_select("viewCDR", "from_date", :default => @from_date, :order => [:day, :month, :year]) %>
