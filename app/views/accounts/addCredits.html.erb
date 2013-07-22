@@ -11,11 +11,14 @@
 			      <%= flash[:error] %>
 			    </div>
 			<%end%>
-			<div id="add_credit_block">
+			<div id="add_credit_block" style="text-align: left; margin: auto; width: 250px;">
 				<%= form_tag(:action => "addCreditsSubmit") do %>
 				  <%= label_tag "Amount: " %>
-				  <%= number_field_tag 'amount' %>
-				  <%= submit_tag "Add", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+				  <%= number_field_tag 'amount' %> <br><br>
+				  <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %> PAYPAL (and Credit Card)<br><br>
+				  <%= radio_button_tag 'payment', "bank", false, class: "radio_btn" %> BANK TRANSFER<br><br>
+				  <%= radio_button_tag 'payment', "wu", false, class: "radio_btn" %> WESTERN UNION<br><br>
+				  <%= submit_tag "Continue", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
 				<% end %>
 		<% end %>
 </div>

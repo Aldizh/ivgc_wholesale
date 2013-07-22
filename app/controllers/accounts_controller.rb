@@ -161,17 +161,33 @@ class AccountsController < ApplicationController
     
   end
 
-  def addCreditsSubmit
-    @amount = params[:amount].to_i*100
-    response = EXPRESS_GATEWAY.setup_purchase(@amount,
-    :ip                => getIP,
-    :return_url        => accounts_creditAdded_url,
-    :cancel_return_url => accounts_addCredits_url
-    )
-    session[:token] = response.token
-    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token) 
+  def addCreditsSubmit 
+    amount = params[:amount]
+    if (params[:payment] == "paypal") 
+      paypalPayment(amount)
+    elsif (params[:payment] == "bank") 
+      redirect_to "/accounts/bankTranfers"
+    elsif (params[:payment] == "wu")
+      redirect_to "/accounts/wuPayment"
+    end
+  end
+  def paypalPayment(amount) 
+      @amount = amount.to_i*100
+      response = EXPRESS_GATEWAY.setup_purchase(@amount,
+      :ip                => getIP,
+      :return_url        => accounts_creditAdded_url,
+      :cancel_return_url => accounts_addCredits_url
+      )
+      session[:token] = response.token
+      redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
 
+  def bankTranfers
+    
+  end
+  def wuPayment
+    
+  end
   def creditAdded
     details = EXPRESS_GATEWAY.details_for(session[:token])
     @first = details.params["first_name"]
