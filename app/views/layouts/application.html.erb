@@ -14,7 +14,7 @@
 </head>
 <body>
 <header id="banner"> <!-- The top header section where we have the logos, login panel and the main menus -->
-		<span id="title"><h1><%= link_to image_tag("ivgc_logo.png", border: "0"), root_path %></h1></span> <!-- MAIN TITLE -->
+		<span id="title"><h1><%= link_to image_tag("ivgc_logo1.png", border: "0"), root_path %></h1></span> <!-- MAIN TITLE -->
 		<span id="login_and_nav_wrapper">	
 			<% if !session[:current_login] %>
 				<section id="login_panel_main" class="login_signout_panel"> <!-- The login panel that appears on the top right corner of the page -->
@@ -56,7 +56,7 @@
 					    <li><%= link_to "View Responses", "/responses" %></li>
 						<li><%= link_to "See account lists", "/admin/accountList" %></li>
 					<%else%>
-						<li><%= link_to "Account Overview", '/accounts' %></li>
+						<li><%= link_to "Dashboard", '/accounts' %></li>
 						<li><%= link_to "Update your account", "/accounts/updateAccount" %></li>
 						<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
 						<li><%= link_to "Add Payment", "/accounts/addCredits" %></li>

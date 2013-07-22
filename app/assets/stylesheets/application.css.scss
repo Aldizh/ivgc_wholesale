@@ -39,7 +39,7 @@ a {
 	top: 5px;
 }
 header#banner {
-	height: 110px;
+	height: 120px;
 	color: #FFF;
 	width: 800px;
 	margin: auto;
@@ -167,7 +167,7 @@ span#login_and_nav_wrapper {
 	color: #3498db;
 }
 nav#main_navs {
-	margin-top: 20px;
+	margin-top: 30px;
 	text-transform: capitalize;
 	letter-spacing: 1px;
 }
@@ -202,10 +202,13 @@ nav#main_navs ul li a:hover {
 /* SOME COMMON STYLES - BETTER BE HERE LOL! */
 
 .left_section, .right_section {
-	text-align: justify;;
+	ul {
+		height: 180px;
+	}
 }
 .left_section li, .right_section li {
 	padding: 3px 0;
+	text-align: left;
 }
 .left_section {
 	float: left;
@@ -215,7 +218,7 @@ nav#main_navs ul li a:hover {
 }
 
 .users_menu {
-	margin: 0 20px;
+	margin: 0 20 0 0 px;
 	padding:10px 0 5px 0;
 	font-size: 90%;
 	ul {

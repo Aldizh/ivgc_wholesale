@@ -3,10 +3,18 @@
   <p><strong>You are now logged in as an admin!</p></strong>
 <%end%>
 
-<section id="account_overview">
-<h2 >Account Overview</h2>
+<section id="account_overview" class="summary_box">
+<h3>Account Overview</h3>
 <table>
 	<tbody>
+		<tr>
+			<td><strong><%= "Account Holder's Name:" %></strong></td>
+			<td><%= @result["account_info"]["firstname"] + " " + @result["account_info"]["lastname"] rescue nil %></td>
+		</tr>
+		<tr>
+			<td><strong><%= "Address:" %></strong></td>
+			<td><%= @result["account_info"]["baddr1"] rescue nil %></td>
+		</tr>
 		<tr>
 			<td><strong><%= "Login:" %></strong></td>
 			<td><%= @result["account_info"]["login"] %></td>
@@ -22,6 +30,71 @@
 		<tr>
 			<td><strong><%= "Your primary IP: " %></strong></td>
 			<td><%= @result["account_info"]["id"] %></td>
+		</tr>
+	</tbody>
+</table>
+</section>
+<section id="top5">
+	<section id="top5_minute" class="summary_box">
+		<h3>Top 5 Desitinations (Minutes)</h3>
+		<table>
+			<tr>
+				<td>India - Mobile</td>
+				<td> 107263 Minutes</td>
+			</tr>
+			<tr> 
+				<td>Pakistan - Mobile</td>
+				<td> 90872 Minutes</td>
+			</tr>
+			<tr>
+				<td>India - Airtel</td>
+				<td> 45332 Minutes</td>
+			</tr>
+			<tr> 
+				<td>USA - Mobile</td>
+				<td> 1234 Minutes</td>
+			</tr>
+		</table>
+	</section>
+	<section id="top5_cost" class="summary_box">
+		<h3>Top 5 Desitinations (Costs)</h3>
+		<table>
+			<tr>
+				<td>Pakistan - Mobile</td>
+				<td> 3920 USD</td>
+			</tr>
+			<tr> 
+				<td>India - Mobile</td>
+				<td> 2344 USD</td>
+			</tr>
+			<tr>
+				<td>Nepal - Mobile</td>
+				<td> 234 USD</td>
+			</tr>
+			<tr> 
+				<td>USA - Mobile</td>
+				<td> 100 USD</td>
+			</tr>
+		</table>
+	</section>
+</section>
+<section id="payment_history" class="summary_box">
+<h3>Payment History</h3>
+<table>
+	<thead>
+		<tr>
+			<th>Payment Date</th>
+			<th>Amount</th>
+			<th>Reference</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>July 22, 2013</td>
+			<td>100.00 USD</td>
+			<td>1234567890</td>
+			<td>Testing</td> 
 		</tr>
 	</tbody>
 </table>

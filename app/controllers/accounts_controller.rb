@@ -6,6 +6,8 @@ class AccountsController < ApplicationController
   def index
     url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
     @result = apiRequest(url)
+    puts "LISTTTTTTTTTT"
+    puts @result.inspect
   end
 
   def viewCDR
