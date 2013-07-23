@@ -22,6 +22,8 @@ IVGCWholeSale::Application.routes.draw do
   get "tickets/viewResponses"
   resources :tickets
 
+  post "accounts/wuPaymentSubmit"
+  get "accounts/wuPaymentSubmit"
   post "accounts/bankTransferSubmit"
   get "accounts/bankTransferSubmit"
   get "accounts/wuPayment"

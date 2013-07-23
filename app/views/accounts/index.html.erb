@@ -2,7 +2,16 @@
 <% if session[:admin] == true %>
   <p><strong>You are now logged in as an admin!</p></strong>
 <%end%>
-
+<% if flash[:notice] %>
+    <div class="notice" style="margin-bottom: 15px;" >
+      <%= flash[:notice] %>
+    </div>
+<%end%>
+<% if flash[:error] %>
+    <div class="error" style="margin-bottom: 15px;" >
+      <%= flash[:error] %>
+    </div>
+<%end%>
 <section id="account_overview" class="summary_box">
 <h3>Account Overview</h3>
 <table>
