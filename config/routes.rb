@@ -1,5 +1,7 @@
 IVGCWholeSale::Application.routes.draw do
 
+  get "voip_resellers/index"
+
   get "contact_us/index"
 
   get "rates/index"
@@ -61,6 +63,7 @@ IVGCWholeSale::Application.routes.draw do
   resources :services
   resources :rates
   resources :contact_us
+  resources :voip_resellers
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
