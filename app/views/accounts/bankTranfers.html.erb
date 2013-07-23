@@ -1,1 +1,9 @@
-BANK TRANSFER INFO WILL GO HERE
+<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
+	<%= form_tag(:action => "bankTransferSubmit") do %>
+	  <%= label_tag "Amount: " %><br>
+	  <%= number_field_tag 'amount', @amount %> <br><br>
+	  <%= label_tag "Confirmation: " %><br>
+	  <%= text_field_tag 'confirmation_number' %> <br><br>
+	  <%= submit_tag "Submit", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+	<% end %>
+</div>

@@ -1,4 +1,6 @@
 require 'socket'
+require 'mail'
+
 
 class AccountsController < ApplicationController
   before_filter :validateLoggedIn
@@ -162,9 +164,9 @@ class AccountsController < ApplicationController
   end
 
   def addCreditsSubmit 
-    amount = params[:amount]
+    session[:amount] = params[:amount]
     if (params[:payment] == "paypal") 
-      paypalPayment(amount)
+      paypalPayment(session[:amount])
     elsif (params[:payment] == "bank") 
       redirect_to "/accounts/bankTranfers"
     elsif (params[:payment] == "wu")
@@ -183,8 +185,44 @@ class AccountsController < ApplicationController
   end
 
   def bankTranfers
-    
+    @amount = session[:amount]
   end
+  def bankTransferSubmit 
+    transfer_amount = params[:amount]
+    confirmation_number = params[:confirmation_number]
+
+    to = "bhuten@gmail.com"
+
+    from = "#{session[:current_login]}"
+    subject = "IVGC Wholesale Bank Tranfer Add Credit for " + from
+    message = "CONFIRMATION NUMBER for BANK TRANSFER: " + confirmation_number + "\n\n" + "AMOUNT: " + transfer_amount
+
+    options = { :address              => "smtp.gmail.com",
+               :port                 => 587,
+               :domain               => 'ciaotelecom.net',
+               :user_name            => 'its.ciaotelecom@gmail.com',
+               :password             => 'Ci402013',
+               :authentication       => 'plain',
+               :enable_starttls_auto => true  }
+    Mail.defaults do
+      delivery_method :smtp, options
+    end
+    
+    begin 
+      Mail.deliver do
+          to 'bhuten@gmail.com'
+          from "#{from}"
+          subject "#{subject}"
+          body "Sender Name: Tenzin Nyima \n\nEmail: #{from} \n\nMessage: #{message}"
+      end
+      flash[:notice] = "Once we verify your confirmation number, your account will be credited!"
+      redirect_to "/accounts/addCredits"    
+    rescue Exception => e
+        flash[:error] = "Oops! Your transaction didn't go through! Try again"
+        redirect_to "/accounts/addCredits"    
+    end
+  end
+
   def wuPayment
     
   end
@@ -214,7 +252,6 @@ class AccountsController < ApplicationController
     ip.ip_address if ip
     return ip
   end
-
 end
 
 
