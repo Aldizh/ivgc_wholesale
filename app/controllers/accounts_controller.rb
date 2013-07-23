@@ -9,9 +9,9 @@ class AccountsController < ApplicationController
     @result = apiRequest(url)
     @time = Time.now.strftime("%Y-%m-%d") + ' 00:00:00'
     url1 = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'2012-01-01 15:20:42','to_date':'#{@time}'}"
-    @calls_test = apiRequest(url1)["xdr_list"]
+    @xdr = apiRequest(url1)["xdr_list"]
     temp_hash = {}
-    @calls_test.each do |call|
+    @xdr.each do |call|
       duration = get_duration(call['connect_time'],call['disconnect_time'])
       cost = call['charged_amount']
       @@top_5_by_mins["#{call['i_xdr']}"] = duration
@@ -263,7 +263,7 @@ class AccountsController < ApplicationController
     else
       @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
       response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
-      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}', 'amount':'1', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}', 'amount':'#{@payment_amount}', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
       apiRequest(@url)
       flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
     end

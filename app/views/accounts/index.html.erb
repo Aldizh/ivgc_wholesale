@@ -47,7 +47,7 @@
 		</table>
 	</section>
 	<section id="top5_cost" class="summary_box">
-		<h3>Top 5 Desitinations (Costs)</h3>
+		<h3>Top 5 Desitinations (Cost)</h3>
 		<table>
 			<% @top_5_dest_by_cost.each do |k, v| %>
             <tr>
@@ -65,17 +65,21 @@
 		<tr>
 			<th>Payment Date</th>
 			<th>Amount</th>
-			<th>Reference</th>
-			<th>Status</th>
+			<th>Country</th>
+			<th>Customer</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>July 22, 2013</td>
-			<td>100.00 USD</td>
-			<td>1234567890</td>
-			<td>Testing</td> 
-		</tr>
+		<% @xdr.each do |e| %>
+			<% if e['description'] == 'Balance adjustment - Manual Payment' %>
+			<tr>
+				<td><%= e['connect_time'].split(" ")[0] %></td>
+				<td><%= e['charged_amount']%> </td>
+				<td><%= e['country']%> </td>
+				<td><%= e['customer']%> </td> 
+			</tr>
+			<% end %>
+		<% end %>
 	</tbody>
 </table>
 </section>

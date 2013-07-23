@@ -44,15 +44,17 @@
         <% if !@calls.empty? %>
           <tbody>
           <% @calls.each do |c| %>
-            <tr>
-              <td><%= c['CLI'] %></td>
-              <td><%= c['CLD'] %></td>
-              <td><%= c['country'] %></td>
-              <td><%= c['connect_time'] %></td>
-              <td><%= c['disconnect_time'] %></td>
-              <td><%= (c['charged_quantity'].to_i / 60).to_s + ':' + (c['charged_quantity'].to_i % 60).to_s.rjust(2, "0") %></td>
-              <td><%= c['charged_amount'] %></td>
-            </tr>
+            <% if c['description'] != 'Balance adjustment - Manual Payment'%>
+              <tr>
+                <td><%= c['CLI'] %></td>
+                <td><%= c['CLD'] %></td>
+                <td><%= c['country'] %></td>
+                <td><%= c['connect_time'] %></td>
+                <td><%= c['disconnect_time'] %></td>
+                <td><%= (c['charged_quantity'].to_i / 60).to_s + ':' + (c['charged_quantity'].to_i % 60).to_s.rjust(2, "0") %></td>
+                <td><%= c['charged_amount'] %></td>
+              </tr>
+            <% end %>
           <% end %>
           </tbody>
         <% else %>
