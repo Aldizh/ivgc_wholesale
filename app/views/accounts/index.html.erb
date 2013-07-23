@@ -38,43 +38,23 @@
 	<section id="top5_minute" class="summary_box">
 		<h3>Top 5 Desitinations (Minutes)</h3>
 		<table>
-			<tr>
-				<td>India - Mobile</td>
-				<td> 107263 Minutes</td>
-			</tr>
-			<tr> 
-				<td>Pakistan - Mobile</td>
-				<td> 90872 Minutes</td>
-			</tr>
-			<tr>
-				<td>India - Airtel</td>
-				<td> 45332 Minutes</td>
-			</tr>
-			<tr> 
-				<td>USA - Mobile</td>
-				<td> 1234 Minutes</td>
-			</tr>
+			<% @top_5_dest_by_min.each do |k, v| %>
+            	<tr>
+        		<td> <%= v[0] %> </td>
+        		<td> <%= v[1] %> </td>
+       			</tr>
+    		<% end %>
 		</table>
 	</section>
 	<section id="top5_cost" class="summary_box">
 		<h3>Top 5 Desitinations (Costs)</h3>
 		<table>
-			<tr>
-				<td>Pakistan - Mobile</td>
-				<td> 3920 USD</td>
-			</tr>
-			<tr> 
-				<td>India - Mobile</td>
-				<td> 2344 USD</td>
-			</tr>
-			<tr>
-				<td>Nepal - Mobile</td>
-				<td> 234 USD</td>
-			</tr>
-			<tr> 
-				<td>USA - Mobile</td>
-				<td> 100 USD</td>
-			</tr>
+			<% @top_5_dest_by_cost.each do |k, v| %>
+            <tr>
+        		<td> <%= v[0] %> </td>
+        		<td> <%= v[1] %> </td>
+      		</tr>
+    		<% end %>
 		</table>
 	</section>
 </section>

@@ -1,15 +1,37 @@
 require 'socket'
 require 'mail'
-
-
+require 'securerandom'
 class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
   def index
     url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
     @result = apiRequest(url)
-    puts "LISTTTTTTTTTT"
-    puts @result.inspect
+    @time = Time.now.strftime("%Y-%m-%d") + ' 00:00:00'
+    url1 = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'2012-01-01 15:20:42','to_date':'#{@time}'}"
+    @calls_test = apiRequest(url1)["xdr_list"]
+    temp_hash = {}
+    @calls_test.each do |call|
+      duration = get_duration(call['connect_time'],call['disconnect_time'])
+      cost = call['charged_amount']
+      @@top_5_by_mins["#{call['i_xdr']}"] = duration
+      @@top_5_by_destination["#{call['i_xdr']}"] = cost
+      temp_hash["#{call['i_xdr']}"] = call['country']
+    end
+
+    #to be presented to the view
+    @top_5_dest_by_min = Hash.new
+    @top_5_dest_by_cost = Hash.new
+
+    @@top_5_by_mins.sort_by{|k,v| v}.last 5
+    @@top_5_by_mins.each do |k, v|
+      @top_5_dest_by_min[SecureRandom.hex(8)] = "#{temp_hash[k]}", "#{v}"
+    end
+
+    @@top_5_by_destination.sort_by{|k,v| v}.first 5
+    @@top_5_by_destination.each do |k,v|
+      @top_5_dest_by_cost[SecureRandom.hex(8)] = "#{temp_hash[k]}", "#{v}"
+    end
   end
 
   def viewCDR

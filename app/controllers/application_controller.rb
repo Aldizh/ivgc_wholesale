@@ -2,13 +2,23 @@ require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  @@admin = false
   begin
       @@admin
   rescue
-      @@admin == false
+      @@admin = false
   end
 
+  begin
+    @@top_5_by_mins
+  rescue
+    @@top_5_by_mins = Hash.new
+  end
+
+  begin
+    @@top_5_by_destination
+  rescue
+    @@top_5_by_destination = Hash.new
+  end
 
   def validateAdmin
     begin
@@ -23,15 +33,15 @@ class ApplicationController < ActionController::Base
 
   def get_new_session
     url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'ivgc123'}"
-    @result = apiRequest(url)
-    return @result["session_id"]
+    result = apiRequest(url)
+    return result["session_id"]
   end
 
   # higher privileged session
   def get_new_session2
     url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
-    @result = apiRequest(url)
-    return @result["session_id"]
+    result = apiRequest(url)
+    return result["session_id"]
   end
 
   # manage session_id by keeping track of whether @@session_id_privileged was ever set.
@@ -216,4 +226,15 @@ def validate_login(login)
       return true
     end
   end
+
+  def get_duration(timestamp1, timestamp2)
+    t1 = timestamp1.split(" ")
+    t2 = timestamp2.split(" ")
+    t1 = t1[1].split(":")
+    t2 = t2[1].split(":")
+    str1 = t1[0] +t1[1] + t1[2]
+    str2 = t2[0] +t2[1] + t2[2]
+    duration = str2.to_i - str1.to_i
+  end
+
 end
