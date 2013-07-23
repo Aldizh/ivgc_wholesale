@@ -235,10 +235,10 @@ class AccountsController < ApplicationController
           to 'bhuten@gmail.com'
           from "#{from}"
           subject "#{subject}"
-          body "Sender Name: Tenzin Nyima \n\nEmail: #{from} \n\nMessage: #{message}"
+          body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
       end
       flash[:notice] = "Once we verify your confirmation number, your account will be credited!"
-      redirect_to "/accounts/addCredits"    
+      redirect_to "/accounts"    
     rescue Exception => e
         flash[:error] = "Oops! Your transaction didn't go through! Try again"
         redirect_to "/accounts/addCredits"    
@@ -246,7 +246,43 @@ class AccountsController < ApplicationController
   end
 
   def wuPayment
+    @amount = session[:amount]
+  end
+
+  def wuPaymentSubmit
+    transfer_amount = params[:amount]
+    mtcn_code = params[:mtcn_code]
+
+    to = "bhuten@gmail.com"
+
+    from = "#{session[:current_login]}"
+    subject = "IVGC Wholesale Western Union Tranfer Add Credit for " + from
+    message = "MTCN CODE for WESTERN UNION MONEY TRANSFER: " + mtcn_code + "\n\n" + "AMOUNT: " + transfer_amount
+
+    options = { :address              => "smtp.gmail.com",
+               :port                 => 587,
+               :domain               => 'ciaotelecom.net',
+               :user_name            => 'its.ciaotelecom@gmail.com',
+               :password             => 'Ci402013',
+               :authentication       => 'plain',
+               :enable_starttls_auto => true  }
+    Mail.defaults do
+      delivery_method :smtp, options
+    end
     
+    begin 
+      Mail.deliver do
+          to 'bhuten@gmail.com'
+          from "#{from}"
+          subject "#{subject}"
+          body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
+      end
+      flash[:notice] = "Once we verify your MTCN code, your account will be credited!"
+      redirect_to "/accounts"    
+    rescue Exception => e
+        flash[:error] = "Oops! Your transaction didn't go through! Try again"
+        redirect_to "/accounts/addCredits"    
+    end
   end
   def creditAdded
     details = EXPRESS_GATEWAY.details_for(session[:token])
