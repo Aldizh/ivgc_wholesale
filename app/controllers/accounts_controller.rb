@@ -5,6 +5,8 @@ class AccountsController < ApplicationController
   before_filter :validateLoggedIn
 
   def index
+    @@top_5_by_mins = Hash.new
+    @@top_5_by_destination = Hash.new
     url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
     @result = apiRequest(url)
     @time = Time.now.strftime("%Y-%m-%d") + ' 00:00:00'
@@ -14,8 +16,10 @@ class AccountsController < ApplicationController
     @xdr.each do |call|
       duration = get_duration(call['connect_time'],call['disconnect_time'])
       cost = call['charged_amount']
-      @@top_5_by_mins["#{call['i_xdr']}"] = duration
-      @@top_5_by_destination["#{call['i_xdr']}"] = cost
+      if call['description'] != 'Balance adjustment - Manual Payment'
+        @@top_5_by_mins["#{call['i_xdr']}"] = duration
+        @@top_5_by_destination["#{call['i_xdr']}"] = cost
+      end
       temp_hash["#{call['i_xdr']}"] = call['country']
     end
 
