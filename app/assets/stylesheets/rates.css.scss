@@ -5,14 +5,25 @@
 	overflow: auto;
 }
 #rates_left {
-	width: 52%;
+	width: 59%;
 	float: left;
 	padding:  0;
 }
 #rates_right {
-	width: 47%;
+	width: 40%;
 	float: right;
 }
 h4 {
 	text-align: left;
 }
+iframe {
+ 	width:90%; 
+ 	height: 600px; 
+ 	overflow-x: hidden; 
+ 	overflow-y: scroll;
+ 	border: 0px #600000 dotted;
+ 	margin: 0 0 10px 0; 
+ 	float: right;
+	padding: 20px; 	
+ }
+

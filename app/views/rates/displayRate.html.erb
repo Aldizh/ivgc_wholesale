@@ -1,1 +1,15 @@
-<p><%= @rates.inspect %></p>
+<style>
+td {
+ 	border-bottom: 1px #600000 dotted;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	padding: 0 10px;
+ }
+</style>
+<table>
+	<% @rates.each do |i| %>
+	<tr>
+		<td width="150" style="text-align: right;"><%= i.country %> :</td>
+		<td width="70" style="text-align: left;"><%= i.rate_cost %></td>
+	</tr>
+	<% end %>
+</table>
