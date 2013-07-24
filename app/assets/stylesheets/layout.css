@@ -26,14 +26,5 @@
 	margin-top: 5px;
 
 }
-iframe {
- 	width:90%; 
- 	height: 600px; 
- 	overflow-x: hidden; 
- 	overflow-y: scroll;
- 	border: 0 #600000 solid;
- 	margin: 0 0 10px 0; 
- 	float: right;
-	padding: 3px; 	
- }
+
  
