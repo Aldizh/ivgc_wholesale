@@ -1,8 +1,9 @@
 class RatesController < ApplicationController
   def index
+  	@rates = Rate.all
   end
   def import
-    Product.import(params[:file])
-	redirect_to root_url, notice: "Rates imported."
+    Rate.import(params[:file])
+	redirect_to rates_url, notice: "Rates imported."
   end
 end

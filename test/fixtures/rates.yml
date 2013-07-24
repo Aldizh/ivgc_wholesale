@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  country: MyString
+  rate_cost: 1.5
+
+two:
+  country: MyString
+  rate_cost: 1.5
