@@ -213,7 +213,7 @@ class AccountsController < ApplicationController
     transfer_amount = params[:amount]
     confirmation_number = params[:confirmation_number]
 
-    to = "bhuten@gmail.com"
+    to = "payments@ivgc.net"
 
     from = "#{session[:current_login]}"
     subject = "IVGC Wholesale Bank Tranfer Add Credit for " + from
@@ -232,7 +232,7 @@ class AccountsController < ApplicationController
     
     begin 
       Mail.deliver do
-          to 'bhuten@gmail.com'
+          to 'payments@ivgc.net'
           from "#{from}"
           subject "#{subject}"
           body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
@@ -253,7 +253,7 @@ class AccountsController < ApplicationController
     transfer_amount = params[:amount]
     mtcn_code = params[:mtcn_code]
 
-    to = "bhuten@gmail.com"
+    to = "payments@ivgc.net"
 
     from = "#{session[:current_login]}"
     subject = "IVGC Wholesale Western Union Tranfer Add Credit for " + from
@@ -272,7 +272,7 @@ class AccountsController < ApplicationController
     
     begin 
       Mail.deliver do
-          to 'bhuten@gmail.com'
+          to 'payments@ivgc.net'
           from "#{from}"
           subject "#{subject}"
           body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
