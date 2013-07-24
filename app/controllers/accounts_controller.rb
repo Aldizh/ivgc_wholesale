@@ -16,8 +16,10 @@ class AccountsController < ApplicationController
     @xdr.each do |call|
       duration = get_duration(call['connect_time'],call['disconnect_time'])
       cost = call['charged_amount']
-      @@top_5_by_mins["#{call['i_xdr']}"] = duration
-      @@top_5_by_destination["#{call['i_xdr']}"] = cost
+      if call['description'] != 'Balance adjustment - Manual Payment'
+        @@top_5_by_mins["#{call['i_xdr']}"] = duration
+        @@top_5_by_destination["#{call['i_xdr']}"] = cost
+      end
       temp_hash["#{call['i_xdr']}"] = call['country']
     end
 
