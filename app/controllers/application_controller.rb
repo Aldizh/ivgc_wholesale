@@ -8,12 +8,14 @@ class ApplicationController < ActionController::Base
       @@admin = false
   end
 
+  @@top_5_by_mins = Hash.new
   begin
     @@top_5_by_mins
   rescue
     @@top_5_by_mins = Hash.new
   end
 
+  @@top_5_by_destination = Hash.new
   begin
     @@top_5_by_destination
   rescue

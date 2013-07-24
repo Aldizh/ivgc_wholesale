@@ -47,6 +47,10 @@
 	<section id="top5_minute" class="summary_box">
 		<h3>Top 5 Desitinations (Minutes)</h3>
 		<table>
+			<tr>
+				<th>Country</th>
+				<th>Duration(seconds)</th>
+			</tr>
 			<% @top_5_dest_by_min.each do |k, v| %>
             	<tr>
         		<td> <%= v[0] %> </td>
@@ -58,6 +62,10 @@
 	<section id="top5_cost" class="summary_box">
 		<h3>Top 5 Desitinations (Cost)</h3>
 		<table>
+			<tr>
+				<th>Country</th>
+				<th>Cost</th>
+			</tr>
 			<% @top_5_dest_by_cost.each do |k, v| %>
             <tr>
         		<td> <%= v[0] %> </td>
