@@ -5,6 +5,7 @@ IVGCWholeSale::Application.routes.draw do
   get "contact_us/index"
 
   get "rates/index"
+  get "rates/displayRate"
 
   get "services/index"
 

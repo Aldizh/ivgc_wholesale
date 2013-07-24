@@ -31,8 +31,8 @@ iframe {
  	height: 600px; 
  	overflow-x: hidden; 
  	overflow-y: scroll;
- 	border: 1px #600000 solid;
- 	margin: 10px 0; 
+ 	border: 0 #600000 solid;
+ 	margin: 0 0 10px 0; 
  	float: right;
 	padding: 3px; 	
  }

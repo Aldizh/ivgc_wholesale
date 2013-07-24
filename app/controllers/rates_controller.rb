@@ -1,6 +1,5 @@
 class RatesController < ApplicationController
   def index
-  	@rates = Rate.all
   end
   def import
   	spreadsheet = Rate.import(params[:file])
@@ -12,5 +11,9 @@ class RatesController < ApplicationController
 	    product.save!
   	end
 	redirect_to rates_url, notice: "Rates imported."
+  end
+  def displayRate 
+  	@rates = Rate.all
+  	render :layout => false
   end
 end
