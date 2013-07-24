@@ -1,19 +1,46 @@
 // Place all the styles related to the services controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+p {
+	margin: 0 20px 20px 20px;
+	font-size: 90%;
+}
 #vr_vw_wrapper {
 	width: 100%;
-	border: 1px black solid;
 	border-radius: 5px;
 	overflow: auto;
+	h3 {
+		background-color: #600;
+		color: white;
+		margin-top: 0;
+		padding: 5px 0;
+	}
+	ul {
+		padding: 0;
+		margin: 0;
+		li {
+			list-style-type: none;
+			text-align: left;
+			font-size: 90%;
+			margin: 0 0 10px 0;
+			font-weight: 600;
+			text-transform: capitalize;
+			img {
+				border: 1px solid darken(#CCC, 20%);
+				text-align: center;
+			}
+		}
+	}
+	
 }
 #vr, #vw {
-	width: 48%;
+	width: 47%;
 }
 #vr {
 	float: left;
 }
 #vw {
 	float: right;
+	border-left: 1px dashed darken(#CCC, 20%);
+	padding-left: 20px;
 }
