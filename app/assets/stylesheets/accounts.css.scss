@@ -44,15 +44,21 @@
 #top5 {
 	width: 100%;
 	display: block;
-	height: 205px;
+	height: 235px;
+	margin-bottom: 15px;
+}
+#top5 td, #top5 th {
+	text-align: center;
 }
 #top5_minute {
 	width: 49%;
 	float: left;
+	height: 100%;
 }
 #top5_cost {
 	width: 49%;
 	float: right;
+	height: 100%;
 }
 #update_btn {
 	background-color: #3498db;
