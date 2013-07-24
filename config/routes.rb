@@ -61,7 +61,9 @@ IVGCWholeSale::Application.routes.draw do
   resources :signups
   resources :about_us
   resources :services
-  resources :rates
+  resources :rates do
+    collection { post :import }
+  end  
   resources :contact_us
   resources :voip_resellers
 
