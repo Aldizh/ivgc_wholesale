@@ -3,7 +3,7 @@ class RatesController < ApplicationController
   end
   def import
   	CSV.foreach(params[:file].path, headers: true) do |row|
-	    rate = Rate.find_by_country(row["country"]) || Rate.new
+	    rate = Rate.find_by_destination(row["destination"]) || Rate.new
 	    rate.attributes = row.to_hash.slice(*Rate.accessible_attributes)
 	    rate.save!
   	end

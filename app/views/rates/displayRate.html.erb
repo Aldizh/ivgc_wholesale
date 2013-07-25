@@ -6,10 +6,11 @@ td {
  }
 </style>
 <table>
-	<% @rates.each do |i| %>
+	<% @rates.each do |r| %>
 	<tr>
-		<td width="150" style="text-align: right;"><%= i.country %> :</td>
-		<td width="70" style="text-align: left;"><%= i.rate_cost %></td>
+		<td> <width="150" style="text-align: right;"><%= r.country %> : </td>
+		<td> <width="70" style="text-align: left;"><%= r.destination %></td>
+		<td> <width="70" style="text-align: left;"><%= r.cost %></td>
 	</tr>
 	<% end %>
 </table>

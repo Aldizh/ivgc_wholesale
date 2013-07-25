@@ -21,14 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def get_new_session
-    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'ivgc123'}"
+    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'#{MAGIC['u1']}','password':'#{MAGIC['p1']}'}"
     result = apiRequest(url)
     return result["session_id"]
   end
 
   # higher privileged session
   def get_new_session2
-    url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
+    url = "https://208.65.111.144/rest/Session/login/{'login':'#{MAGIC['u2']}','password':'#{MAGIC['p2']}'}"
     result = apiRequest(url)
     return result["session_id"]
   end
@@ -221,8 +221,8 @@ def validate_login(login)
     t2 = timestamp2.split(" ")
     t1 = t1[1].split(":")
     t2 = t2[1].split(":")
-    str1 = t1[0] +t1[1] + t1[2]
-    str2 = t2[0] +t2[1] + t2[2]
+    str1 = t1[0] + t1[1] + t1[2]
+    str2 = t2[0] + t2[1] + t2[2]
     duration = str2.to_i - str1.to_i
   end
 

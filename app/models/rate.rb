@@ -1,5 +1,5 @@
 class Rate < ActiveRecord::Base
-  attr_accessible :country, :rate_cost
+  attr_accessible :country, :cost, :destination
 
   def self.import(file)
   	 CSV.foreach(file.path, headers: true) do |row|
