@@ -171,9 +171,13 @@ class AccountsController < ApplicationController
   end
 
   def updateIP
-    @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{get_session2}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
-    @result = apiRequest(@url)
-    flash[:notice] = "you successfully added an alias IP address"
+    if validate_ip(params[:ip])
+      @url = "https://208.65.111.144/rest/Account/add_alias/{'session_id':'#{get_session2}'}/{'alias_info':{'i_account':'#{session[:i_account]}','blocked':'Y','id':'#{params[:ip]}','i_master_account':'#{session[:i_account]}'}}"
+      @result = apiRequest(@url)
+      flash[:notice] = "you successfully added an alias IP address"
+    else
+      flash[:error] = "Please, enter a valid IP"
+    end
     redirect_to "/accounts/manageIP"
   end
 

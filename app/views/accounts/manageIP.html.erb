@@ -1,3 +1,8 @@
+<% if flash[:error] %>
+    <div class="error" style="margin-bottom: 15px;" >
+      <%= flash[:error] %>
+    </div>
+<% end %>
 <div class="content_wrapper">
 <h2>Manage your IP Addressess</h2>
 <p style="text-align: center;">*You can add upto three IP Addresses</p>

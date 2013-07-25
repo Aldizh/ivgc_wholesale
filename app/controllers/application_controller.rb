@@ -21,14 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def get_new_session
-    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'ivgc','password':'ivgc123'}"
+    url = "https://208.65.111.144:8444/rest/Session/login/{'login':'#{MAGIC['u1']}','password':'#{MAGIC['p1']}'}"
     result = apiRequest(url)
     return result["session_id"]
   end
 
   # higher privileged session
   def get_new_session2
-    url = "https://208.65.111.144/rest/Session/login/{'login':'soap-webpanel','password':'wsw@c@8am'}"
+    url = "https://208.65.111.144/rest/Session/login/{'login':'#{MAGIC['u2']}','password':'#{MAGIC['p2']}'}"
     result = apiRequest(url)
     return result["session_id"]
   end

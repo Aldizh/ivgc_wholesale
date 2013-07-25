@@ -14,7 +14,9 @@
       <li>Customized Private Label Panel, A-Z Rates, Grey and CLI Routes</li>
       <li>3 Levels Distribution system and Customer / Agent management</li>
     </ul>
-    <article><%= link_to "sign up now", voip_resellers_path %></article>
+    <% if !session[:current_login] %>
+      <article><%= link_to "sign up now", voip_resellers_path %></article>
+    <% end %>
   </section>
 </div>
 
@@ -26,8 +28,9 @@
       <li>Automated and instant sign-up, send traffic within the first minute of sign-up</li>
       <li>Low cost quality routes all over world - Negotiate rates per volume/top destination</li>
     </ul>
-    <article><%= link_to "sign up now", signups_path %></article>
-  </section>
+    <% if !session[:current_login] %>
+      <article><%= link_to "sign up now", signups_path %></article>
+    <% end %>  </section>
 </div>
 <%= javascript_include_tag "olark_contact_us" %>
 <script type='text/javascript'>

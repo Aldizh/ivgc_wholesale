@@ -57,6 +57,7 @@ IVGCWholeSale::Application.routes.draw do
   get "contact_us/thanksForContacting"
 
   get "sessions/destroy"
+  resources :home, only: :index
   resources :sessions
   resources :accounts
   resources :signups
@@ -117,7 +118,7 @@ IVGCWholeSale::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'accounts#index'
+  root :to => 'sessions#new'
 
   # See how all your routes lay out with "rake routes"
 
