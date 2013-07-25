@@ -20,3 +20,23 @@ h3 {
 #sign_up_btn:hover {
 	background-color: green;
 }
+.radio_btn_group {
+	margin: 5px 0 10px 0;
+	padding: 5px;
+	overflow: auto;
+	border-radius: 5px;
+	width: 140%;
+	#left {
+		width: 49%;
+		float: left;
+	}
+	#right {
+		width: 49%;
+		float: right;
+	}
+	input {
+		display: inline;
+		margin-right: 5px;
+		margin-bottom: 10px;
+	}
+}

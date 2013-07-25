@@ -1,6 +1,10 @@
 IVGCWholeSale::Application.routes.draw do
 
   get "voip_resellers/index"
+  get "voip_resellers/voipResellerSignUp"
+  post "voip_resellers/voipResellerSignUp"
+  get "voip_resellers/thanksForSigningUp"
+
 
   get "contact_us/index"
 
@@ -56,6 +60,7 @@ IVGCWholeSale::Application.routes.draw do
   post "contact_us/contactUs"
   get "contact_us/thanksForContacting"
 
+  get "voip_resellers/voipResellerSignUp"
   get "sessions/destroy"
   resources :sessions
   resources :accounts
