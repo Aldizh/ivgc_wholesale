@@ -35,6 +35,7 @@ class SessionsController < ApplicationController
 
   def destroy
     destroy_session_id
+    @@admin = false
     reset_session
     flash[:notice] = "You are successfuly logged out!"
     redirect_to '/sessions/new'
