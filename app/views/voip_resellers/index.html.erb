@@ -1,4 +1,76 @@
 <div class="content_wrapper">
 	<h1>VOIP RESELLER SERVICES</h1>
-	<p style="text-align:center;">Please email us at <strong>sales[at]ivgc.net</strong> and we will get back to you asap!</p>
+	<h2>Please Sign Up here!</h2>
+	<% if flash[:error] %>
+	  <span class="error" >
+	    <%= flash[:error] %>
+	  </span>
+	<% end %>
+<div class="common_form" style="font-size: 80%; text-align: left;">
+  <%= form_tag(:action => "voipResellerSignUp") do %>
+    <%= label_tag "First Name: " %>
+    <%= text_field_tag 'first_name', session[:first_name] %><br>
+    <%= label_tag "Last Name: " %>
+    <%= text_field_tag 'last_name', session[:last_name] %><br>
+    <%= label_tag "Email: " %>
+    <%= text_field_tag 'email', session[:email] %><br>
+    <%= label_tag "Phone: " %>
+    <%= text_field_tag 'phone', session[:phone] %><br>
+    <strong><%= label_tag "Select Country: " %></strong><br>
+    <%= country_select("country", "country_name") %><br><br>
+    <div class="radio_btn_group">
+		<strong>Select your language:</strong><br><br>
+    	<div id="left">
+	    	<%= radio_button_tag 'language', 'english', true %>English<br>
+	    	<%= radio_button_tag 'language', 'spanish' %>Spanish<br>
+	    	<%= radio_button_tag 'language', 'arabic' %>Arabic<br>
+	    	<%= radio_button_tag 'language', 'french' %>French
+    	</div>
+    	<div id="right">
+	    	<%= radio_button_tag 'language', 'hindi' %>Hindi<br>
+	    	<%= radio_button_tag 'language', 'urdu' %>Urdu<br>
+	    	<%= radio_button_tag 'language', 'portuguese' %>Portuguese<br>
+	    	<%= radio_button_tag 'language', 'other' %>Other
+    	</div>
+	</div>
+
+	<div class="radio_btn_group">
+		<strong>What best describes your business?</strong><br><br>
+		<div id="left">
+    		<%= radio_button_tag 'business', 'reseller_agent', true %>Reseller / Agent<br>
+    		<%= radio_button_tag 'business', 'ip_2_ip_wholesale' %>IP to IP Wholesale<br>
+    		<%= radio_button_tag 'business', 'call_shop' %>Call Shop
+    	</div>
+    	<div id="right">
+	    	<%= radio_button_tag 'business', 'call_center' %>Call Center<br>
+	    	<%= radio_button_tag 'business', 'other' %>Other Business<br>
+	    	<%= radio_button_tag 'business', 'personal' %>personal use only
+	    </div>
+
+	</div>
+
+	<div class="radio_btn_group">
+		<strong>What is your typical monthly revenue? (In $USD)</strong><br><br>
+		<div id="left">
+    		<%= radio_button_tag 'revenue', '500_or_less', true %>$500 or less<br>
+    		<%= radio_button_tag 'revenue', '500-2000' %>$500 – $2,000<br>
+    		<%= radio_button_tag 'revenue', '2000-5000' %>$2,000 – $5,000<br>
+    		<%= radio_button_tag 'revenue', '5000-10000' %>$5,000 – $10,000
+    	</div>
+    	<div id="right">
+	    	<%= radio_button_tag 'revenue', '10000-20000' %>$10,000 – $20,000<br>
+	    	<%= radio_button_tag 'revenue', '20000-30000' %>$20,000 – $30,000<br>
+	    	<%= radio_button_tag 'revenue', '30000-50000' %>$30,000 – $50,000<br>
+	    	<%= radio_button_tag 'revenue', '50000_or_more' %>$50,000 or more<br>
+	    	<%= radio_button_tag 'revenue', 'none' %>None (I do not sell)
+	    </div>
+
+	</div>
+	
+	<%= label_tag "Comments:" %><br>
+    <%= text_area_tag 'comments', session[:comments] %><br>
+    <%#= recaptcha_tags %>
+    <%= submit_tag "Submit", :class => "common_btn", :id => "sign_up_btn" %>
+  <% end %>
+  </div>
 </div>
