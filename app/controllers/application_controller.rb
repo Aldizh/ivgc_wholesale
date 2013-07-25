@@ -221,8 +221,8 @@ def validate_login(login)
     t2 = timestamp2.split(" ")
     t1 = t1[1].split(":")
     t2 = t2[1].split(":")
-    str1 = t1[0] +t1[1] + t1[2]
-    str2 = t2[0] +t2[1] + t2[2]
+    str1 = t1[0] + t1[1] + t1[2]
+    str2 = t2[0] + t2[1] + t2[2]
     duration = str2.to_i - str1.to_i
   end
 

@@ -2,8 +2,9 @@ class CreateRates < ActiveRecord::Migration
   def change
     create_table :rates do |t|
       t.string :country
-      t.float :rate_cost
-
+      t.integer :destination
+      t.float :cost
+      
       t.timestamps
     end
   end
