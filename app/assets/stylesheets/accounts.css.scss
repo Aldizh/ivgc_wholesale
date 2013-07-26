@@ -3,6 +3,25 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .content_wrapper {
 }
+#paypal, #wu, #bank {
+	height: 40px;
+	width: 400px;
+	background-repeat: no-repeat;
+	background-size: 87px 20px;
+	background-position: 220px 2px;
+
+}
+#paypal {
+	background-image: url('paypal-logo.png');	
+}
+#bank{
+	background-image: url('bank-logo.png');
+	background-size: 29px 30px;
+	background-position: 250px 2px;
+}
+#wu{
+	background-image: url('wu-logo.jpg');
+}
 .notice {
 	font-size: 80%;
 	font-weight: 300;
@@ -106,6 +125,8 @@ table#ip_list {
 
 #add_credit_block {
 	margin-top: 20px;
+	padding-left: 50px;
+
 }
 #add_credit_btn {
 	width: 100px;
