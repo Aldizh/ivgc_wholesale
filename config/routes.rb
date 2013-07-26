@@ -10,6 +10,7 @@ IVGCWholeSale::Application.routes.draw do
 
   get "rates/index"
   get "rates/displayRate"
+  post "rates/displayRate"
 
   get "services/index"
 

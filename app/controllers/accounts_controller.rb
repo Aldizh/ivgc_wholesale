@@ -343,3 +343,7 @@ end
 #https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877864", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
 #https://208.65.111.144/rest/Account/get_xdr_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877815", "from_date":"2011-10-20 16:27:25", "to_date":"2013-06-30 16:27:25"}
 #https://208.65.111.144/rest/Session/logout/{"session_id":""}
+#https://208.65.111.144/rest/Rate/get_rate_list/{"session_id":"a8bb3035043eb5ffc9e6f8ad9cf04201"}/{"i_tariff":"72", "effective_from":"now"}
+
+
+
