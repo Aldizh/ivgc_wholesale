@@ -16,6 +16,26 @@
 h4 {
 	text-align: left;
 }
+
+#routes, #manage, #monitoring, #payments{
+	height: 40px;
+	width: 400px;
+	background-repeat: no-repeat;
+	background-size: 50px 40px;
+	background-position: 300px -6px;
+}
+#routes{
+	background-image: url('route.png');
+}
+#manage{
+	background-image: url('manage.png');
+}
+#monitoring{
+	background-image: url('monitor.png');
+}
+#payments{
+	background-image: url('payment.png');
+}
 iframe {
  	width:90%; 
  	height: 600px; 
