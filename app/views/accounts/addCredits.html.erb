@@ -14,14 +14,20 @@
 			<div id="add_credit_block" style="text-align: left; margin: auto; width: 250px;">
 				<%= form_tag(:action => "addCreditsSubmit") do %>
 				  <%= label_tag "Amount: " %>
-				  <%= number_field_tag 'amount' %> <br><br>
-				  <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %> PAYPAL (and Credit Card)<br><br>
+				  <%= text_field_tag 'amount' %> <br><br>
+				  <div id="paypal">
+				    <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %> PAYPAL (and Credit Card)
+				  </div>
+				  <div id="bank">
 				  <%= radio_button_tag 'payment', "bank", false, class: "radio_btn" %> BANK TRANSFER<br><br>
-				  <%= radio_button_tag 'payment', "wu", false, class: "radio_btn" %> WESTERN UNION<br><br>
+				  </div>
+				  <div id="wu">
+				  <%= radio_button_tag 'payment', "wu", false, class: "radio_btn" %> WESTERN UNION
+				  </div>
 				  <%= submit_tag "Continue", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
 				<% end %>
+			</div>
+			
 		<% end %>
+			
 </div>
-</div>
- <%#= link_to image_tag ("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), :action => "accounts/payment" %>
-
