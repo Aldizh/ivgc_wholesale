@@ -5,23 +5,31 @@ td {
 	padding: 0 10px;
  }
 </style>
+<% char_array = [] %>
 <% ('A'..'Z').each do |char| %>
-	<%= link_to char, :first_letter => char, :action => 'displayRate'%>
+    <% char_array.push(char) %>
 <% end %>
-<%= button_to "Show all", :first_letter => '*', :action => 'displayRate'%>
+<strong><%= link_to "Show all", :first_letter => '*', :action => 'displayRate'%></strong>
 <table>
 	<thead>
         <tr>
 			<th> <%= 'Country' %> </th>
 			<th> <%= 'Destination' %> </th>
 			<th> <%= 'Cost' %> </th>
+			<th> <%= 'Select' %></th>
 		</tr>
 	</thead>
+	<% i = 0 %>
 	<% @rates.each do |r| %>
 	<tr>
 		<td> <width="150" style="text-align: right;"><%= r['country'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['destination'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['price_1'] %></td>
+		<td><% if i < char_array.size %>
+			<strong><%= link_to char_array[i], :first_letter => char_array[i], :action => 'displayRate'%></strong>
+		<% end %>
+		<% i += 1 %>
+	</td>
 	</tr>
 	<% end %>
 </table>
