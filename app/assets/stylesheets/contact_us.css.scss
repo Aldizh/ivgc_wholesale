@@ -1,3 +1,32 @@
 // Place all the styles related to the contactUs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h2 {
+	text-align: left;
+	margin-left: 50px;
+}
+#contact_us_form {
+	font-size: 80%; 
+	text-align: left;
+	float: left;
+	margin-left: 50px;
+	margin-top: 0;
+
+	input[type="text"], textarea {
+		width: 300px;
+	}
+}
+#image {
+	margin-left: 450px;
+	margin-top: -50px;
+	width: 300px;
+}
+
+#contact_submit_btn {
+	background-color: #3498db;
+	display: inline-block;
+	margin: 20px 0 20px 120px;
+}
+#contact_submit_btn:hover {
+	background-color: green;
+}

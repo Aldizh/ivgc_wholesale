@@ -1,11 +1,11 @@
 <div class="content_wrapper">
-<h2 style="text-align: center;"> Contact Us </h2>
+<h2> Contact Us </h2>
 <% if flash[:error] %>
   <span class="error" >
     <%= flash[:error] %>
   </span>
 <% end %>
-<div class="common_form" style="font-size: 80%; text-align: left;">
+<div class="common_form" id="contact_us_form">
   <%= form_tag(:action => "contactUs") do %>
     <%= label_tag "Full Name: " %>
     <%= text_field_tag 'full_name', session[:full_name] %><br>
@@ -14,7 +14,10 @@
     <%= label_tag "Message:" %><br>
     <%= text_area_tag 'message', session[:message] %><br>
     <%#= recaptcha_tags %>
-    <%= submit_tag "Submit", :class => "common_btn", :id => "sign_up_btn" %>
+    <%= submit_tag "Submit", :class => "common_btn", :id => "contact_submit_btn" %>
   <% end %>
+  </div>
+  <div id="image">
+    <%= image_tag("contact.jpg") %>
   </div>
 </div>
