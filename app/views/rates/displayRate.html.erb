@@ -5,12 +5,23 @@ td {
 	padding: 0 10px;
  }
 </style>
+<% ('A'..'Z').each do |char| %>
+	<%= link_to char, :first_letter => char, :action => 'displayRate'%>
+<% end %>
+<%= button_to "Show all", :first_letter => '*', :action => 'displayRate'%>
 <table>
+	<thead>
+        <tr>
+			<th> <%= 'Country' %> </th>
+			<th> <%= 'Destination' %> </th>
+			<th> <%= 'Cost' %> </th>
+		</tr>
+	</thead>
 	<% @rates.each do |r| %>
 	<tr>
-		<td> <width="150" style="text-align: right;"><%= r.country %> : </td>
-		<td> <width="70" style="text-align: left;"><%= r.destination %></td>
-		<td> <width="70" style="text-align: left;"><%= r.cost %></td>
+		<td> <width="150" style="text-align: right;"><%= r['country'] %></td>
+		<td> <width="70" style="text-align: left;"><%= r['destination'] %></td>
+		<td> <width="70" style="text-align: left;"><%= r['price_1'] %></td>
 	</tr>
 	<% end %>
 </table>
