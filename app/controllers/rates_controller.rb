@@ -11,6 +11,8 @@ class RatesController < ApplicationController
   end
   def displayRate 
   	@rates = Rate.all
+    puts "DJHDJHJKDHJDHKJDHJKHDJKHJKAHJKHJKHJKHJKHJKHJKHJKHJKHJKHJKHJK***D(*U*((*D(&*&*(&987897897897897"
+    puts @rates.inspect
   	render :layout => false
   end
 end
