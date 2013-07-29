@@ -5,7 +5,7 @@ class VoipResellersController < ApplicationController
   end
   def voipResellerSignUp
 
-  	to = "bhuten@gmail.com"
+  	to = "sales@ivgc.net"
 	session[:first_name] = params[:first_name]
 	session[:last_name] = params[:last_name]
 	session[:email] = params[:email]
@@ -36,7 +36,7 @@ class VoipResellersController < ApplicationController
 	
 		begin 
 			Mail.deliver do
-		   		to 'bhuten@gmail.com'
+		   		to 'sales@ivgc.net'
 		   		from "#{from}"
 		   		subject "#{subject}"
 		   		#body "hi"
