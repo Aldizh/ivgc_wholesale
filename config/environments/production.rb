@@ -67,9 +67,9 @@ IVGCWholeSale::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production
     paypal_options = {
-      :login => "bhuten-facilitator_api1.gmail.com",
-      :password => "MG3HAE6R8CCG6H99",
-      :signature => "APTTJPKlmv11Bc1UAfnDX-j9w.lVAfzVe7YcZQw8.IF97hfFPbKM2b.1"
+      :login => "mary_api1.ciaotelecom.net",
+      :password => "RTAG2RAYR3LWC34W",
+      :signature => "A.63lJfIiW9AdHApxMHG6pztucquArhfiRRWWZHwgx7xQ.Hf8j.EX4L8"
     }
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end
