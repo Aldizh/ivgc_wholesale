@@ -4,7 +4,7 @@ class ContactUsController < ApplicationController
   end
 
   def contactUs
-	to = "bhuten@gmail.com"
+	to = "sales@ivgc.net"
 	if validate_email(params[:email])
 		session[:full_name] = params[:full_name]
 		session[:email] = params[:email]
@@ -28,7 +28,7 @@ class ContactUsController < ApplicationController
 		
 		begin 
 			Mail.deliver do
-		   		to 'bhuten@gmail.com'
+		   		to 'sales@ivgc.net'
 		   		from "#{from}"
 		   		subject "#{subject}"
 		   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
