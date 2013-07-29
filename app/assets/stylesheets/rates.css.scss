@@ -24,17 +24,30 @@ h4 {
 	background-size: 50px 40px;
 	background-position: 300px -6px;
 }
-#routes{
-	background-image: url('route.png');
-}
-#manage{
-	background-image: url('manage.png');
-}
-#monitoring{
-	background-image: url('monitor.png');
-}
-#payments{
-	background-image: url('payment.png');
+#rates_left {
+	ul {
+		margin: 20px 0;
+		list-style: none;
+		li {
+			background-repeat: no-repeat; 
+    		background-position: left top;
+    		background-size: 30px 30px;
+    		margin: 1.00em 0 0 -20px;
+    		padding: 0 0 0 40px;
+		}
+		li:nth-child(1) {
+				background-image: url('route.png');
+		}
+		li:nth-child(2) {
+				background-image: url('manage.png');
+		}
+		li:nth-child(3) {
+				background-image: url('monitor.png');
+		}
+		li:nth-child(4) {
+				background-image: url('payment.png');
+		}
+	}
 }
 iframe {
  	width:90%; 
