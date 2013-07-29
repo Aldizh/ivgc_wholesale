@@ -16,6 +16,13 @@
     <%#= recaptcha_tags %>
     <%= submit_tag "Submit", :class => "common_btn", :id => "contact_submit_btn" %>
   <% end %>
+
+    <div style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px;">You can also email us at <span style="color: #600; font-weight: bold;">sales[at]@ivgc.net</span> for all the sales related questions and email us at <span style="color: #600; font-weight: bold;">payments[at]ivgc.net</span> for all the billing and payment related questions.
+    </div> 
+
+    <div id="signup_from_contact" style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px; margin-top: 20px;">
+      If you want to sign up for VoIP Reseller, please <%= link_to "click here", "/voip_resellers/" %> and if you want to sign up for Wholesale Termination, please <%= link_to "click here", "/signups/" %>.
+    </div>
   </div>
   <div id="image">
     <%= image_tag("contact.jpg") %>
