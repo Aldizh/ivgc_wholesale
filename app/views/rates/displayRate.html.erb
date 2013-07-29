@@ -5,6 +5,10 @@ td {
 	padding: 0 10px;
 	font-size: 80%;
  }
+a {
+	text-decoration: none;
+	color: #600;
+}
 </style>
 <% char_array = [] %>
 <% ('A'..'Z').each do |char| %>
@@ -17,7 +21,7 @@ td {
 			<th> <%= 'Country' %> </th>
 			<th> <%= 'Prefix' %> </th>
 			<th> <%= 'Cost' %> </th>
-			<th> <%= 'Select' %></th>
+			<th> </th>
 		</tr>
 	</thead>
 	<% i = 0 %>
@@ -26,7 +30,7 @@ td {
 		<td> <width="150" style="text-align: right;"><%= r['country'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['destination'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['price_1'] %></td>
-		<td><% if i < char_array.size %>
+		<td style="border-bottom: none;"><% if i < char_array.size %>
 			<strong><%= link_to char_array[i], :first_letter => char_array[i], :action => 'displayRate'%></strong>
 		<% end %>
 		<% i += 1 %>
