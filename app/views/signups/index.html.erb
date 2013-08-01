@@ -23,7 +23,7 @@
     <div><span style="margin: 0 43px 0 2px;">CC</span><span>phone number</span></div>
     <span id ="country_code"><%= text_field_tag 'cc', session[:cc] %></span>
     <span id ="phone"><%= text_field_tag 'phone', session[:phone]%></span><br>
-    <%= raw recaptcha_tags %>
+    <strong><%= recaptcha_tags %></strong> 
     <%= submit_tag "Submit", :class => "common_btn", :id => "sign_up_btn" %>
   <% end %>
   </div>
