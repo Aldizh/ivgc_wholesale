@@ -1,11 +1,11 @@
 <div class="content_wrapper">
 <h2 style="margin-left: 50px;"> Contact Us </h2>
-<% if flash[:error] %>
+<div class="common_form" id="contact_us_form">
+  <% if flash[:error] %>
   <span class="error" >
     <%= flash[:error] %>
   </span>
 <% end %>
-<div class="common_form" id="contact_us_form">
   <%= form_tag(:action => "contactUs") do %>
     <%= label_tag "Full Name: " %>
     <%= text_field_tag 'full_name', session[:full_name] %><br>
