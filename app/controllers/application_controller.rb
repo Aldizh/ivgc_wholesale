@@ -193,7 +193,9 @@ def validate_login(login)
   end
 
   def validate_phone(phone)
-    if phone.length() == 10
+    phone_re = /\d/
+    regex = phone_re.match(phone)
+    if phone.length() > 8 and not regex.nil?
       return true
     else 
       return false
@@ -201,7 +203,7 @@ def validate_login(login)
   end
 
   def validate_full_phone(phone)
-    if phone.length() > 13 or phone.length() < 11
+    if phone.length() < 11
       return false
     else
       return true
