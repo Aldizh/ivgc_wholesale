@@ -1,6 +1,6 @@
 <div class="content_wrapper" style="text-align: left;">
 <% if session[:admin] == true %>
-  <p><strong>You are now logged in as an admin!</p></strong>
+  <p><strong><%= t ".status" %></p></strong>
 <%end%>
 <% if flash[:notice] %>
     <div class="notice" style="margin-bottom: 15px;" >

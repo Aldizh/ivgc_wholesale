@@ -1,0 +1,69 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+sp:
+  home:
+    index:
+      voip: "Servicios Para Resellers Voip"
+      vline1: "Resellers, Cabinas telefónicas y puntos de venta de soluciones"
+      vline2: "Panel de reseller, Tarifas A-Z, Rutas de mejor esfuerzo y CLI"
+      vline3: "Niveles de distribución, administración de Clientes y Agentes de venta"
+      wholesale: "RUTAS WHOLESALE A-Z"
+      wline1: "Configuración inmediata de troncales VoIP IP-IP"
+      wline2: "Registro rápido y automático. Realice sus llamadas en minutos después de registrarse"
+      wline3: "Rutas de calidad a bajos costos. Tarifas preferenciales por volúmen o destinos principales"
+      sign_up: "Regístrese ahora"
+  app:
+    title: "IVGC Voip Wholesale Platform"
+  footer:
+    description: "Powered by Ciao Telecom, INC. USA"
+  accounts:
+    index:
+      status: "You are now logged in as an admin!"
+  about_us:
+    index:
+      company: "NUESTRA COMPAÑÍA"
+      description: "International Voice Global Connect(IVGS) es un proveedor líder de servicios de voz a destinos fijos y mobiles alrededor del mundo. Contamos con plataformas sofisticadas e inteligentes a gran escala, las cuales nos permiten ofrecer soluciones flexibles y escalables, brindando a nuestros clientes y asociados la posibilidad de administrar sus operaciones y fortalecer el crecimiento de su negocio de una manera eficiente y efectiva."
+  services:
+    index:
+      title: "Servicios"
+      description: "Proveemos servicios a Resellers y Wholesale dentro del mercado VoIP. Nuestros servicios a clientes Wholesale son automatizados y pueden ser usados de inmediato. Por otro lado, si está interesado en ser uno de nuestros Resellers, contacte a uno de nuestros gerentes de venta para registrarse."
+      voip: "VoIP Resellers"
+      vline1: "1. Registrese"
+      vline2: "2. Active su cuenta con un gerente de venta"
+      vline3: "3. Realice su pago de manera segura"
+      vline4: "4. Crearemos su portal web para que inicie su negocio"
+      wholesale: "Terminación Wholesale"
+      wline1: "1. Registrese"
+      wline2: "2. Realice su pago de manera segura en línea"
+      wline3: "3. Ingrese a su cuenta y agregue la dirección IP de su Gateway o IP-PBX"
+      wline4: "4. Empiece a realizar llamada"
+  voip_resellers:
+     index:
+       title: "Regístrese ahora!"
+       headline: "SERVICIOS RESELLERS VOIP"
+       first_name: "PRIMER NOMBRE: "
+       last_name: "APELLIDO: "
+       phone: "TELÉFONO: "
+       country: "SELECCIONE UN PAÍS: "
+       language: "SELECCIONE LENGUAJE: "
+       english: "INGLÉS"
+       spanish: "ESPAÑOL"
+       arabic: "ÁRABE"
+       french: "FRANCÉS"
+       hindi: "INDI"
+       urdu: "URDU"
+       portuguese: "PORTUGUÉS"
+       other: "OTRO"
+
+       business: "DESCRIPCIÓN DE SU NEGOCIO"
+       reseller: "RESELLER / AGENTE"
+       ip: "WHOLESALE IP-IP"
+       call_shop: "CABINA TELEFÓNICA"
+       other: "OTRO NEGOCIO"
+       personal: "USO PERSONAL"
+
+       consumption: "CONSUMO PROMEDIO MENSUAL (EN USD$)"
+       more: "O MAS"
+       none: "NINGUNO - NO VENDO ACTUALMENTE"
+       comments: "COMENTARIOS:"
+       send: "Enviar"

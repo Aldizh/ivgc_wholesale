@@ -132,6 +132,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   country-select
   jquery-rails
+  nokogiri
   pg
   rails (= 3.2.12)
   recaptcha

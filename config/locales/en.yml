@@ -1,5 +1,69 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  home:
+    index:
+      voip: "VOIP Reseller Services"
+      vline1: "Reseller, Call-Shops and Point of Sale Turn-Key Solutions"
+      vline2: "Reseller Panel, A-Z Rates, Grey and CLI Routes"
+      vline3: "2 Levels Distribution system and Customer / Agent management"
+      wholesale: "WHOLESALE A-Z ROUTES"
+      wline1: "Instant Direct connection IP 2 IP"
+      wline2: "Automated and instant sign-up, send traffic within the first minute of sign-up"
+      wline3: "Low cost quality routes all over world - Negotiate rates per volume/top destination"
+      sign_up: "sign up now"
+  app:
+    title: "IVGC Voip Wholesale Platform"
+  footer:
+    description: "Powered by Ciao Telecom, INC. USA"
+  accounts:
+    index:
+      status: "You are now logged in as an admin!"
+  about_us:
+    index:
+      company: "About Us"
+      description: "International Voice Global Connect(IVGS) is International Carrier Services (ICS) is a leading provider of international voice services to fixed, mobile, , and wholesale operators and service providers. IVGC combines global scale with sophisticated platform intelligence and call routing . IVGC's suite of flexible, scalable voice solutions empowers service providers to manage their operations and grow their businesses more efficiently and effectively."
+  services:
+    index:
+      title: "Services"
+      description: "We provide two major services - VoIP Reseller and VoIP Wholesale. VoIP Wholesale services are automated and instant while VoIP Reseller services are not. If you are interested in VoIP Reseller, our Sales Managers will get in contact with you after signing up. If you are only interested in Wholesale Termination, it is completely automated and ready to go after sign-up and payment."
+      voip: "VoIP Resellers"
+      vline1: "1. sign up first"
+      vline2: "2. our sales manager will sign you up"
+      vline3: "3. you will be asked to make payment"
+      vline4: "4. we will create a portal for you to start selling"
+      wholesale: "Wholesale termination"
+      wline1: "1. sign up first"
+      wline2: "2. add payment after signing up"
+      wline3: "3. login into your account and add your ip addresses"
+      wline4: "4. finally, start sending traffic"
+  voip_resellers:
+     index:
+       headline: "VOIP RESELLER SERVICES"
+       title: "Sign up!"
+       first_name: "First Name: "
+       last_name: "Last Name: "
+       phone: "Phone: "
+       country: "Select a country: "
+       language: "Select a language: "
+       english: "ENGLISH"
+       spanish: "SPANISH"
+       arabic: "ARABIC"
+       french: "FRENCH"
+       hindi: "HINDI"
+       urdu: "URDU"
+       portuguese: "PORTUGUESE"
+       other: "OTHER"
+
+       business: "What best describes your business?"
+       reseller: "Reseller / Agent"
+       ip: "IP to IP Wholesale"
+       call_shop: "Call Shop"
+       other: "Other Business"
+       personal: "personal use only"
+
+       consumption: "What is your typical monthly revenue? (In $USD)"
+       more: "or more"
+       none: "None (I do not sell)"
+       comments: "Comments:"
+       send: "Submit"

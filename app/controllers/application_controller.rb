@@ -1,6 +1,7 @@
 require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :set_locale
 
   begin
       @@admin
@@ -226,6 +227,15 @@ def validate_login(login)
     str1 = t1[0] + t1[1] + t1[2]
     str2 = t2[0] + t2[1] + t2[2]
     duration = str2.to_i - str1.to_i
+  end
+
+  private
+  def set_locale
+    I18n.locale = params[:locale] if params[:locale].present?
+  end
+
+  def default_url_options(options = {})
+    {locale: I18n.locale}
   end
 
 end

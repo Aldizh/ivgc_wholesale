@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IVGC Voip Wholesale Platform</title>
+  <title><%= t "app.title" %></title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= stylesheet_link_tag "nivo-slider", :media => "screen" %>
   <%= stylesheet_link_tag "themes/default/default", :media => "screen" %>
@@ -13,6 +13,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="lang">
+	<ul>
+		<li><%= link_to_unless_current image_tag("english.jpg"), :locale => "en" %></li>
+		<li><%= link_to_unless_current image_tag("spanish.jpg"), :locale => "sp" %></li>
+	</ul>
+</div>
 <header id="banner"> <!-- The top header section where we have the logos, login panel and the main menus -->
 		<span id="title"><h1><%= link_to image_tag("ivgc_logo1.png", border: "0"), root_path %></h1></span> <!-- MAIN TITLE -->
 		<span id="login_and_nav_wrapper">	
@@ -57,10 +63,10 @@
 						<li><%= link_to "See account lists", "/admin/accountList" %></li>
 					<%else%>
 						<li><%= link_to "Dashboard", '/accounts' %></li>
-						<li><%= link_to "Update your account", "/accounts/updateAccount" %></li>
-						<li><%= link_to "Manage my IPs", "/accounts/manageIP" %></li>
+						<li><%= link_to "Update your account", "/en/accounts/updateAccount" %></li>
+						<li><%= link_to "Manage my IPs", "/en/accounts/manageIP" %></li>
 						<li><%= link_to "Add Payment", "/accounts/addCredits" %></li>
-						<li><%= link_to "View CDR", "/accounts/viewCDR" %></li>
+						<li><%= link_to "View CDR", "/en/accounts/viewCDR" %></li>
 						<li><%= link_to "Tickets", "/tickets" %></li>
 					<%end%>
 				</ul>
@@ -72,7 +78,7 @@
 		<footer>
 			<nav>
 				<ul>
-					<li>Powered by Ciao Telecom, INC. USA</li>
+					<li><%= t "footer.description" %></li>
 				</ul>
 			</nav>
 		</footer>

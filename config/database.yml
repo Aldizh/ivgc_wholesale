@@ -24,7 +24,10 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  encoding: utf8
+  database: ciaot1_ivgc
+  username: ciaot1
+  password: w7AoMZb%Se*@
+  host: 209.200.231.164
+  port: 2083
