@@ -67,3 +67,25 @@ sp:
        none: "NINGUNO - NO VENDO ACTUALMENTE"
        comments: "COMENTARIOS:"
        send: "Enviar"
+  contact_us:
+     index:
+       contact: "CONTÁCTENOS"
+       fullname: "NOMBRE COMPLETO"
+       message: "MENSAJE"
+       submit: "Enviar"
+
+       part4: "Si desea registrarse como Reseller, "
+       part5: "Si desea registrarse como wholesale, "
+       link: "de click aquí "
+  rates:
+     index:
+      title: "TARIFAS"
+      description: "IVGC ofrece servicios de terminación  a bajos costos cumpliendo con altos niveles de conectividad (ASR) y calidad de llamada (ACD). Obtenga acceso en línea para monitorear el consumo de su cuenta 24/7 y cuente con la asistencia de nuestro soporte técnico las 24 horas del día."
+      routes: "Rutas"
+      route_desc: "Contamos con rutas preferenciales a todos los destinos internacionales asegurando un máximo nivel de terminación. Nuestros especialistas de QoS monitorean constantemente con el fin de asegurar la mejor calidad posible sobre nuestros servicios."
+      rates: "Tarifas y administración de destinos"
+      rates_desc: "Proveemos una relación precisa de códigos de destinos y tarifas. Enviamos"
+      monitor: "Herramientas de Monitoreo"
+      monitor_desc: "Nuestras herramientas en línea proveen información en tiempo real incluyendo reporte"
+      payments: "Pagos"
+      payments_desc: "Pague únicamente lo que consume mediante varias alternativas: Tarjeta de Crédito, Paypal, Transferencia bancaria y depósitos."

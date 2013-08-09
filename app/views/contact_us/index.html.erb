@@ -1,5 +1,5 @@
 <div class="content_wrapper">
-<h2 style="margin-left: 50px;"> Contact Us </h2>
+<h2 style="margin-left: 50px;"><%= t ".contact" %> </h2>
 <div class="common_form" id="contact_us_form">
   <% if flash[:error] %>
   <span class="error" >
@@ -7,21 +7,21 @@
   </span>
 <% end %>
   <%= form_tag(:action => "contactUs") do %>
-    <%= label_tag "Full Name: " %>
+    <%= label_tag t(".fullname") %>
     <%= text_field_tag 'full_name', session[:full_name] %><br>
     <%= label_tag "Email: " %>
     <%= text_field_tag 'email', session[:email] %><br>
-    <%= label_tag "Message:" %><br>
+    <%= label_tag t(".message") %><br>
     <%= text_area_tag 'message', session[:message] %><br>
     <%#= recaptcha_tags %>
-    <%= submit_tag "Submit", :class => "common_btn", :id => "contact_submit_btn" %>
+    <%= submit_tag t(".submit"), :class => "common_btn", :id => "contact_submit_btn" %>
   <% end %>
 
-    <div style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px;">You can also email us at <span style="color: #600; font-weight: bold;">sales[at]@ivgc.net</span> for all the sales related questions and email us at <span style="color: #600; font-weight: bold;">payments[at]ivgc.net</span> for all the billing and payment related questions.
+    <div style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px;">You can also email us at <span style="color: #600; font-weight: bold;">sales[at]@ivgc.net</span>. For all the sales related questions and email us at <span style="color: #600; font-weight: bold;">payments[at]ivgc.net</span>. For all the billing and payment related questions.
     </div> 
 
     <div id="signup_from_contact" style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px; margin-top: 20px;">
-      If you want to sign up for VoIP Reseller, please <%= link_to "click here", "/voip_resellers/" %> and if you want to sign up for Wholesale Termination, please <%= link_to "click here", "/signups/" %>.
+      <%= t ".part4" %> <%= link_to t(".link"), "/voip_resellers/" %><%= t ".part5" %> <%= link_to t(".link"), "/signups/" %>
     </div>
   </div>
   <div id="image">

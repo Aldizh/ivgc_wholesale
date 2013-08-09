@@ -67,3 +67,25 @@ en:
        none: "None (I do not sell)"
        comments: "Comments:"
        send: "Submit"
+  contact_us:
+     index:
+       contact: "Contact Us"
+       fullname: "FULL NAME: "
+       message: "MESSAGE: "
+       submit: "Submit"
+
+       part4: "If you want to sign up for VoIP Reseller, please"
+       part5: "and if you want to sign up for Wholesale Termination, please"
+       link: "click here "
+  rates:
+     index:
+      title: "Rates"
+      description: "IVGC was built for carriers that require high quality termination coupled with competitive rates and ease of use. Every route has four or more redundant carriers and undergoes strict quality testing to ensure a high answer-seizure ratio. We provide full ASR and ACD benchmarks for routes around the globe as well as CLI support on most routes. The product is bundled with 24/7 real-time CDR traffic monitoring and top-of-the-line customer care from our international support team."
+      routes: "Routes"
+      route_desc: "The Premium A-Z is a combination of in-country operated routes through niche carriers backed with multiple Tier 1 A-Zs for maximum possible completion. Our QoS specialists will work with your traffic to make sure you are getting the best quality possible over your network."
+      rates: "Rates and Code Management"
+      rates_desc: "The most accurate A-Z codes and rates are sent via e-mail and posted online on a monthly basis to eliminate excessive management. If you need more competitive rates all you need to do is ask your account manager and they will do their best to accommodate you."
+      monitor: "Monitoring Tools"
+      monitor_desc: "Our online tools provide 24/7 real-time monitoring of all your traffic including ASR, ACD, PDD, and your balance."
+      payments: "Payments"
+      payments_desc: "Pay-as-you-go via multiple payment options including: Credit Card, Paypal, Wires, ACH and Cash deposits. We have low minimums to start and dedicated billing specialists."
