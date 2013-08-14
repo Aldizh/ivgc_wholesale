@@ -73,7 +73,10 @@ sp:
        fullname: "NOMBRE COMPLETO"
        message: "MENSAJE"
        submit: "Enviar"
-
+       part2: "Puede enviar sus inquietudes a nuestro correo electronico: "
+       email: "comercial.latam@ivgc.net"
+       part3: "O puede contactarnos a los siguientes telefonos para atencion en Espanol:  "
+       email2: "Estados Unidos: + 1 (510) 256-5220, Colombia: + 57 (1) 508-7708, Brazil: + 55 (11) 3042-1269"
        part4: "Si desea registrarse como Reseller, "
        part5: "Si desea registrarse como wholesale, "
        link: "de click aquí "

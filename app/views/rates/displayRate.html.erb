@@ -25,16 +25,18 @@ a {
 		</tr>
 	</thead>
 	<% i = 0 %>
+	<% while i < char_array.size %>
+			<%= "| " %>
+			<strong><%= link_to char_array[i], :first_letter => char_array[i], :action => 'displayRate'%></strong>
+	<% i+= 1 %>
+	<% end %>
+	<% i = 0 %>
 	<% @rates.each do |r| %>
 	<tr>
 		<td> <width="150" style="text-align: right;"><%= r['country'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['destination'] %></td>
 		<td> <width="70" style="text-align: left;"><%= r['price_1'] %></td>
-		<td style="border-bottom: none;"><% if i < char_array.size %>
-			<strong><%= link_to char_array[i], :first_letter => char_array[i], :action => 'displayRate'%></strong>
-		<% end %>
 		<% i += 1 %>
-	</td>
 	</tr>
 	<% end %>
 </table>

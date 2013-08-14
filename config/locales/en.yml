@@ -73,7 +73,10 @@ en:
        fullname: "FULL NAME: "
        message: "MESSAGE: "
        submit: "Submit"
-
+       part2: "For all the sales related questions and email us at: "
+       email: "sales@ivgc.net"
+       part3: "For all the billing and payment related questions email us at: "
+       email2: "payments@ivgc.net"
        part4: "If you want to sign up for VoIP Reseller, please"
        part5: "and if you want to sign up for Wholesale Termination, please"
        link: "click here "

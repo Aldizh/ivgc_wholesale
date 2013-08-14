@@ -7,10 +7,10 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-group :production do 
-	gem 'pg'
+group :development, :production do 
+	gem 'mysql2'
 end
-group :development, :test do
+group :test do
 	gem 'sqlite3'
 end
 gem "sequel", "~> 3.47.0"
