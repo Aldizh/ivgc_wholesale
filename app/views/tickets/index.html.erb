@@ -9,15 +9,15 @@
 
     <h2>Tickets</h2>
     <%if session[:admin] != true %>
-      <span class = "common_btn" id="submit_ticket_btn"><%= link_to "Submit new ticket", new_ticket_path %></span>
+      <span class = "common_btn" id="submit_ticket_btn"><%= link_to t(".submit_new"), new_ticket_path %></span>
     <% end %>
     <table class="list">
       <tr>
-        <th>Submission Date</th>
-        <th>Ticket Title</th>
-        <th>Content</th>
-        <th>View Tickets</th>
-        <th>View Responses</th>
+        <th><%= t ".date" %></th>
+        <th><%= t ".title" %></th>
+        <th><%= t ".content" %></th>
+        <th><%= t ".tickets" %></th>
+        <th><%= t ".responses" %></th>
       </tr>
 
     <% @tickets.each do |ticket| %>
@@ -25,9 +25,9 @@
         <td><%= ticket.created_at %></td>
         <td><%= truncate(ticket.title, length: 40) %></td>
         <td><%= truncate(ticket.body, length: 50) %></td>
-        <td><%= link_to 'View ticket', ticket %></td>
+        <td><%= link_to t('.tickets'), ticket %></td>
         <% if ticket.responded_to == true %>
-        <td><%= link_to 'Show responses', :id => ticket.id, action: "viewResponses" %></td>
+        <td><%= link_to t('.responses'), :id => ticket.id, action: "viewResponses" %></td>
         <% else %>
         <td>Nobody responded yet</td>
         <% end %>

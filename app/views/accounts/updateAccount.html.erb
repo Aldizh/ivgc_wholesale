@@ -6,28 +6,29 @@
         <%= flash[:error] %>
       </div>
     <% end %>
-  <article class="title"><span>Update your profile</span></article>
+  <article class="title"><span><%= t ".title" %></span></article>
   <%= form_tag(:action => "doUpdate") do %>
-    <%= label_tag "IP: " %>
+    <%= label_tag t(".ip") %>
     <%= text_field_tag 'id', @ip %><br>
-    <%= label_tag "Company Name: " %>
+    <%= label_tag t(".cname") %>
     <%= text_field_tag 'companyname', @comp_name %><br>
-    <%= label_tag "Username: " %>
+    <%= label_tag t(".username") %>
     <%= text_field_tag 'username', @user_name %><br>
-    <%= label_tag "Password: " %>
+    <%= label_tag t(".pw") %>
     <%= password_field_tag 'password', @password %><br>
-    <%= label_tag "First Name: " %>
+    <%= label_tag t(".fn") %>
     <%= text_field_tag 'first_name', @first_name %><br>
-    <%= label_tag "Last Name: " %>
+    <%= label_tag t(".ln") %>
     <%= text_field_tag 'last_name', @last_name %><br>
-    <%= label_tag "Email: " %>
+    <%= label_tag t(".email") %>
     <%= text_field_tag 'email', @e_mail %><br>
-    <%= label_tag "Primary Phone: " %>
+    <%= label_tag t(".primary") %>
     <%= text_field_tag 'phone1', @phone1 %><br>
-    <%= label_tag "Secondary Phone: " %>
+    <%= label_tag t(".secondary") %>
     <%= text_field_tag 'phone2', @phone2 %><br>
-    <%= submit_tag "Save", :class => "common_btn", :id => "update_btn" %>
+    <%= submit_tag t(".save"), :class => "common_btn", :id => "update_btn" %>
   <% end %>
   </div>
 <%end%>
+
 </div>

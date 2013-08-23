@@ -27,7 +27,7 @@ class VoipResellersController < ApplicationController
 		           :port                 => 587,
 		           :domain               => 'ciaotelecom.net',
 		           :user_name            => 'its.ciaotelecom@gmail.com',
-		           :password             => 'Ci402013',
+		           :password             => 'ciao450750',
 		           :authentication       => 'plain',
 		           :enable_starttls_auto => true  }
 		Mail.defaults do

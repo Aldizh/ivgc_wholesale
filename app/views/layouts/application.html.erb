@@ -11,6 +11,19 @@
 
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40480808-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
 </head>
 <body>
 <div class="lang">
@@ -30,25 +43,24 @@
 					  </span>
 					<% end %>
 					<%= form_tag sessions_path do %>
-					    <%= text_field_tag :username, nil, :placeholder =>'username', class: "feedback-input", id: "username_home" %>
-					    <%= password_field_tag :password, nil, :placeholder =>'password', class: "feedback-input", id: "password_home" %>
+					    <%= text_field_tag :username, nil, :placeholder =>t("app.username"), class: "feedback-input", id: "username_home" %>
+					    <%= password_field_tag :password, nil, :placeholder =>t("app.password"), class: "feedback-input", id: "password_home" %>
   						<%= submit_tag "Login", id: "btn-login", class: "common_btn" %>
 					<% end %>
 				</section>
 			<% else %>
 				<section id="signout_panel_main" class="login_signout_panel">
-					Welcome, you are logged in as <span><%= session[:current_login] %></span>
-					<%= link_to 'LOGOUT', '/sessions/destroy' %>
+					<%= t("app.status") %> <span><%= session[:current_login] %></span>
+					<%= link_to t("app.logout"), '/sessions/destroy' %>
 				</section>
 			<% end %>
-
 			<nav id="main_navs"> <!-- The main menu -->
 				<ul>
-					<li><%= link_to 'home', home_index_path %></li>
-					<li><%= link_to 'about us', about_us_path %></li>
-					<li><%= link_to 'services', services_path %></li>
-					<li><%= link_to 'rates', rates_path %></li>
-					<li><%= link_to 'contact us', contact_us_path %></li>
+					<li><%= link_to t("app.init"), home_index_path %></li>
+					<li><%= link_to t("app.about_us"), about_us_path %></li>
+					<li><%= link_to t("app.services"), services_path %></li>
+					<li><%= link_to t("app.rates"), rates_path %></li>
+					<li><%= link_to t("app.contact_us"), contact_us_path %></li>
 				</ul>
 			</nav>
 		<span>
@@ -62,12 +74,21 @@
 					    <li><%= link_to "View Responses", "/responses" %></li>
 						<li><%= link_to "See account lists", "/admin/accountList" %></li>
 					<%else%>
-						<li><%= link_to "Dashboard", '/accounts' %></li>
-						<li><%= link_to "Update your account", "/en/accounts/updateAccount" %></li>
-						<li><%= link_to "Manage my IPs", "/en/accounts/manageIP" %></li>
-						<li><%= link_to "Add Payment", "/accounts/addCredits" %></li>
-						<li><%= link_to "View CDR", "/en/accounts/viewCDR" %></li>
-						<li><%= link_to "Tickets", "/tickets" %></li>
+					    <% if I18n.locale == :en %>
+							<li><%= link_to t("app.dashboard"), "/en/home/" %></li>
+							<li><%= link_to t("app.update"), "/en/accounts/updateAccount" %></li>
+							<li><%= link_to t("app.ips"), "/en/accounts/manageIP" %></li>
+							<li><%= link_to t("app.payments"), "/en/accounts/addCredits" %></li>
+							<li><%= link_to t("app.cdr"), "/en/accounts/viewCDR" %></li>
+							<li><%= link_to t("app.tickets"), "/en/tickets" %></li>
+						<% else %>
+							<li><%= link_to t("app.dashboard"), "/sp/home/" %></li>
+							<li><%= link_to t("app.update"), "/sp/accounts/updateAccount" %></li>
+							<li><%= link_to t("app.ips"), "/sp/accounts/manageIP" %></li>
+							<li><%= link_to t("app.payments"), "/sp/accounts/addCredits" %></li>
+							<li><%= link_to t("app.cdr"), "/sp/accounts/viewCDR" %></li>
+							<li><%= link_to t("app.tickets"), "/sp/tickets" %></li>
+						<% end %>
 					<%end%>
 				</ul>
 			</nav>

@@ -1,5 +1,5 @@
 <div class="content_wrapper">
-	<h2>Add Payment to your account</h2>
+	<h2><%= t ".title" %></h2>
 		<% if session[:admin] != true %>
 			<% if flash[:notice] %>
 			    <div class="notice" style="margin-bottom: 15px;" >
@@ -13,21 +13,20 @@
 			<%end%>
 			<div id="add_credit_block" style="text-align: left; margin: auto; width: 250px;">
 				<%= form_tag(:action => "addCreditsSubmit") do %>
-				  <%= label_tag "Amount: " %>
+				  <%= label_tag t(".amount") %>
 				  <%= text_field_tag 'amount' %> <br><br>
 				  <div id="paypal">
-				    <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %> PAYPAL (and Credit Card)
+				    <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %><%= t ".paypal" %>
 				  </div>
 				  <div id="bank">
-				  <%= radio_button_tag 'payment', "bank", false, class: "radio_btn" %> BANK TRANSFER<br><br>
+				  <%= radio_button_tag 'payment', "bank", false, class: "radio_btn" %><%= t ".bank" %><br><br>
 				  </div>
 				  <div id="wu">
-				  <%= radio_button_tag 'payment', "wu", false, class: "radio_btn" %> WESTERN UNION
+				  <%= radio_button_tag 'payment', "wu", false, class: "radio_btn" %><%= t ".wu" %>
 				  </div>
-				  <%= submit_tag "Continue", :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+				  <%= submit_tag t(".continue"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
 				<% end %>
 			</div>
 			
-		<% end %>
-			
+		<% end %>		
 </div>

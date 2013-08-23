@@ -112,7 +112,6 @@ class AccountsController < ApplicationController
       return 'Country code is not valid'
     elsif not validate_full_phone(phone1)
       return 'Primary phone number is not valid'
-    # does not check validation of phone2 if it is empty
     elsif not !phone2.empty? and validate_full_phone(phone2)
       return 'Secondary phone number is not valid'
     else
@@ -217,7 +216,7 @@ class AccountsController < ApplicationController
   def bankTranfers
     @amount = session[:amount]
   end
-  def bankTransferSubmit 
+  def bankTransferSubmit
     transfer_amount = params[:amount]
     confirmation_number = params[:confirmation_number]
 
@@ -231,7 +230,7 @@ class AccountsController < ApplicationController
                :port                 => 587,
                :domain               => 'ciaotelecom.net',
                :user_name            => 'its.ciaotelecom@gmail.com',
-               :password             => 'Ci402013',
+               :password             => 'ciao450750',
                :authentication       => 'plain',
                :enable_starttls_auto => true  }
     Mail.defaults do
@@ -245,7 +244,7 @@ class AccountsController < ApplicationController
           subject "#{subject}"
           body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
       end
-      flash[:notice] = "Once we verify your confirmation number, your account will be credited!"
+      flash[:notice] = t(:hello_flash)
       redirect_to "/accounts"    
     rescue Exception => e
         flash[:error] = "Oops! Your transaction didn't go through! Try again"
@@ -271,7 +270,7 @@ class AccountsController < ApplicationController
                :port                 => 587,
                :domain               => 'ciaotelecom.net',
                :user_name            => 'its.ciaotelecom@gmail.com',
-               :password             => 'Ci402013',
+               :password             => 'ciao450750',
                :authentication       => 'plain',
                :enable_starttls_auto => true  }
     Mail.defaults do

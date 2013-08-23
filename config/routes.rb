@@ -1,31 +1,24 @@
 IVGCWholeSale::Application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    get "voip_resellers/index"
     get "voip_resellers/voipResellerSignUp"
     post "voip_resellers/voipResellerSignUp"
     get "voip_resellers/thanksForSigningUp"
 
 
-    get "contact_us/index"
-
     get "rates/index"
     get "rates/displayRate"
     post "rates/displayRate"
-
-    get "services/index"
-
-    get "about_us/index"
 
     get "admin/accountInfo"
     post "admin/accountTerminate"
     get "admin/accountList"
     post "admin/viewTickets"
     get "admin/viewTickets"
-    get "admin/index"  
     resources :admin, :only => [:index]
 
     post "/responses/new"
     resources :responses
+
     post "tickets/new"
     get "tickets/viewResponses"
     resources :tickets
@@ -52,7 +45,6 @@ IVGCWholeSale::Application.routes.draw do
     get "accounts/updateAccount"
     get "accounts/doUpdate"
     post "accounts/doUpdate"
-    get "accounts/index"
 
     get "signups/signUp"
     post "signups/signUp"

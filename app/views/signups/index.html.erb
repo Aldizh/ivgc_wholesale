@@ -1,6 +1,6 @@
 <div class="content_wrapper" style="text-align: left;">
-  <h2 style="text-align: center;">Wholesale Termination</h2>
-  <h3>Sign-up now and take advantage of a fast, reliable platform with low-cost voice rates</h3>
+  <h2 style="text-align: center;"><%= t ".title" %></h2>
+  <h3><%= t ".banner" %></h3>
 
   <div class="common_form", id="signup_form">
     <% if flash[:error] %>
@@ -8,23 +8,27 @@
   		  <%= flash[:error] %>
       </div>
     <% end %>
-  <article class="title" style="padding: 10px 0 0 28px; width: 220px;"><span>Sign Up Form</span></article>
+  <% if I18n.locale != :en %><%= stylesheet_link_tag "locales/" + I18n.locale.to_s %>
+    <article class="title" style="padding: 10px 0 0 28px; width: 220px;"><span id="sign_up"> <%= t (".sign") %></span></article>
+  <% else %>
+    <article class="title" style="padding: 10px 0 0 28px; width: 220px;"><span> <%= t (".sign") %></span></article>
+  <% end %>
   <%= form_tag(:action => "signUp") do %>
-    <%= label_tag "Company Name: (optional)" %>
+    <%= label_tag t(".cname") %>
     <%= text_field_tag 'company_name', session[:company_name] %><br>
-    <%= label_tag "Ip address:" %>
+    <%= label_tag t(".ip") %>
     <%= text_field_tag 'ip1', session[:ip1] %><br>
-    <%= label_tag "Desired Username: " %>
+    <%= label_tag t(".user") %>
     <%= text_field_tag 'username', session[:username] %><br>
-    <%= label_tag "Password: " %>
+    <%= label_tag t(".pw") %>
     <%= password_field_tag 'password' %><br>
-    <%= label_tag "Email: " %>
+    <%= label_tag t(".email") %>
     <%= text_field_tag 'email', session[:email] %><br>
-    <div><span style="margin: 0 43px 0 2px;">CC</span><span>phone number</span></div>
+    <div style="font-size: 80%; overflow: auto;"><span style="width: 50px; margin: 0 43px 0 2px; float:left;"> <%= t ".cc" %></span><span style="width: 150px; margin: -30px 10px 0 2px; float:right;"><%= t ".phone" %></span></div>
     <span id ="country_code"><%= text_field_tag 'cc', session[:cc] %></span>
     <span id ="phone"><%= text_field_tag 'phone', session[:phone]%></span><br>
     <strong><%= recaptcha_tags %></strong> 
-    <%= submit_tag "Submit", :class => "common_btn", :id => "sign_up_btn" %>
+    <%= submit_tag t(".submit"), :class => "common_btn", :id => "sign_up_btn" %>
   <% end %>
   </div>
 </div>

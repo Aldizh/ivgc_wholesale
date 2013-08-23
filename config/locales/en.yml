@@ -1,6 +1,23 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 en:
+  hello_flash: "Once we verify your confirmation number, your account will be credited!"
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
   home:
     index:
       voip: "VOIP Reseller Services"
@@ -12,13 +29,111 @@ en:
       wline2: "Automated and instant sign-up, send traffic within the first minute of sign-up"
       wline3: "Low cost quality routes all over world - Negotiate rates per volume/top destination"
       sign_up: "sign up now"
+  sessions:
+    new:
+      voip: "VOIP Reseller Services"
+      vline1: "Reseller, Call-Shops and Point of Sale Turn-Key Solutions"
+      vline2: "Reseller Panel, A-Z Rates, Grey and CLI Routes"
+      vline3: "2 Levels Distribution system and Customer / Agent management"
+      wholesale: "WHOLESALE A-Z ROUTES"
+      wline1: "Instant Direct connection IP 2 IP"
+      wline2: "Automated and instant sign-up, send traffic within the first minute of sign-up"
+      wline3: "Low cost quality routes all over world - Negotiate rates per volume/top destination"
+      sign_up: "sign up now"
+  signups:
+    index:
+      title: "Wholesale Termination"
+      banner: "Sign-up now and take advantage of a fast, reliable platform with low-cost voice rates"
+      sign: "Sign Up Form"
+      cname: "Company Name: (optional)"
+      ip: "Ip address: "
+      user: "Desired Username: "
+      pw: "Password: "
+      email: "Email: "
+      phone: "Phone Number"
+      cc: "Country Code"
+      submit: "Submit"
   app:
+    status: "Welcome, you are logged in as"
     title: "IVGC Voip Wholesale Platform"
+    init: "Home"
+    about_us: "About Us"
+    services: "Services"
+    rates: "Rates"
+    contact_us: "Contact Us"
+    username: "username"
+    password: "password"
+    dashboard: "Dashboard"
+    update: "Update my account"
+    payments: "Payments"
+    ips: "Manage my IPs"
+    payment: "Add Payment"
+    cdr: "View CDR"
+    tickets: "Tickets"
+    logout: "Logout"
   footer:
     description: "Powered by Ciao Telecom, INC. USA"
   accounts:
     index:
       status: "You are now logged in as an admin!"
+      overview: "Account Overview"
+      minutes: "Top 5 Desitinations (Minutes)"
+      cost: "Top 5 Desitinations (Cost)"
+      country: "Country"
+      duration: "DUration"
+      cst: "Cost"
+      payment: "Payment History"
+      date: "Payment Date"
+      amount: "Amount"
+      welcome_flash: "You are successfully logged in!"
+    updateAccount:
+      title: "Update your profile"
+      ip: "IP"
+      cname: "Company Name"
+      username: "Username"
+      pw: "Password"
+      fn: "First Name"
+      ln: "Last Name"
+      email: "Email"
+      primary: "Primary Phone"
+      secondary: "Secondary Phone"
+      save: "Save"
+    manageIP:
+      title: "Manage your IP Addresses"
+      note: "* You can add upto three IP Addresses"
+      header: "IP Addresses"
+      primary: "Primary"
+      delete: "Delete"
+      enter: "Enter IP: "
+      add: "Add"
+    addCredits:
+      title: "Add Payment to your account"
+      amount: "Amount"
+      paypal: "PAYPAL (and Credit Card)"
+      bank: "BANK TRANSFER"
+      wu: "WESTERN UNION"
+      continue: "Continue"
+    bankTranfers:
+      amount: "Amount"
+      confirmation: "Confirmation"
+      submit: "Submit"
+    wuPayment:
+      amount: "Amount: "
+      code: "10 Digit MTCN Code: "
+      submit: "Submit"
+    viewCDR:
+      title: "CDR (Call Detail Record)"
+      filter: "FILTER"
+      prev: "<<previous"
+      next: "next>>"
+      from: "From "
+      to: "To "
+      country: "Country"
+      call_start: "Call start"
+      call_end: "Call end"
+      charged_time: "Charged time"
+      cost: "Cost (USD)"
+      none: "No call records available."
   about_us:
     index:
       company: "About Us"
@@ -37,6 +152,18 @@ en:
       wline2: "2. add payment after signing up"
       wline3: "3. login into your account and add your ip addresses"
       wline4: "4. finally, start sending traffic"
+  tickets:
+    index:
+      submit_new: "Submit new ticket"
+      date: "Submission date"
+      title: "Ticket title"
+      content: "Content"
+      tickets: "View Responses"
+      responses: "View Tickets"
+    new:
+      title: "Title"
+      comments: "Comments"
+      submit: "Create Ticket"
   voip_resellers:
      index:
        headline: "VOIP RESELLER SERVICES"
@@ -80,6 +207,8 @@ en:
        part4: "If you want to sign up for VoIP Reseller, please"
        part5: "and if you want to sign up for Wholesale Termination, please"
        link: "click here "
+     thanksForContacting:
+       message: "Thanks for Contacting Us! We will get back to you shortly!"
   rates:
      index:
       title: "Rates"

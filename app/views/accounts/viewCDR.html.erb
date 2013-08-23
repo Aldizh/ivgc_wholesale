@@ -1,15 +1,15 @@
 <div class="content_wrapper">
-  <h2>CDR (Call Detail Record)</h2>
+  <h2><%= t(".title") %></h2>
   <% if session[:admin] != true %>
     <article id="filter_cdr">
-      <p style="text-align: center;">FILTER</p>
+      <p style="text-align: center;"><%= t(".filter") %></p>
       <%= form_tag(:action => 'formatDate') do %>
-        <%= label_tag "From: " %>
+        <%= label_tag t(".from") %>
         <%= date_select("viewCDR", "from_date", :default => @from_date, :order => [:day, :month, :year]) %>
 
-        <%= label_tag "To: " %>
+        <%= label_tag t(".to") %>
         <%= date_select("viewCDR", "to_date", :default => @to_date ,:order => [:day, :month, :year])%>
-        <%= submit_tag "Filter" %>
+        <%= submit_tag t(".filter") %>
       <% end %>
     </article>
 
@@ -17,28 +17,28 @@
 
       <article id="next_prev_cdr">
         <% if @page > 1 %>
-          <span class="prev_link"><%= link_to '<<Previous', params.merge({:page => @page - 1}) %> </span>
+          <span class="prev_link"><%= link_to t('.prev'), params.merge({:page => @page - 1}) %> </span>
         <% else %>
-          <span class="prev_link"><%= '<< Previous' %></span>
+          <span class="prev_link"><%= t('.prev') %></span>
         <% end %>
         |
         <% if !@calls.empty? and @calls.length == @page_size %>
-          <span class="next_link"><%= link_to 'Next >>', params.merge({:page => @page + 1}) %></span>
+          <span class="next_link"><%= link_to t('.next'), params.merge({:page => @page + 1}) %></span>
         <% else %>
-          <span class="next_link"><%= 'Next >>' %></span>
+          <span class="next_link"><%= t('.next') %></span>
         <% end %>
       </article>
 
       <table class = "list">
         <thead>
           <tr>
-            <th>From</th>
-            <th>To</th>
-            <th>Country</th>
-            <th>Call start</th>
-            <th>Call end</th>
-            <th>Charged time</th>
-            <th>Cost (USD)</th>
+            <th><%= t(".from") %></th>
+            <th><%= t(".to") %></th>
+            <th><%= t(".country") %></th>
+            <th><%= t(".call_start") %></th>
+            <th><%= t(".call_end") %></th>
+            <th><%= t(".charged_time") %></th>
+            <th><%= t(".cost") %></th>
           </tr>
         </thead>
         <% if !@calls.empty? %>
@@ -59,7 +59,7 @@
           </tbody>
         <% else %>
           <tr>
-            <td colspan="7">No call records available.</td>
+            <td colspan="7"><%= t(".none") %></td>
           </tr>
         <% end %>
       </table>

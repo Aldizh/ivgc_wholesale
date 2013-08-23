@@ -4,7 +4,6 @@ class ContactUsController < ApplicationController
   end
 
   def contactUs
-	to = "sales@ivgc.net"
 	if validate_email(params[:email])
 		session[:full_name] = params[:full_name]
 		session[:email] = params[:email]
@@ -19,25 +18,46 @@ class ContactUsController < ApplicationController
 		           :port                 => 587,
 		           :domain               => 'ciaotelecom.net',
 		           :user_name            => 'its.ciaotelecom@gmail.com',
-		           :password             => 'Ci402013',
+		           :password             => 'ciao450750',
 		           :authentication       => 'plain',
 		           :enable_starttls_auto => true  }
 		Mail.defaults do
 			delivery_method :smtp, options
 		end
-		
-		begin 
-			Mail.deliver do
-		   		to 'sales@ivgc.net'
-		   		from "#{from}"
-		   		subject "#{subject}"
-		   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
+		if I18n.locale == "en"
+			begin 
+				Mail.deliver do
+			   		to 'sales@ivgc.net'
+			   		from "#{from}"
+			   		subject "#{subject}"
+			   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
+				end
+				Mail.deliver do
+			   		to 'andrew@ciaotelecom.com'
+			   		from "#{from}"
+			   		subject "#{subject}"
+			   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
+				end
+			 	redirect_to '/contact_us/thanksForContacting'
+			
+			rescue Exception => e
+			 		flash[:error] = "You message was not sent! Please try again!"
+			 		redirect_to contact_us_path
 			end
-		 	redirect_to '/contact_us/thanksForContacting'
-		
-		rescue Exception => e
-		 		flash[:error] = "You message was not sent! Please try again!"
-		 		redirect_to contact_us_path
+		else
+			begin 
+				Mail.deliver do
+			   		to 'comercial.latam@ivgc.net'
+			   		from "#{from}"
+			   		subject "#{subject}"
+			   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
+				end
+			 	redirect_to '/contact_us/thanksForContacting'
+			
+			rescue Exception => e
+			 		flash[:error] = "You message was not sent! Please try again!"
+			 		redirect_to contact_us_path
+			end
 		end
 	else
 		flash[:error] = "Please enter a valid email!"

@@ -3,7 +3,6 @@ class TicketsController < ApplicationController
 
   def index
     @tickets = Ticket.where(:owner => session[:current_login])
-    puts @tickets.inspect
   end
 
   def show

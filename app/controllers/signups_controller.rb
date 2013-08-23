@@ -25,7 +25,7 @@ class SignupsController < ApplicationController
     if error.nil?
       activation_date = Time.new.strftime("%Y-%m-%d")
       @hash_pw = @pw + '1a'
-      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','h323_password':'#{@hash_pw}','blocked':'N','companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'1','product_name':'Ciao Premium CLI 15', 'activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','h323_password':'#{@hash_pw}','blocked':'N','companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
       @result = apiRequest(@url)
       session[:current_login] = @login
       session[:i_account] = @result["i_account"]

@@ -2,14 +2,14 @@ require "active_merchant"
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_locale
-
   begin
       @@admin
   rescue
       @@admin = false
   end
 
-
+  def available_locales; AVAILABLE_LOCALES; end
+  
   def validateAdmin
     begin
       @@admin
@@ -196,7 +196,7 @@ def validate_login(login)
   def validate_phone(phone)
     phone_re = /\d/
     regex = phone_re.match(phone)
-    if phone.length() > 8 and not regex.nil?
+    if phone.length() > 6 and not regex.nil?
       return true
     else 
       return false
@@ -204,7 +204,7 @@ def validate_login(login)
   end
 
   def validate_full_phone(phone)
-    if phone.length() < 11
+    if phone.length() < 9
       return false
     else
       return true

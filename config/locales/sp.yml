@@ -1,6 +1,23 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 sp:
+  hello_flash: "Once we verify your confirmation number, your account will be credited! (spanish?)"
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
   home:
     index:
       voip: "Servicios Para Resellers Voip"
@@ -12,13 +29,112 @@ sp:
       wline2: "Registro rápido y automático. Realice sus llamadas en minutos después de registrarse"
       wline3: "Rutas de calidad a bajos costos. Tarifas preferenciales por volúmen o destinos principales"
       sign_up: "Regístrese ahora"
+  sessions:
+    new:
+      voip: "Servicios Para Resellers Voip"
+      vline1: "Resellers, Cabinas telefónicas y puntos de venta de soluciones"
+      vline2: "Panel de reseller, Tarifas A-Z, Rutas de mejor esfuerzo y CLI"
+      vline3: "Niveles de distribución, administración de Clientes y Agentes de venta"
+      wholesale: "RUTAS WHOLESALE A-Z"
+      wline1: "Configuración inmediata de troncales VoIP IP-IP"
+      wline2: "Registro rápido y automático. Realice sus llamadas en minutos después de registrarse"
+      wline3: "Rutas de calidad a bajos costos. Tarifas preferenciales por volúmen o destinos principales"
+      sign_up: "Regístrese ahora"
+  signups:
+    index:
+      title: "SERVICIOS WHOLESALE"
+      banner: "Regístrese ahora y aproveche los beneficios de una plataforma rápida y confiable a muy bajos costos"
+      sign: "Formulario De Registro"
+      cname: "NOMBRE DE COMPAÑÍA (OPCIONAL): "
+      ip: "DIRECCIÓN IP (TRONCALES VOIP IP-IP): "
+      user: "NOMBRE DE USUARIO: "
+      pw: "CLAVE DE ACCESO: "
+      email: "Email: "
+      phone: "NÚMERO DE TELÉFONO"
+      cc: "CÓDIGO DE PAÍS"
+      submit: "Enviar"
   app:
+    status: "Bienvenido. Se encuientra registrado como"
     title: "IVGC Voip Wholesale Platform"
+    init: "Inicio"
+    about_us: "Nuestra Compania"
+    services: "Servicios"
+    rates: "Tarifas"
+    contact_us: "Contactenos"
+    username: "usario"
+    password: "contrasena"
+    dashboard: "Principal"
+    update: "Actualise Su Cuenta"
+    payments: "Pagos"
+    ips: "Registro de IPs"
+    payment: "Pagos"
+    cdr: "Historico"
+    tickets: "Tickets"
+    logout: "Salir"    
   footer:
     description: "Powered by Ciao Telecom, INC. USA"
   accounts:
     index:
       status: "You are now logged in as an admin!"
+      overview: "Informacion De Cuenta"
+      minutes: "Top 5 Destinos (Minutos)"
+      cost: "Top 5 Destinos (Costo)"
+      country: "Pais"
+      duration: "Duracion"
+      cst: "Costo"
+      payment: "Historico de Pagos"
+      date: "Fecha"
+      amount: "Valor"
+      customer: "Cliente"
+      welcome_flash: "Ingreso exitoso!"
+    updateAccount:
+      title: "Actualice Su Cuenta"
+      ip: "IP"
+      cname: "NOMBRE EMPRESA"
+      username: "USUARIO"
+      pw: "CONTRASEÑA"
+      fn: "NOMBRE"
+      ln: "APELLIDO"
+      email: "CORREO ELECTRÓNICO"
+      primary: "TELÉFONO PRINCIPAL"
+      secondary: "TELÉFONO SECUNDARIO"
+      save: "Guardar"
+    manageIP:
+      title: "Registro De IPs"
+      note: "* Usted puede agregar hasta tres direcciones IP"
+      header: "Direcciones IP"
+      primary: "Principal"
+      delete: "Eliminar"
+      enter: "Entrar IP: "
+      add: "Agregue"
+    addCredits:
+      title: "Agregue saldo a su cuenta"
+      amount: "Cantidad"
+      paypal: "PAYPAL (y Tarjeta de Credito)"
+      bank: "TRANSFERENCIA BANCARIA"
+      wu: "WESTERN UNION"
+      continue: "Continuar"
+    bankTranfers:
+      amount: "Valor"
+      confirmation: "Codigo de aprobacion "
+      submit: "Enviar"
+    wuPayment:
+      amount: "Valor: "
+      code: "Código mtcn (10 digitos): "
+      submit: "Enviar"
+    viewCDR:
+      title: "Registro detallado de llamadas"
+      filter: "FILTRO"
+      prev: "<<Anterior"
+      next: "Siguiente>>"
+      from: "Desde "
+      to: "Hasta "
+      country: "Pais"
+      call_start: "Inicio de llamada"
+      call_end: "Fin de llamada"
+      charged_time: "Tiempo"
+      cost: "Costo (USD)"
+      none: "No existen registros de llamadas."
   about_us:
     index:
       company: "NUESTRA COMPAÑÍA"
@@ -37,6 +153,18 @@ sp:
       wline2: "2. Realice su pago de manera segura en línea"
       wline3: "3. Ingrese a su cuenta y agregue la dirección IP de su Gateway o IP-PBX"
       wline4: "4. Empiece a realizar llamada"
+  tickets:
+    index:
+      submit_new: "Crear un nuevo ticket"
+      date: "Fecha registro"
+      title: "Asunto  "
+      content: "Contenido"
+      tickets: "Ver Respuestas"
+      responses: "Ver Tickets"
+    new:
+      title: "Asunto"
+      comments: "Comentarios"
+      submit: "Crear Ticket"
   voip_resellers:
      index:
        title: "Regístrese ahora!"
@@ -80,6 +208,8 @@ sp:
        part4: "Si desea registrarse como Reseller, "
        part5: "Si desea registrarse como wholesale, "
        link: "de click aquí "
+     thanksForContacting:
+       message: "Gracias por contactarnos! Nos estaremos comunicando con usted lo antes posible!"
   rates:
      index:
       title: "TARIFAS"

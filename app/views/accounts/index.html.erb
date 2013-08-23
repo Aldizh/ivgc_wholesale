@@ -13,7 +13,7 @@
     </div>
 <%end%>
 <section id="account_overview" class="summary_box">
-<h3>Account Overview</h3>
+<h3><%= t ".overview" %></h3>
 <table>
 	<tbody>
 		<tr>
@@ -45,12 +45,12 @@
 </section>
 <section id="top5">
 	<section id="top5_minute" class="summary_box">
-		<h3>Top 5 Desitinations (Minutes)</h3>
+		<h3><%= t ".minutes" %></h3>
 		<table>
 			<thead>
 				<tr>
-					<th>Country</th>
-					<th>Duration</th>
+					<th><%= t ".country" %></th>
+					<th><%= t ".duration" %></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,11 +64,11 @@
 		</table>
 	</section>
 	<section id="top5_cost" class="summary_box">
-		<h3>Top 5 Desitinations (Cost)</h3>
+		<h3><%= t ".cost" %></h3>
 		<table>
 			<tr>
-				<th>Country</th>
-				<th>Cost</th>
+				<th><%= t ".country" %></th>
+				<th><%= t ".cst" %></th>
 			</tr>
 			<% @top_5_dest_by_cost.each do |k, v| %>
             <tr>
@@ -80,14 +80,14 @@
 	</section>
 </section>
 <section id="payment_history" class="summary_box">
-<h3>Payment History</h3>
+<h3><%= t ".payment" %></h3>
 <table>
 	<thead>
 		<tr>
-			<th>Payment Date</th>
-			<th>Amount</th>
-			<th>Country</th>
-			<th>Customer</th>
+			<th><%= t ".date" %></th>
+			<th><%= t ".amount" %></th>
+			<th><%= t ".country" %></th>
+			<th><%= t ".customer" %></th>
 		</tr>
 	</thead>
 	<tbody>
