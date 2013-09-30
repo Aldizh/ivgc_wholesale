@@ -1,6 +1,5 @@
 class AdminController < ApplicationController
-  before_filter :validateAdmin
-
+  before_filter :validateLoggedIn
   def index
   end
 

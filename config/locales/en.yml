@@ -1,7 +1,7 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 en:
-  hello_flash: "Once we verify your confirmation number, your account will be credited!"
+  hello_flash: "Thank you, once we verify your confirmation number, your account will be credited!"
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -107,19 +107,28 @@ en:
       enter: "Enter IP: "
       add: "Add"
     addCredits:
-      title: "Add Payment to your account"
+      title: "Add Payment to your account Using Paypal OR Bank/Wu transfer. For Bank/Wu an email will be sent to you shortly after we verify the transaction details!"
       amount: "Amount"
       paypal: "PAYPAL (and Credit Card)"
       bank: "BANK TRANSFER"
       wu: "WESTERN UNION"
       continue: "Continue"
+    paypalPayment:
+      title: "Easy checkout with paypal. You will get a chance to update the order amount once transferred to paypal."
     bankTranfers:
-      amount: "Amount"
-      confirmation: "Confirmation"
+      amount: "Amount*"
+      name: "Beneficiary"
+      bank: "Bank"
+      bank_address: "Bank Adress"
+      account_num: "Receiver account no."
+      confirmation: "Confirmation*"
+      swift: "Swift"
       submit: "Submit"
     wuPayment:
-      amount: "Amount: "
-      code: "10 Digit MTCN Code: "
+      amount: "Amount*"
+      to: "To Whom"
+      address: "Address"
+      code: "10 Digit MTCN Code*"
       submit: "Submit"
     viewCDR:
       title: "CDR (Call Detail Record)"

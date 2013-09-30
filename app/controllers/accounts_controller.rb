@@ -2,7 +2,7 @@ require 'socket'
 require 'mail'
 require 'securerandom'
 class AccountsController < ApplicationController
-  before_filter :validateLoggedIn
+  before_filter :validateLoggedIn, :except => [:forgotPasswordSubmit, :forgotPassword]
 
   def index
     @@top_5_by_mins = Hash.new
@@ -87,7 +87,7 @@ class AccountsController < ApplicationController
     @comp_name = @result["account_info"]["companyname"]
     @first_name = @result["account_info"]["firstname"]
     @last_name = @result["account_info"]["lastname"]
-    @e_mail = @result["account_info"]["subscriber_email"]
+    @email = @result["account_info"]["subscriber_email"]
     @phone1 = @result["account_info"]["phone1"].to_s.gsub(/[^0-9]/, "")  # remove non-numeric characters
     @phone2 = @result["account_info"]["phone2"].to_s.gsub(/[^0-9]/, "")
     @ip = @result["account_info"]["id"]
@@ -135,7 +135,7 @@ class AccountsController < ApplicationController
       flash[:error] = error
       return redirect_to "/accounts/updateAccount"
     end
-    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}', 'email':'#{@email}', login':'#{@login}','password':'#{@password}','h323_password':'#{@password}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     result = apiRequest(url)
            
     if result["i_account"].nil?
@@ -145,6 +145,49 @@ class AccountsController < ApplicationController
       flash[:notice] = "You successfully updated your account infos"
       redirect_to root_path
     end
+  end
+
+  def forgotPassword
+  end
+
+  def forgotPasswordSubmit
+    url_id = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','id':'#{params[:id]}'}"
+    @result_id = apiRequest(url_id)
+    old_pass = @result_id["account_info"]["password"]
+    i_acc = @result_id["account_info"]["i_account"]
+    new_pass = "alditest"
+    url = "https://208.65.111.144:8444/rest/Account/change_password/{'session_id':'#{get_session}'}/{'i_account':'#{i_acc}','old_password':'#{old_pass}','new_password':'#{new_pass}'}"
+    result = apiRequest(url)
+
+    to = "#{@result_id["account_info"]["subscriber_email"]}"
+    from = "support@ivgc.net"
+    subject = "Password Reset"
+    message = "Your new password is : " + new_pass
+
+    options = { :address              => "smtp.gmail.com",
+               :port                 => 587,
+               :domain               => 'ciaotelecom.net',
+               :user_name            => 'admin@ivgc.net',
+               :password             => 'SWIu4*aDo*D#oucl',
+               :authentication       => 'plain',
+               :enable_starttls_auto => true  }
+    Mail.defaults do
+      delivery_method :smtp, options
+    end
+    
+    begin 
+      Mail.deliver do
+          #attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
+          to "#{to}"
+          from "#{from}"
+          subject "#{subject}"
+          body "Message: #{message}\n\nClick here to go back to the site: www.ivgc.net"
+      end
+    rescue Exception => e
+        flash[:error] = "#{e.inspect}" + " Oops! Your transaction didn't go through! Try again"
+        redirect_to "/accounts/forgotPassword"    
+    end
+    flash[:notice] = "Check your email for the new password!"
   end
 
   def manageIP
@@ -195,31 +238,32 @@ class AccountsController < ApplicationController
   def addCreditsSubmit 
     session[:amount] = params[:amount]
     if (params[:payment] == "paypal") 
-      paypalPayment(session[:amount])
+      redirect_to "/accounts/paypalPayment"
+      #paypalPayment(session[:amount])
     elsif (params[:payment] == "bank") 
       redirect_to "/accounts/bankTranfers"
     elsif (params[:payment] == "wu")
       redirect_to "/accounts/wuPayment"
     end
   end
-  def paypalPayment(amount) 
-      @amount = amount.to_i*100
-      response = EXPRESS_GATEWAY.setup_purchase(@amount,
-      :ip                => getIP,
-      :return_url        => accounts_creditAdded_url,
-      :cancel_return_url => accounts_addCredits_url
-      )
-      session[:token] = response.token
-      redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+  def paypalPayment 
+      #@amount = amount.to_i*100
+      #response = EXPRESS_GATEWAY.setup_purchase(@amount,
+      #:ip                => getIP,
+      #:return_url        => accounts_creditAdded_url,
+      #:cancel_return_url => accounts_addCredits_url
+      #)
+      #session[:token] = response.token
+      #redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
 
   def bankTranfers
     @amount = session[:amount]
   end
+
   def bankTransferSubmit
     transfer_amount = params[:amount]
     confirmation_number = params[:confirmation_number]
-
     to = "payments@ivgc.net"
 
     from = "#{session[:current_login]}"
@@ -229,8 +273,8 @@ class AccountsController < ApplicationController
     options = { :address              => "smtp.gmail.com",
                :port                 => 587,
                :domain               => 'ciaotelecom.net',
-               :user_name            => 'its.ciaotelecom@gmail.com',
-               :password             => 'ciao450750',
+               :user_name            => 'admin@ivgc.net',
+               :password             => 'SWIu4*aDo*D#oucl',
                :authentication       => 'plain',
                :enable_starttls_auto => true  }
     Mail.defaults do
@@ -239,10 +283,11 @@ class AccountsController < ApplicationController
     
     begin 
       Mail.deliver do
-          to 'payments@ivgc.net'
+          attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
+          to "#{to}"
           from "#{from}"
           subject "#{subject}"
-          body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
+          body "Account Login/Username: #{from} \n\nMessage: #{message}"
       end
       flash[:notice] = t(:hello_flash)
       redirect_to "/accounts"    
@@ -252,6 +297,13 @@ class AccountsController < ApplicationController
     end
   end
 
+  def bankDescription
+  end
+
+  def displayBank
+    render :layout => false
+  end
+  
   def wuPayment
     @amount = session[:amount]
   end
@@ -260,6 +312,7 @@ class AccountsController < ApplicationController
     transfer_amount = params[:amount]
     mtcn_code = params[:mtcn_code]
 
+    to = "aldizhupani@gmail.com"
     to = "payments@ivgc.net"
 
     from = "#{session[:current_login]}"
@@ -269,8 +322,8 @@ class AccountsController < ApplicationController
     options = { :address              => "smtp.gmail.com",
                :port                 => 587,
                :domain               => 'ciaotelecom.net',
-               :user_name            => 'its.ciaotelecom@gmail.com',
-               :password             => 'ciao450750',
+               :user_name            => 'admin@ivgc.net',
+               :password             => 'SWIu4*aDo*D#oucl',
                :authentication       => 'plain',
                :enable_starttls_auto => true  }
     Mail.defaults do
@@ -279,10 +332,11 @@ class AccountsController < ApplicationController
     
     begin 
       Mail.deliver do
-          to 'payments@ivgc.net'
+          attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
+          to "#{to}"
           from "#{from}"
           subject "#{subject}"
-          body "Sender Name: Tenzin Nyima \n\nAccount Login/Username: #{from} \n\nMessage: #{message}"
+          body "Account Login/Username: #{from} \n\nMessage: #{message}"
       end
       flash[:notice] = "Once we verify your MTCN code, your account will be credited!"
       redirect_to "/accounts"    
@@ -291,6 +345,11 @@ class AccountsController < ApplicationController
         redirect_to "/accounts/addCredits"    
     end
   end
+
+  def displayWU
+    render :layout => false
+  end
+
   def creditAdded
     details = EXPRESS_GATEWAY.details_for(session[:token])
     @first = details.params["first_name"]
@@ -317,6 +376,7 @@ class AccountsController < ApplicationController
     ip.ip_address if ip
     return ip
   end
+
 end
 
 
@@ -343,6 +403,3 @@ end
 #https://208.65.111.144/rest/Account/get_xdr_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877815", "from_date":"2011-10-20 16:27:25", "to_date":"2013-06-30 16:27:25"}
 #https://208.65.111.144/rest/Session/logout/{"session_id":""}
 #https://208.65.111.144/rest/Rate/get_rate_list/{"session_id":"a8bb3035043eb5ffc9e6f8ad9cf04201"}/{"i_tariff":"72", "effective_from":"now"}
-
-
-

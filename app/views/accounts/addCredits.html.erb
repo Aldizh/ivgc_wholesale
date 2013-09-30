@@ -11,10 +11,11 @@
 			      <%= flash[:error] %>
 			    </div>
 			<%end%>
+
 			<div id="add_credit_block" style="text-align: left; margin: auto; width: 250px;">
 				<%= form_tag(:action => "addCreditsSubmit") do %>
-				  <%= label_tag t(".amount") %>
-				  <%= text_field_tag 'amount' %> <br><br>
+				  <!--%= label_tag t(".amount") %-->
+				  <!--%= text_field_tag 'amount' %--><br>
 				  <div id="paypal">
 				    <%= radio_button_tag 'payment', "paypal", true, class: "radio_btn" %><%= t ".paypal" %>
 				  </div>
@@ -27,6 +28,6 @@
 				  <%= submit_tag t(".continue"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
 				<% end %>
 			</div>
-			
+
 		<% end %>		
 </div>

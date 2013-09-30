@@ -114,13 +114,22 @@ sp:
       bank: "TRANSFERENCIA BANCARIA"
       wu: "WESTERN UNION"
       continue: "Continuar"
+    paypalPayment:
+      title: "Easy checkout with paypal. You will get a chance to update the order amount once transferred to paypal."
     bankTranfers:
-      amount: "Valor"
-      confirmation: "Codigo de aprobacion "
+      amount: "Valor*"
+      name: "Beneficiario"
+      bank: "El Banco"
+      bank_address: "Dirección del Banco"
+      account_num: "Numero de Cuenta"
+      confirmation: "Codigo de aprobacion*"
+      swift: "Swift"
       submit: "Enviar"
     wuPayment:
-      amount: "Valor: "
-      code: "Código mtcn (10 digitos): "
+      amount: "Valor*"
+      to: "A quien"
+      address: "Domicilio: "
+      code: "Código mtcn (10 digitos)*"
       submit: "Enviar"
     viewCDR:
       title: "Registro detallado de llamadas"

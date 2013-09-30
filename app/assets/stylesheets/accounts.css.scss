@@ -1,7 +1,32 @@
 // Place all the styles related to the accounts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.content_wrapper {
+#desc_wrapper {
+	overflow: auto;
+}
+#bank_left {
+	width: 55%;
+	float: left;
+	padding:  0;
+}
+#bank_right {
+	width: 44%;
+	float: right;
+}
+
+iframe {
+ 	width:90%; 
+ 	height: 600px; 
+ 	overflow-x: hidden; 
+ 	overflow-y: scroll;
+ 	border: 0px #600000 dotted;
+ 	margin: 0 0 10px 0; 
+ 	float: right;
+	padding: 20px;	
+}
+
+.paypalPay{
+	text-align:center;
 }
 #paypal, #wu, #bank {
 	height: 40px;
@@ -22,6 +47,7 @@
 #wu{
 	background-image: url('wu-logo.jpg');
 }
+
 .notice {
 	font-size: 80%;
 	font-weight: 300;
@@ -140,4 +166,8 @@ table#ip_list {
 }
 section#cdr_block_wrapper {
 	
+}
+h2 {
+	color:blue;
+	font-size:20px;
 }

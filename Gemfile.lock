@@ -129,10 +129,13 @@ DEPENDENCIES
   activemerchant
   coffee-rails (~> 3.2.1)
   country-select
+  i18n (= 0.6.4)
   jquery-rails
   mysql2
   nokogiri
+  rack (= 1.4.5)
   rails (= 3.2.12)
+  rake
   recaptcha
   rest-client (~> 1.6.7)
   sass-rails (~> 3.2.3)

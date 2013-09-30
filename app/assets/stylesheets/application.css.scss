@@ -29,7 +29,7 @@ body {
 }
 a {
 	text-decoration: none;	
-	color: #000;
+	color: blue;
 }
 
 .lang { 
@@ -50,8 +50,8 @@ a {
 }
 
 #error-login-home {
-	color: yellow;
-	font-size: 65%;
+	color: #FF6633;
+	font-size: 80%;
 	position: absolute;
 	top: 5px;
 }
@@ -89,8 +89,9 @@ span#login_and_nav_wrapper {
 	float: right;
 }
 .login_signout_panel {
-	margin: 30px 10px 0 10px ;
+	margin: 10px 10px 0 10px ;
 }
+
 .feedback-input {
 	color:#000;
 	font-family: Helvetica, Arial, sans-serif;
@@ -180,7 +181,8 @@ span#login_and_nav_wrapper {
 #signout_panel_main a:hover {
 	background-color: #3498db;
 }
-	
+
+
 .submit:hover {
 	color: #3498db;
 }

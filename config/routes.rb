@@ -14,7 +14,8 @@ IVGCWholeSale::Application.routes.draw do
     get "admin/accountList"
     post "admin/viewTickets"
     get "admin/viewTickets"
-    resources :admin, :only => [:index]
+    get "admin/index"
+    resources :admin
 
     post "/responses/new"
     resources :responses
@@ -23,6 +24,15 @@ IVGCWholeSale::Application.routes.draw do
     get "tickets/viewResponses"
     resources :tickets
 
+    post "accounts/forgotPasswordSubmit"
+    get "accounts/forgotPasswordSubmit"
+    post "accounts/forgotPassword"
+    get "accounts/forgotPassword"
+    get "accounts/displayWU"
+    get "accounts/displayBank"
+    get "accounts/bankDescription"
+    get "accounts/paypalPayment"
+    get "accounts/creditCardPayment"
     post "accounts/wuPaymentSubmit"
     get "accounts/wuPaymentSubmit"
     post "accounts/bankTransferSubmit"
@@ -123,6 +133,6 @@ IVGCWholeSale::Application.routes.draw do
     # Note: This route will make all actions in every controller accessible via GET requests.
     # match ':controller(/:action(/:id))(.:format)'
   end
-  match '*path', to: redirect("/#{I18n.default_locale}/%{path}")
+  #match '*path', to: redirect("/#{I18n.default_locale}/%{path}")
   match '', to: redirect("/#{I18n.default_locale}")
 end

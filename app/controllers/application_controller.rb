@@ -231,7 +231,7 @@ def validate_login(login)
 
   private
   def set_locale
-    I18n.locale = params[:locale] if params[:locale].present?
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   def default_url_options(options = {})

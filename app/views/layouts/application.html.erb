@@ -36,6 +36,7 @@
 		<span id="title"><h1><%= link_to image_tag("ivgc_logo1.png", border: "0"), root_path %></h1></span> <!-- MAIN TITLE -->
 		<span id="login_and_nav_wrapper">	
 			<% if !session[:current_login] %>
+				<h6 style="margin:0 0 0 10px;"><%= link_to "Forgot Password?", :controller => :accounts, :action => "forgotPassword" %></h6>
 				<section id="login_panel_main" class="login_signout_panel"> <!-- The login panel that appears on the top right corner of the page -->
 					<% if flash[:error] %>
 					  <span class="error" id="error-login-home" >
@@ -70,9 +71,11 @@
 			<nav class="users_menu">
 				<ul>
 					<%if session[:admin] == true %>
-						<li><%= link_to "View Tickets", "/admin/viewTickets" %></li>
-					    <li><%= link_to "View Responses", "/responses" %></li>
-						<li><%= link_to "See account lists", "/admin/accountList" %></li>
+						<% if I18n.locale == :en %>
+							<li><%= link_to "View Tickets", "/en/admin/viewTickets" %></li>
+						    <li><%= link_to "View Responses", "/en/responses" %></li>
+							<li><%= link_to "See account lists", "/en/admin/accountList" %></li>
+						<% end %>
 					<%else%>
 					    <% if I18n.locale == :en %>
 							<li><%= link_to t("app.dashboard"), "/en/home/" %></li>

@@ -1,9 +1,24 @@
-<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
-	<%= form_tag(:action => "wuPaymentSubmit") do %>
-	  <%= label_tag t(".amount") %><br>
-	  <%= number_field_tag 'amount', @amount %> <br><br>
-	  <%= label_tag t(".code") %><br>
-	  <%= text_field_tag 'mtcn_code' %> <br><br>
-	  <%= submit_tag t(".submit"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
-	<% end %>
+<div class="content_wrapper">
+	<div id="desc_wrapper">
+		<div id="bank_left">
+			<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
+				<%= form_tag(:action => "wuPaymentSubmit") do %>
+				  <%= label_tag t(".amount") %><br>
+				  <%= number_field_tag 'amount', @amount, :required => true%> <br><br>
+				  <%= label_tag t(".to") %><br>
+				  <%= text_field_tag 'to', 'Mary Santos', :readonly => true %> <br><br>
+				  <%= label_tag t(".address") %><br>
+				  <%= text_field_tag 'address', '8390 lbj freeway, Dallas TX', :readonly => true %> <br><br>
+				  <%= label_tag t(".code") %><br>
+				  <%= text_field_tag 'mtcn_code', "", :required => true%> <br><br>
+				  <%= submit_tag t(".submit"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+				<% end %>
+			</div>
+		</div>
+
+		<div id="bank_right">
+			<iframe src="<%= url_for :action => 'displayWU' %>" border="0">
+			</iframe>
+		</div>
+	</div>
 </div>

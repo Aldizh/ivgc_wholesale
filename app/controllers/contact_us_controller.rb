@@ -17,22 +17,24 @@ class ContactUsController < ApplicationController
 		options = { :address              => "smtp.gmail.com",
 		           :port                 => 587,
 		           :domain               => 'ciaotelecom.net',
-		           :user_name            => 'its.ciaotelecom@gmail.com',
-		           :password             => 'ciao450750',
+		           :user_name            => 'admin@ivgc.net',
+		           :password             => 'SWIu4*aDo*D#oucl',
 		           :authentication       => 'plain',
 		           :enable_starttls_auto => true  }
 		Mail.defaults do
 			delivery_method :smtp, options
 		end
-		if I18n.locale == "en"
+		if I18n.locale == :en
 			begin 
 				Mail.deliver do
+					attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
 			   		to 'sales@ivgc.net'
 			   		from "#{from}"
 			   		subject "#{subject}"
 			   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nMessage: #{message}"
 				end
 				Mail.deliver do
+					attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
 			   		to 'andrew@ciaotelecom.com'
 			   		from "#{from}"
 			   		subject "#{subject}"
@@ -47,6 +49,7 @@ class ContactUsController < ApplicationController
 		else
 			begin 
 				Mail.deliver do
+					attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
 			   		to 'comercial.latam@ivgc.net'
 			   		from "#{from}"
 			   		subject "#{subject}"

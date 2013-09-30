@@ -11,10 +11,10 @@ class RatesController < ApplicationController
   end
   def displayRate
   	#@rates = Rate.all
-    @url = "https://208.65.111.144/rest/Rate/get_rate_list/{'session_id':'#{get_session2}'}/{'i_tariff':'72', 'effective_from':'now', 'limit':'100'}"
+    @url = "https://208.65.111.144/rest/Rate/get_rate_list/{'session_id':'#{get_session2}'}/{'i_tariff':'966', 'effective_from':'now', 'limit':'100'}"
     @result = apiRequest(@url)
     if params[:first_letter] and params[:first_letter] != '*'
-      url_all = "https://208.65.111.144/rest/Rate/get_rate_list/{'session_id':'#{get_session2}'}/{'i_tariff':'72', 'effective_from':'now'}"
+      url_all = "https://208.65.111.144/rest/Rate/get_rate_list/{'session_id':'#{get_session2}'}/{'i_tariff':'966', 'effective_from':'now'}"
       result_all = apiRequest(url_all)
       all_rates = result_all['rate_list']
       @rates = []

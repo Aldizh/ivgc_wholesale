@@ -27,8 +27,10 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
+gem 'i18n', '=0.6.4'
+gem 'rack', '=1.4.5'
 gem 'jquery-rails'
+gem 'rake'
 gem 'activemerchant'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

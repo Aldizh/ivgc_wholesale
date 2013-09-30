@@ -1,9 +1,29 @@
-<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
-	<%= form_tag(:action => "bankTransferSubmit") do %>
-	  <%= label_tag t(".amount") %><br>
-	  <%= number_field_tag 'amount', @amount %> <br><br>
-	  <%= label_tag t(".confirmation") %><br>
-	  <%= text_field_tag 'confirmation_number' %> <br><br>
-	  <%= submit_tag t(".submit"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
-	<% end %>
+<div class="content_wrapper">
+	<div id="desc_wrapper">
+		<div id="bank_left">
+			<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
+				<%= form_tag(:action => "bankTransferSubmit") do %>
+				  <%= label_tag t(".amount") %><br>
+				  <%= number_field_tag 'amount', @amount, :required => true %> <br><br>
+				  <%= label_tag t(".name") %><br>
+				  <%= text_field_tag 'name', 'Ciao Telecom, Inc.', :readonly => true %> <br><br>
+				  <%= label_tag t(".bank") %><br>
+				  <%= text_field_tag 'bank', 'Wells Fargo', :readonly => true %> <br><br>
+				  <%= label_tag t(".bank_address") %><br>
+				  <%= text_field_tag 'bank_address', '5801 Christie Ave, Emeryville, CA 94608', :readonly => true %> <br><br>
+				  <%= label_tag t(".account_num") %><br>
+				  <%= text_field_tag 'account_num', '6095945223', :readonly => true %> <br><br>
+				  <%= label_tag t(".swift") %><br>
+				  <%= text_field_tag 'swift', 'WFBIUS6S', :readonly => true %> <br><br>
+				  <%= label_tag t(".confirmation") %><br>
+				  <%= text_field_tag 'confirmation_number', "", :required => true %> <br><br>
+				  <%= submit_tag t(".submit"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
+				<% end %>
+			</div>
+		</div>
+		<div id="bank_right">
+			<iframe src="<%= url_for :action => 'displayBank' %>" border="0">
+			</iframe>
+		</div>
+	</div>
 </div>
