@@ -5,13 +5,13 @@
 	overflow: auto;
 }
 #bank_left {
-	width: 55%;
+	width: 44%;
 	float: left;
-	padding:  0;
 }
 #bank_right {
-	width: 44%;
+	width: 56%;
 	float: right;
+	padding:  0;
 }
 
 iframe {
@@ -168,6 +168,8 @@ section#cdr_block_wrapper {
 	
 }
 h2 {
-	color:blue;
-	font-size:20px;
+	color:#000;
+	font-style:sans-serif;
+	font-size:15px;
+	display:inline;
 }

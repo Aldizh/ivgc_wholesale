@@ -81,9 +81,10 @@ class AccountsController < ApplicationController
     # and then can change it there and pass to another method whether the request for update will be sent.
     url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
     @result = apiRequest(url)
+    puts @result.inspect
     @comp_name = @result["account_info"]["companyname"]
     @user_name = @result["account_info"]["login"]
-    @password = @result["account_info"]["h323_password"]
+    @password = @result["account_info"]["password"]
     @comp_name = @result["account_info"]["companyname"]
     @first_name = @result["account_info"]["firstname"]
     @last_name = @result["account_info"]["lastname"]
@@ -133,17 +134,17 @@ class AccountsController < ApplicationController
     error = update_error(@company_name, @ip, @login, @password, @first_name, @last_name, @email, @ip, @phone1, @phone2)
     if not error.nil?
       flash[:error] = error
-      return redirect_to "/accounts/updateAccount"
+      return redirect_to :controller => :accounts, :action => :updateAccount
     end
-    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}', 'email':'#{@email}', login':'#{@login}','password':'#{@password}','h323_password':'#{@password}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password} + #{SecureRandom.hex(8)}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     result = apiRequest(url)
            
     if result["i_account"].nil?
       flash[:error] = "Oops! Try again!"
-      redirect_to "accounts/updateAccount"
+      redirect_to :controller => :accounts, :action => :updateAccount
     else 
-      flash[:notice] = "You successfully updated your account infos"
-      redirect_to root_path
+      flash[:notice] = "You successfully updated your account information"
+      redirect_to :controller => :accounts, :action => :index
     end
   end
 
@@ -155,7 +156,7 @@ class AccountsController < ApplicationController
     @result_id = apiRequest(url_id)
     old_pass = @result_id["account_info"]["password"]
     i_acc = @result_id["account_info"]["i_account"]
-    new_pass = "alditest"
+    new_pass = SecureRandom.hex(8)
     url = "https://208.65.111.144:8444/rest/Account/change_password/{'session_id':'#{get_session}'}/{'i_account':'#{i_acc}','old_password':'#{old_pass}','new_password':'#{new_pass}'}"
     result = apiRequest(url)
 

@@ -80,7 +80,7 @@ class SignupsController < ApplicationController
     elsif not validate_login(login)
       return 'Username cannot have fewer than 6 characters'
     elsif not validate_pw(pw)
-      return 'Password must have 6-16 characters'
+      return 'Password too short. You must have 6-16 characters'
     elsif not validate_email(email)
       return 'Email is not valid'
     elsif not validate_cc(cc)
@@ -94,7 +94,7 @@ class SignupsController < ApplicationController
     # if made it this far, form fields pass validation
     # validate that account can be made
     activation_date = Time.new.strftime("%Y-%m-%d")
-    @hash_pw = @pw + '1a'
+    hash_pw = pw + '1a'
     @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}', 'h323_password':'#{@hash_pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
     begin
       @result = apiRequest(@url)
@@ -113,6 +113,14 @@ class SignupsController < ApplicationController
         return 'Session error'
       else
         return 'Unknown error has occurred'   # shouldn't happen
+      end
+    rescue RuntimeError => e
+      if e.message.include?("Duplicate account id within environment")
+        return "An account with this ip already exists"
+      elsif e.message.include?("Duplicate account login")
+        return "This username already exists"
+      elsif e.message.include?("Auth info missed")
+        return "Please fill in all the information required!"  
       end
     end
   end

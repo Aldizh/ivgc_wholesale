@@ -1,6 +1,10 @@
 <div class="content_wrapper">
 	<div id="desc_wrapper">
 		<div id="bank_left">
+			<iframe src="<%= url_for :action => 'displayWU' %>" border="0">
+			</iframe>
+		</div>
+		<div id="bank_right">
 			<div id="add_credit_block" style="text-align: left; margin: auto; width: 350px;">
 				<%= form_tag(:action => "wuPaymentSubmit") do %>
 				  <%= label_tag t(".amount") %><br>
@@ -14,11 +18,6 @@
 				  <%= submit_tag t(".submit"), :class => "common_btn sub_common_btn", :id => "add_credit_btn" %>
 				<% end %>
 			</div>
-		</div>
-
-		<div id="bank_right">
-			<iframe src="<%= url_for :action => 'displayWU' %>" border="0">
-			</iframe>
 		</div>
 	</div>
 </div>
