@@ -65,7 +65,7 @@ sp:
     contact_us: "Contactenos"
     username: "usario"
     password: "contrasena"
-    dashboard: "Principal"
+    dashboard: "Cómo funciona"
     update: "Actualise Su Cuenta"
     payments: "Pagos"
     ips: "Registro de IPs"
@@ -117,7 +117,7 @@ sp:
       wu: "WESTERN UNION"
       continue: "Continuar"
     paypalPayment:
-      title: "Easy checkout with paypal. You will get a chance to update the order amount once transferred to paypal."
+      title: "Click here to buy a custom amount. The amount can be edited once transfered to paypal."
     bankTranfers:
       amount: "Valor*"
       name: "Beneficiario"
@@ -146,6 +146,19 @@ sp:
       charged_time: "Tiempo"
       cost: "Costo (USD)"
       none: "No existen registros de llamadas."
+    instructions:
+      title: "Servicios"
+      description: "Proveemos servicios a Resellers y Wholesale dentro del mercado VoIP. Nuestros servicios a clientes Wholesale son automatizados y pueden ser usados de inmediato. Por otro lado, si está interesado en ser uno de nuestros Resellers, contacte a uno de nuestros gerentes de venta para registrarse."
+      voip: "VoIP Resellers"
+      vline1: "1. Registrese"
+      vline2: "2. Active su cuenta con un gerente de venta"
+      vline3: "3. Realice su pago de manera segura"
+      vline4: "4. Crearemos su portal web para que inicie su negocio"
+      wholesale: "Terminación Wholesale"
+      wline1: "1. Registrese"
+      wline2: "2. Realice su pago de manera segura en línea"
+      wline3: "3. Ingrese a su cuenta y agregue la dirección IP de su Gateway o IP-PBX"
+      wline4: "4. Empiece a realizar llamada"
   about_us:
     index:
       company: "NUESTRA COMPAÑÍA"

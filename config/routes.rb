@@ -24,6 +24,7 @@ IVGCWholeSale::Application.routes.draw do
     get "tickets/viewResponses"
     resources :tickets
 
+    get "accounts/instructions"
     post "accounts/forgotPasswordSubmit"
     get "accounts/forgotPasswordSubmit"
     post "accounts/forgotPassword"

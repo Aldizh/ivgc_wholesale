@@ -2,7 +2,7 @@ require 'socket'
 require 'mail'
 require 'securerandom'
 class AccountsController < ApplicationController
-  before_filter :validateLoggedIn, :except => [:forgotPasswordSubmit, :forgotPassword]
+  before_filter :validateLoggedIn, :except => [:forgotPasswordSubmit, :forgotPassword, :instructions]
 
   def index
     @@top_5_by_mins = Hash.new
@@ -376,6 +376,9 @@ class AccountsController < ApplicationController
     ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
     ip.ip_address if ip
     return ip
+  end
+
+  def instructions
   end
 
 end

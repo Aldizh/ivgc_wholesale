@@ -62,6 +62,7 @@
 					<li><%= link_to t("app.services"), services_path %></li>
 					<li><%= link_to t("app.rates"), rates_path %></li>
 					<li><%= link_to t("app.contact_us"), contact_us_path %></li>
+					<li><%= link_to t("app.dashboard"), :controller => :accounts, :action => :instructions %></li>
 				</ul>
 			</nav>
 		<span>
@@ -78,7 +79,6 @@
 						<% end %>
 					<%else%>
 					    <% if I18n.locale == :en %>
-							<li><%= link_to t("app.dashboard"), "/en/home/" %></li>
 							<li><%= link_to t("app.update"), "/en/accounts/updateAccount" %></li>
 							<li><%= link_to t("app.ips"), "/en/accounts/manageIP" %></li>
 							<li><%= link_to t("app.payments"), "/en/accounts/addCredits" %></li>
