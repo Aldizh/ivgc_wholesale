@@ -24,31 +24,9 @@ class SignupsController < ApplicationController
     # check if any errors will occurr when attempting to signup
     error = signup_error(@company_name, @ip1, @login, @pw, @email, @cc, @phone)
     if error.nil?
-
-      to = "#{@email}"
-      from = "#{@login}"
-      subject = "IVGC Wholesale Sign up " + from
-      message = "Thank you for signing up with us Mr/Miss " + "#{@login}"
-
-      options = { :address              => "smtp.gmail.com",
-                 :port                 => 587,
-                 :domain               => 'ciaotelecom.net',
-                 :user_name            => 'admin@ivgc.net',
-                 :password             => 'SWIu4*aDo*D#oucl',
-                 :authentication       => 'plain',
-                 :enable_starttls_auto => true  }
-      Mail.defaults do
-        delivery_method :smtp, options
-      end
-      
       begin 
-        Mail.deliver do
-            attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
-            to "#{to}"
-            from "#{from}"
-            subject "#{subject}"
-            body "Account Login/Username: #{from} \n\nMessage: #{message}"
-        end  
+        UserMailer.welcome_email({"login" => "#{@login}", "email" => "#{@email}"}).deliver
+        UserMailer.sign_up_notification({"login" => "#{@login}", "email" => "#{@email}"}).deliver
       rescue Exception => e
           flash[:error] = "Sorry, email notification failed to be delievred!"
           redirect_to "/accounts/signUp"    
@@ -56,7 +34,7 @@ class SignupsController < ApplicationController
 
       activation_date = Time.new.strftime("%Y-%m-%d")
       @hash_pw = @pw + '1a'
-      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'1','product_name':'Ciao Premium CLI 15', 'activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','h323_password':'#{@hash_pw}','blocked':'N','companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+      @url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'428','product_name':'IVGC-WholeSale White', 'activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}','h323_password':'#{@hash_pw}','blocked':'N','companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
       @result = apiRequest(@url)
       session[:current_login] = @login
       session[:i_account] = @result["i_account"]
@@ -95,7 +73,7 @@ class SignupsController < ApplicationController
     # validate that account can be made
     activation_date = Time.new.strftime("%Y-%m-%d")
     hash_pw = pw + '1a'
-    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'1','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}', 'h323_password':'#{@hash_pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
+    @url = "https://208.65.111.144/rest/Account/validate_account_info/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'1552','i_product':'428','activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','login':'#{@login}','password':'#{@pw}', 'h323_password':'#{@hash_pw}','blocked':'Y', 'companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'credit_limit':'0'}}"
     begin
       @result = apiRequest(@url)
       return  # no errors

@@ -1,0 +1,247 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+br:
+  hello_flash: "Thank you, once we verify your confirmation number, your account will be credited!"
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
+  home:
+    index:
+      voip: "Serviços de Revenda VOIP"
+      vline1: "Revendedores, Call shops, Pontos de Vendas de soluçòes"
+      vline2: "Painel de Revendedores, tarifas A-Z, Rotas CLI"
+      vline3: "Sistema com dois niveis de distribuição para gestão de clientes e agentes"
+      sign_up_res: "Tornar-se um revendedor"
+      wholesale: "Vendas Atacado Rotas A-Z"
+      wline1: "Conexão direta instantanea de IP p/ IP"
+      wline2: "Cadastro automatico e rápido, envie trafego dentro de um minuto após cadastro"
+      wline3: "Rotas de qualidade com preço baixo ao redor do mundo – Negocia suas taxas por volume e destinos preferidos"
+      sign_up_whole: "Buy wholesale routes"
+  sessions:
+    new:
+      voip: "VOIP Reseller Services"
+      vline1: "Reseller, Call-Shops and Point of Sale Turn-Key Solutions"
+      vline2: "Reseller Panel, A-Z Rates, Grey and CLI Routes"
+      vline3: "2 Levels Distribution system and Customer / Agent management"
+      sign_up_res: "Become a reseller"
+      wholesale: "WHOLESALE A-Z ROUTES"
+      wline1: "Instant Direct connection IP 2 IP"
+      wline2: "Automated and instant sign-up, send traffic within the first minute of sign-up"
+      wline3: "Low cost quality routes all over world - Negotiate rates per volume/top destination"
+      sign_up_whole: "Compre atacado rotas"
+  signups:
+    index:
+      title: "Wholesale Termination"
+      banner: "Sign-up now and take advantage of a fast, reliable platform with low-cost voice rates"
+      sign: "Sign Up Form"
+      cname: "Company Name"
+      ip: "Ip address*"
+      user: "Desired Username*"
+      pw: "Password*"
+      email: "Email*"
+      phone: "Phone Number*"
+      cc: "Country Code"
+      submit: "Submit"
+  app:
+    status: "Welcome, you are logged in as"
+    title: "IVGC Voip Wholesale Platform"
+    init: "Inicio"
+    about_us: "Quem Somos"
+    services: "Serviços"
+    rates: "Tarifas"
+    contact_us: "Contato"
+    username: "nome do usuário"
+    password: "código"
+    dashboard: "Como funciona"
+    update: "Update my account"
+    payments: "Payments"
+    ips: "Manage my IPs"
+    payment: "Add Payment"
+    cdr: "View CDR"
+    tickets: "Tickets"
+    logout: "Logout"
+  footer:
+    description: "Powered by Ciao Telecom, INC. USA"
+  accounts:
+    index:
+      status: "You are now logged in as an admin!"
+      overview: "Account Overview"
+      minutes: "Top 5 Desitinations (Minutes)"
+      cost: "Top 5 Desitinations (Cost)"
+      country: "Country"
+      duration: "DUration"
+      cst: "Cost"
+      payment: "Payment History"
+      date: "Payment Date"
+      amount: "Amount"
+      welcome_flash: "You are successfully logged in!"
+    updateAccount:
+      title: "Update your profile"
+      ip: "IP"
+      cname: "Company Name"
+      username: "Username"
+      pw: "Password"
+      fn: "First Name"
+      ln: "Last Name"
+      email: "Email"
+      primary: "Primary Phone"
+      secondary: "Secondary Phone"
+      save: "Save"
+    manageIP:
+      title: "Manage your IP Addresses"
+      note: "* You can add upto three IP Addresses"
+      header: "IP Addresses"
+      primary: "Primary"
+      delete: "Delete"
+      enter: "Enter IP: "
+      add: "Add"
+    addCredits:
+      title: "Add Payment to your account Using Paypal OR Bank/Wu transfer. For Bank/Wu an email will be sent to you shortly after we verify the transaction details!"
+      amount: "Amount"
+      paypal: "PAYPAL (and Credit Card)"
+      bank: "BANK TRANSFER"
+      wu: "WESTERN UNION"
+      continue: "Continue"
+    paypalPayment:
+      title: "Click here to buy a custom amount. The amount can be edited once transfered to paypal."
+    bankTranfers:
+      amount: "Amount*"
+      name: "Beneficiary"
+      bank: "Bank"
+      bank_address: "Bank Adress"
+      account_num: "Receiver account no."
+      confirmation: "Confirmation*"
+      swift: "Swift"
+      submit: "Submit"
+    wuPayment:
+      amount: "Amount*"
+      to: "To Whom"
+      address: "Address"
+      code: "10 Digit MTCN Code*"
+      submit: "Submit"
+    viewCDR:
+      title: "CDR (Call Detail Record)"
+      filter: "FILTER"
+      prev: "<<previous"
+      next: "next>>"
+      from: "From "
+      to: "To "
+      country: "Country"
+      call_start: "Call start"
+      call_end: "Call end"
+      charged_time: "Charged time"
+      cost: "Cost (USD)"
+      none: "No call records available."
+    instructions:
+      title: "Services"
+      description: "We provide two major services - VoIP Reseller and VoIP Wholesale. VoIP Wholesale services are automated and instant while VoIP Reseller services are not. If you are interested in VoIP Reseller, our Sales Managers will get in contact with you after signing up. If you are only interested in Wholesale Termination, it is completely automated and ready to go after sign-up and payment."
+      voip: "VoIP Resellers"
+      vline1: "1. sign up first"
+      vline2: "2. our sales manager will sign you up"
+      vline3: "3. you will be asked to make payment"
+      vline4: "4. we will create a portal for you to start selling"
+      wholesale: "Wholesale termination"
+      wline1: "1. sign up first"
+      wline2: "2. add payment after signing up"
+      wline3: "3. login into your account and add your ip addresses"
+      wline4: "4. finally, start sending traffic"
+  about_us:
+    index:
+      company: "Quem Somos"
+      description: "prestação de serviços de voz para telefonia fixa, móvel, operadoras de vendas no atacado, e prestadoras de serivços. Contamos com  uma plataforma sofisticada e inteligente e call routing ao redor do mundo que nos permite oferecer de soluções de voz são flexiveis e escalonaveis, capacitando nossos clientes e associados a gerenciar suas operações e fortalecer seus negócios seus negócios de maneira mais eficaz e eficiente."
+  services:
+    index:
+      title: "Serviços"
+      description: "Nossos principais serviços são SIP Trunk e venda de minutos no atacado. Nossos serviços de compra no atacado são atuomatizados e podem ser utilizados de imediato; basta preencher o cadastrado e efetuar o pagamento. Caso seu interesse seja em  ser um de nossos revedendores SIP trunk, nossos gerentes comerciais entraram em contato contigo  após o preenchimento do cadastro abaixo."
+      voip: "VoIP Resellers"
+      vline1: "1. sign up first"
+      vline2: "2. our sales manager will sign you up"
+      vline3: "3. you will be asked to make payment"
+      vline4: "4. we will create a portal for you to start selling"
+      wholesale: "Wholesale termination"
+      wline1: "1. sign up first"
+      wline2: "2. add payment after signing up"
+      wline3: "3. login into your account and add your ip addresses"
+      wline4: "4. finally, start sending traffic"
+  tickets:
+    index:
+      submit_new: "Submit new ticket"
+      date: "Submission date"
+      title: "Ticket title"
+      content: "Content"
+      tickets: "View Responses"
+      responses: "View Tickets"
+    new:
+      title: "Title"
+      comments: "Comments"
+      submit: "Create Ticket"
+  voip_resellers:
+     index:
+       headline: "VOIP RESELLER SERVICES"
+       title: "Sign up!"
+       first_name: "First Name: "
+       last_name: "Last Name: "
+       phone: "Phone: "
+       country: "Select a country: "
+       language: "Select a language: "
+       english: "ENGLISH"
+       spanish: "SPANISH"
+       arabic: "ARABIC"
+       french: "FRENCH"
+       hindi: "HINDI"
+       urdu: "URDU"
+       portuguese: "PORTUGUESE"
+       other: "OTHER"
+
+       business: "What best describes your business?"
+       reseller: "Reseller / Agent"
+       ip: "IP to IP Wholesale"
+       call_shop: "Call Shop"
+       other: "Other Business"
+       personal: "personal use only"
+
+       consumption: "What is your typical monthly revenue? (In $USD)"
+       more: "or more"
+       none: "None (I do not sell)"
+       comments: "Comments:"
+       send: "Enviar"
+  contact_us:
+     index:
+       contact: "Entre em contato conosco"
+       fullname: "Nome Completo: "
+       message: "Messagem: "
+       submit: "Enviar"
+       part2: "Perguntas relacionadas a vendas  por favor enviar para: "
+       email: "sales@ivgc.net"
+       part3: "Para perguntas a respeito de faturamento e pagamentos: "
+       email2: "payments@ivgc.net"
+       part4: "Se você quer ser um revendedor SIP trunk, por favor "
+       part5: "Para cadastrar-se para Terminação atacado (wholesale) "
+       link: "click aqui "
+     thanksForContacting:
+       message: "Thanks for Contacting Us! We will get back to you shortly!"
+  rates:
+     index:
+      title: "Tarifas"
+      description: "IVGC existe para operadoras que exigem terminaçòes e alta qualidade, preços competitivos e facilidade de uso. Cada rota tem 4 ou mais operadoras redundantes que passam por um processo rigoroso de testes de qualidade para garantir um alto indice de resposta. Ofereceremos serviços completos nos padrões ACD e ASR ao redor do mundo como também apoio a maioria das rotas CLI.  Todos nossos produtos são agregados com  monitoramento CDR em tempo real (real time) 24 hrs por dia  e o melhor atendimento aos clientes de nossa equipe de suporte internacional."
+      routes: "Rotas"
+      route_desc: "As rotas A-Z premium é uma combinação de rotas nacionais com operadoras de nicho apoiadas por mutiplas operadoras Tier 1 A-Z para completar ao máximo. Nossos especialistas de em qualidade de serviços (QoS)  trabalham junto com seu trafego para garantir a melhor qualidade possível em sua rede."
+      rates: "Tarifas e Gestão de códigos"
+      rates_desc: "A lista de tarifas mais exata de códigos A-Z são enviadas via email e postadas online mensalmente para eliminar desgastes de gestão desnecessários. Caso haja necessidade de tarifas mais competitivas, basta pedir ao gerente de contas e ele vai procurar a melhor maneira de atender sua necessidade."
+      monitor: "Ferramentas de Monitoramento"
+      monitor_desc: "Pegue-Pague mediante várias opções como: cArtão de Crédito, Papal, trasnferëncias bancarias, e depositos. Não exigimos um alto valor de compras e temos especialistas dedicados esclusivamente para o faturamento."
+      payments: "Payments"
+      payments_desc: "Pay-as-you-go via multiple payment options including: Credit Card, Paypal, Wires, ACH and Cash deposits. We have low minimums to start and dedicated billing specialists."

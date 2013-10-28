@@ -136,7 +136,7 @@ class AccountsController < ApplicationController
       flash[:error] = error
       return redirect_to :controller => :accounts, :action => :updateAccount
     end
-    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password} + #{SecureRandom.hex(8)}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','email':'#{@email}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password} + #{SecureRandom.hex(8)}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     result = apiRequest(url)
            
     if result["i_account"].nil?
@@ -265,36 +265,17 @@ class AccountsController < ApplicationController
   def bankTransferSubmit
     transfer_amount = params[:amount]
     confirmation_number = params[:confirmation_number]
-    to = "payments@ivgc.net"
 
-    from = "#{session[:current_login]}"
-    subject = "IVGC Wholesale Bank Tranfer Add Credit for " + from
+    subject = "IVGC Wholesale Bank Tranfer Add Credit"
     message = "CONFIRMATION NUMBER for BANK TRANSFER: " + confirmation_number + "\n\n" + "AMOUNT: " + transfer_amount
-
-    options = { :address              => "smtp.gmail.com",
-               :port                 => 587,
-               :domain               => 'ciaotelecom.net',
-               :user_name            => 'admin@ivgc.net',
-               :password             => 'SWIu4*aDo*D#oucl',
-               :authentication       => 'plain',
-               :enable_starttls_auto => true  }
-    Mail.defaults do
-      delivery_method :smtp, options
-    end
-    
     begin 
-      Mail.deliver do
-          attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
-          to "#{to}"
-          from "#{from}"
-          subject "#{subject}"
-          body "Account Login/Username: #{from} \n\nMessage: #{message}"
-      end
-      flash[:notice] = t(:hello_flash)
-      redirect_to "/accounts"    
+      UserMailer.thanks_for_payment({"login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      UserMailer.customer_payment({"message" => "#{message}", login => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      flash[:notice] = "Once we verify your transaction details, your account will be credited!"
+      redirect_to "/accounts" 
     rescue Exception => e
-        flash[:error] = "Oops! Your transaction didn't go through! Try again"
-        redirect_to "/accounts/addCredits"    
+      flash[:error] = "Oops! Email didn't go through! Try again"
+      redirect_to "/accounts/addCredits"    
     end
   end
 
@@ -313,37 +294,16 @@ class AccountsController < ApplicationController
     transfer_amount = params[:amount]
     mtcn_code = params[:mtcn_code]
 
-    to = "aldizhupani@gmail.com"
-    to = "payments@ivgc.net"
-
-    from = "#{session[:current_login]}"
-    subject = "IVGC Wholesale Western Union Tranfer Add Credit for " + from
-    message = "MTCN CODE for WESTERN UNION MONEY TRANSFER: " + mtcn_code + "\n\n" + "AMOUNT: " + transfer_amount
-
-    options = { :address              => "smtp.gmail.com",
-               :port                 => 587,
-               :domain               => 'ciaotelecom.net',
-               :user_name            => 'admin@ivgc.net',
-               :password             => 'SWIu4*aDo*D#oucl',
-               :authentication       => 'plain',
-               :enable_starttls_auto => true  }
-    Mail.defaults do
-      delivery_method :smtp, options
-    end
-    
+    subject = "IVGC Wholesale WU Payment Add Credit"
+    message = "MTCN code: " + mtcn_code + "\n\n" + "AMOUNT: " + transfer_amount
     begin 
-      Mail.deliver do
-          attachments["logo.png"] = File.read('app/assets/images/ivgc_logo.png')
-          to "#{to}"
-          from "#{from}"
-          subject "#{subject}"
-          body "Account Login/Username: #{from} \n\nMessage: #{message}"
-      end
-      flash[:notice] = "Once we verify your MTCN code, your account will be credited!"
-      redirect_to "/accounts"    
+      UserMailer.thanks_for_payment({"login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      UserMailer.customer_payment({"message" => "#{message}", login => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      flash[:notice] = "Once we verify your transaction details, your account will be credited!"
+      redirect_to "/accounts" 
     rescue Exception => e
-        flash[:error] = "Oops! Your transaction didn't go through! Try again"
-        redirect_to "/accounts/addCredits"    
+      flash[:error] = "Oops! Email didn't go through! Try again"
+      redirect_to "/accounts/addCredits"    
     end
   end
 

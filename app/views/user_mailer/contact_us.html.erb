@@ -1,0 +1,20 @@
+<%= image_tag attachments['logo.png'].url, :alt => 'Our Photo', :class => 'photo' %><br><br>
+<h2><%= "#{@user["subject"]} #{@user["message"]}" %></h2>
+<table style="border-collapse: collapse;
+		margin-top: 10px;
+		text-align: center;
+		background-color: #FFFFCC;
+		border: 1px solid black">
+  <tbody>
+      <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Name</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["fullname"] %></td>
+      </tr>
+      <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Email</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["email"] %></td>
+      </tr>
+  </tbody>
+</table><br><br>
+Please follow up with this valued customer,<br>
+Thank you!

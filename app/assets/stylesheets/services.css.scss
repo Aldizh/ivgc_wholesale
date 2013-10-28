@@ -5,3 +5,48 @@ p {
 	margin: 0 20px 20px 20px;
 	font-size: 90%;
 }
+a {
+	color: blue;
+}
+a:hover {
+	text-decoration: underline;
+}
+#service_wrapper {
+	overflow: auto;
+	padding: 10px;
+	margin-top: 10px;
+}
+#service_left {
+	width: 30%;
+	float: left;
+	text-align: left;
+
+}
+h4 {
+	padding: 0;
+	margin: 0 0 10px 20px;
+
+}
+#service_right{
+	width: 65%;
+	border-left: 1px solid #000;
+	float: right;
+	padding: 0 0 0 20px;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	margin-left: 40px;
+}
+
+li{
+	list-style-type: none;
+}
+li a {
+	padding: 5px 0;
+	margin: 5px 0;
+}
+.wholesale_link {
+	margin: auto;
+}

@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
         session[:current_login] = login
         session[:current_pw] = pw
         session[:i_account] = result["account_info"]["i_account"]
+        session[:email] = result["account_info"]["email"]
         if result['account_info']['login'] == 'wesley123456'
           session[:admin] = true
           flash[:notice] = "You are now logged in as an admin!"

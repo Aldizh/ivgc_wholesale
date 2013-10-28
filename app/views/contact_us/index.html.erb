@@ -1,11 +1,6 @@
 <div class="content_wrapper">
 <h2 style="margin-left: 50px;"><%= t ".contact" %> </h2>
 <div class="common_form" id="contact_us_form">
-  <% if flash[:error] %>
-  <span class="error" >
-    <%= flash[:error] %>
-  </span>
-<% end %>
   <%= form_tag(:action => "contactUs") do %>
     <%= label_tag t(".fullname") %>
     <%= text_field_tag 'full_name', session[:full_name] %><br>
@@ -13,7 +8,6 @@
     <%= text_field_tag 'email', session[:email] %><br>
     <%= label_tag t(".message") %><br>
     <%= text_area_tag 'message', session[:message] %><br>
-    <%#= recaptcha_tags %>
     <%= submit_tag t(".submit"), :class => "common_btn", :id => "contact_submit_btn" %>
   <% end %>
 

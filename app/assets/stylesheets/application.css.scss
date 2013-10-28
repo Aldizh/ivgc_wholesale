@@ -32,9 +32,10 @@ a {
 	color: blue;
 }
 
-.lang { 
-	text-align: right;
-	width: 900px;
+.lang {
+    position: relative; 
+	text-align: center;
+	width: auto;
 	ul {
 		margin: 0;
 		padding: 0;
@@ -195,6 +196,7 @@ nav#main_navs {
 nav#main_navs ul {
 	margin: 0;
 	padding: 0;
+	font-size:90%;
 }
 nav#main_navs ul li {
 	list-style-type: none;
@@ -359,9 +361,9 @@ table.list {
 	text-transform: lowercase;
 	font-size: 1.0rem;
 	color: $ciao_red;
-	margin: auto;
-	text-align: center;
+	float: right;
 	margin-top: 10px;
+	margin-left: 80px;
 	margin-bottom: -10px;
 }
 

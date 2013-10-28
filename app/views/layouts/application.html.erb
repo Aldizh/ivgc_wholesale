@@ -30,6 +30,7 @@
 	<ul>
 		<li><%= link_to_unless_current image_tag("english.jpg"), :locale => "en" %></li>
 		<li><%= link_to_unless_current image_tag("spanish.jpg"), :locale => "sp" %></li>
+		<li><%= link_to_unless_current image_tag("brazil.png"), :locale => "br" %></li>
 	</ul>
 </div>
 <header id="banner"> <!-- The top header section where we have the logos, login panel and the main menus -->
@@ -57,7 +58,7 @@
 			<% end %>
 			<nav id="main_navs"> <!-- The main menu -->
 				<ul>
-					<li><%= link_to t("app.init"), home_index_path %></li>
+					<!--%= link_to t("app.init"), home_index_path %-->
 					<li><%= link_to t("app.about_us"), about_us_path %></li>
 					<li><%= link_to t("app.services"), services_path %></li>
 					<li><%= link_to t("app.rates"), rates_path %></li>
@@ -65,7 +66,7 @@
 					<li><%= link_to t("app.dashboard"), :controller => :accounts, :action => :instructions %></li>
 				</ul>
 			</nav>
-		<span>
+		</span>
 	</header>
 	<div id="main_wrapper">
 		<% if session[:current_login] %>
@@ -84,13 +85,20 @@
 							<li><%= link_to t("app.payments"), "/en/accounts/addCredits" %></li>
 							<li><%= link_to t("app.cdr"), "/en/accounts/viewCDR" %></li>
 							<li><%= link_to t("app.tickets"), "/en/tickets" %></li>
-						<% else %>
+						<% elsif I18n.locale == :sp %>
 							<li><%= link_to t("app.dashboard"), "/sp/home/" %></li>
 							<li><%= link_to t("app.update"), "/sp/accounts/updateAccount" %></li>
 							<li><%= link_to t("app.ips"), "/sp/accounts/manageIP" %></li>
 							<li><%= link_to t("app.payments"), "/sp/accounts/addCredits" %></li>
 							<li><%= link_to t("app.cdr"), "/sp/accounts/viewCDR" %></li>
 							<li><%= link_to t("app.tickets"), "/sp/tickets" %></li>
+						<% else %>
+							<li><%= link_to t("app.dashboard"), "/br/home/" %></li>
+							<li><%= link_to t("app.update"), "/br/accounts/updateAccount" %></li>
+							<li><%= link_to t("app.ips"), "/br/accounts/manageIP" %></li>
+							<li><%= link_to t("app.payments"), "/br/accounts/addCredits" %></li>
+							<li><%= link_to t("app.cdr"), "/br/accounts/viewCDR" %></li>
+							<li><%= link_to t("app.tickets"), "/br/tickets" %></li>
 						<% end %>
 					<%end%>
 				</ul>

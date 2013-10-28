@@ -1,0 +1,21 @@
+<%= image_tag attachments['logo.png'].url, :alt => 'Our Photo', :class => 'photo' %><br><br>
+Thank you Mr/Miss <strong><%= "#{@user["fullname"]}" %></strong> for signing up with us.
+<table style="border-collapse: collapse;
+		margin-top: 10px;
+		text-align: center;
+		background-color: #FFFFCC;
+		border: 1px solid black;">
+  <tbody>
+      <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Account</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["login"]%></td>
+      </tr>
+      <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Action</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Sign Up</td>
+      </tr>
+  </tbody>
+</table><br>
+We hope you will enjoy our great low calling rates and top quality routes.<br><br>
+Sincerely,<br>
+Sales Department
