@@ -1,5 +1,7 @@
 IVGCWholeSale::Application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    get "services/reseller"
+    get "services/wholesale"
     get "voip_resellers/voipResellerSignUp"
     post "voip_resellers/voipResellerSignUp"
     get "voip_resellers/thanksForSigningUp"
