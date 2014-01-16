@@ -7,16 +7,26 @@ class SessionsController < ApplicationController
     login = params[:username]
     pw = params[:password]
     begin
-      url = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session2}'}/{'i_customer':'1552','login':'#{login}'}"
+      url = "https://208.65.111.144/rest/Customer/get_customer_info/{'session_id':'#{get_session2}'}/{'login':'#{login}'}"
       result = apiRequest(url)
       session[:admin] = false
-      if !result.empty? and (pw == result["account_info"]["password"])
+      if !result.empty? and (pw == result["customer_info"]["password"])
         reset_session
-        session[:current_login] = login
+        session[:i_customer] = result["customer_info"]["i_customer"]
+        session[:customer_login] = result["customer_info"]["login"]
         session[:current_pw] = pw
-        session[:i_account] = result["account_info"]["i_account"]
-        session[:email] = result["account_info"]["email"]
-        if result['account_info']['login'] == 'wesley123456'
+
+        url_list = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}'}"
+        result_list = apiRequest(url_list)
+
+        url_next = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session2}'}/{'i_account':'#{result_list["account_list"][0]["i_account"]}'}"
+        result_next = apiRequest(url_next)
+
+        puts result_next["account_info"].inspect
+        session[:current_login] = result["customer_info"]["login"]
+        session[:i_account] = result_next["account_info"]["i_account"]
+        session[:email] = result_next["account_info"]["subscriber_email"]
+        if result_next['account_info']['login'] == 'aldizhup'
           session[:admin] = true
           flash[:notice] = "You are now logged in as an admin!"
           return redirect_to '/admin/index'
@@ -37,7 +47,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    destroy_session_id
+    destroy_session2_id
     @@admin = false
     reset_session
     flash[:notice] = "You are successfuly logged out!"

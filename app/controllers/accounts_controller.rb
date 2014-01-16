@@ -7,8 +7,11 @@ class AccountsController < ApplicationController
   def index
     @@top_5_by_mins = Hash.new
     @@top_5_by_destination = Hash.new
-    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
+    puts "BEFORE"
+    puts session[:i_account]
+    url = "https://208.65.111.144/rest/Customer/get_customer_info/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}'}"
     @result = apiRequest(url)
+    puts @result.inspect
     @time = Time.now.strftime("%Y-%m-%d") + ' 00:00:00'
     url1 = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'2012-01-01 15:20:42','to_date':'#{@time}'}"
     @xdr = apiRequest(url1)["xdr_list"]
@@ -59,7 +62,7 @@ class AccountsController < ApplicationController
     @from_date_str = @from_date.strftime("%Y-%m-%d") + ' 00:00:00'
     @to_date_str = @to_date.strftime("%Y-%m-%d") + ' 23:59:59'
     offset = @page_size * (@page - 1)
-    url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}','from_date':'#{@from_date_str}','to_date':'#{@to_date_str}','offset':'#{offset}','limit':'#{@page_size}'}"
+    url = "https://208.65.111.144/rest/Account/get_xdr_list/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}','i_account':'#{session[:i_account]}','from_date':'#{@from_date_str}','to_date':'#{@to_date_str}','offset':'#{offset}','limit':'#{@page_size}'}"
     @calls = apiRequest(url)["xdr_list"]
   end
 
@@ -79,25 +82,20 @@ class AccountsController < ApplicationController
   def updateAccount
     # in this method, I get the account info and pass the necessary to the forms where user see what current info they have
     # and then can change it there and pass to another method whether the request for update will be sent.
-    url = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
+    url = "https://208.65.111.144/rest/Customer/get_customer_info/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}'}"
     @result = apiRequest(url)
-    puts @result.inspect
-    @comp_name = @result["account_info"]["companyname"]
-    @user_name = @result["account_info"]["login"]
-    @password = @result["account_info"]["password"]
-    @comp_name = @result["account_info"]["companyname"]
-    @first_name = @result["account_info"]["firstname"]
-    @last_name = @result["account_info"]["lastname"]
-    @email = @result["account_info"]["subscriber_email"]
-    @phone1 = @result["account_info"]["phone1"].to_s.gsub(/[^0-9]/, "")  # remove non-numeric characters
-    @phone2 = @result["account_info"]["phone2"].to_s.gsub(/[^0-9]/, "")
-    @ip = @result["account_info"]["id"]
+    @username = @result["customer_info"]["login"]
+    @password = @result["customer_info"]["password"]
+    @comp_name = @result["customer_info"]["companyname"]
+    @first_name = @result["customer_info"]["firstname"]
+    @last_name = @result["customer_info"]["lastname"]
+    @email = @result["customer_info"]["email"]
+    @phone1 = @result["customer_info"]["phone1"].to_s.gsub(/[^0-9]/, "")  # remove non-numeric characters
+    @phone2 = @result["customer_info"]["phone2"].to_s.gsub(/[^0-9]/, "")
   end
 
-  def update_error(company_name, ip, login, pw, first_name, last_name, email, cc, phone1, phone2)
-    if not validate_ip(ip)
-      return 'IP Invalid!'
-    elsif not validate_company_name(company_name)
+  def update_error(company_name, login, pw, first_name, last_name, email, phone1, phone2)
+    if not validate_company_name(company_name)
       return 'Company name is too long (41 characters max)!'
     elsif not validate_login(login)
       return 'Username cannot have fewer than 6 characters'
@@ -109,8 +107,6 @@ class AccountsController < ApplicationController
       return 'Last name cannot be more than 120 characters'
     elsif not validate_email(email)
       return 'Email is not valid'
-    elsif not validate_cc(cc)
-      return 'Country code is not valid'
     elsif not validate_full_phone(phone1)
       return 'Primary phone number is not valid'
     elsif not !phone2.empty? and validate_full_phone(phone2)
@@ -127,23 +123,22 @@ class AccountsController < ApplicationController
     @first_name = params[:first_name]
     @last_name = params[:last_name]
     @email = params[:email]
-    @ip = params[:id]
     @phone1 = params[:phone1]
     @phone2 = params[:phone2]
 
-    error = update_error(@company_name, @ip, @login, @password, @first_name, @last_name, @email, @ip, @phone1, @phone2)
+    error = update_error(@company_name, @login, @password, @first_name, @last_name, @email, @phone1, @phone2)
     if not error.nil?
       flash[:error] = error
       return redirect_to :controller => :accounts, :action => :updateAccount
     end
-    url = "https://208.65.111.144:8444/rest/Account/update_account/{'session_id':'#{get_session}'}/{'account_info':{'i_account':'#{session[:i_account]}','email':'#{@email}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password} + #{SecureRandom.hex(8)}','companyname':'#{@company_name}','id':'#{@ip}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
+    url = "https://208.65.111.144/rest/Customer/update_customer/{'session_id':'#{get_session2}'}/{'customer_info':{'i_customer':'#{session[:i_customer]}','email':'#{@email}','subscriber_email':'#{@email}','login':'#{@login}','password':'#{@password}','h323_password':'#{@password} + #{SecureRandom.hex(8)}','companyname':'#{@company_name}','phone1':'#{@phone1}','phone2':'#{@phone2}','firstname':'#{@first_name}','lastname':'#{@last_name}'}}"
     result = apiRequest(url)
            
-    if result["i_account"].nil?
+    if result["i_customer"].nil?
       flash[:error] = "Oops! Try again!"
       redirect_to :controller => :accounts, :action => :updateAccount
     else 
-      flash[:notice] = "You successfully updated your account information"
+      flash[:notice] = "You successfully updated your customer information"
       redirect_to :controller => :accounts, :action => :index
     end
   end
@@ -193,11 +188,11 @@ class AccountsController < ApplicationController
 
   def manageIP
     #to get sesssion id
-    url_id = "https://208.65.111.144:8444/rest/Account/get_account_info/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_account':'#{session[:i_account]}'}"
+    url_id = "https://208.65.111.144/rest/Account/get_account_info/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}'}"
     @result_id = apiRequest(url_id)
 
     #to get alias list
-    @url =  "https://208.65.111.144:8444/rest/Account/get_alias_list/{'session_id':'#{get_session}'}/{'i_customer':'1552','i_master_account':'#{session[:i_account]}'}"
+    @url =  "https://208.65.111.144/rest/Account/get_alias_list/{'session_id':'#{get_session2}'}/{'i_master_account':'#{session[:i_account]}'}"
 
     #to get alias list
     @result = apiRequest(@url)
@@ -248,14 +243,7 @@ class AccountsController < ApplicationController
     end
   end
   def paypalPayment 
-      #@amount = amount.to_i*100
-      #response = EXPRESS_GATEWAY.setup_purchase(@amount,
-      #:ip                => getIP,
-      #:return_url        => accounts_creditAdded_url,
-      #:cancel_return_url => accounts_addCredits_url
-      #)
-      #session[:token] = response.token
-      #redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+    
   end
 
   def bankTranfers
@@ -270,7 +258,7 @@ class AccountsController < ApplicationController
     message = "CONFIRMATION NUMBER for BANK TRANSFER: " + confirmation_number + "\n\n" + "AMOUNT: " + transfer_amount
     begin 
       UserMailer.thanks_for_payment({"login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
-      UserMailer.customer_payment({"message" => "#{message}", login => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      UserMailer.customer_payment({"message" => "#{message}", "login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
       flash[:notice] = "Once we verify your transaction details, your account will be credited!"
       redirect_to "/accounts" 
     rescue Exception => e
@@ -296,9 +284,9 @@ class AccountsController < ApplicationController
 
     subject = "IVGC Wholesale WU Payment Add Credit"
     message = "MTCN code: " + mtcn_code + "\n\n" + "AMOUNT: " + transfer_amount
-    begin 
+    begin
       UserMailer.thanks_for_payment({"login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
-      UserMailer.customer_payment({"message" => "#{message}", login => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
+      UserMailer.customer_payment({"message" => "#{message}", "login" => "#{session[:current_login]}", "email" => "#{session[:email]}", "amount" => "#{transfer_amount}"}).deliver
       flash[:notice] = "Once we verify your transaction details, your account will be credited!"
       redirect_to "/accounts" 
     rescue Exception => e
@@ -319,17 +307,10 @@ class AccountsController < ApplicationController
   end
 
   def paymentConfirm
-    details = EXPRESS_GATEWAY.details_for(session[:token])
-    if details.message != "Success"
-      flash[:error] = "There was a problem processing your request, please check the amount you entered!"
-      redirect_to "/accounts/addCredits"
-    else
-      @payment_amount = (details.params["PaymentDetails"]["OrderTotal"]).to_i || 0
-      response = EXPRESS_GATEWAY.purchase(@payment_amount*100, {:ip => getIP, :token => session[:token], :payer_id => details.payer_id})
-      @url = "https://208.65.111.144/rest/Account/make_transaction/{'session_id':'#{get_session2}'}/{'i_account':'#{session[:i_account]}', 'amount':'#{@payment_amount}', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
-      apiRequest(@url)
-      flash[:notice] = "$#{@payment_amount}" + " was added to your account!"
-    end
+    @amount = params[:amt]
+    @url = "https://208.65.111.144/rest/Customer/make_transaction/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}', 'amount':'#{@amount}', 'action':'Manual Payment', 'visible_comment':'test payment', 'internal_comment':'Not Available', 'suppress_notification':'1'}"
+    apiRequest(@url)
+    flash[:notice] = "$#{@amount}" + " was added to your account!"
   end
 
   def getIP
@@ -356,14 +337,16 @@ end
 
 
 #https://208.65.111.144/rest/Session/login/{"login":"soap-webpanel","password":"wsw@c@8am"}
-#https://208.65.111.144/rest/Account/get_account_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_customer":"1552"}
+#https://208.65.111.144/rest/Account/get_account_list/{"session_id":"28254c015ab070a05252cc678eb2d0ad"}/{"i_customer":"1552"}
 #https://208.65.111.144/rest/Account/get_account_info/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552","i_account":"877815"}
+#https://208.65.111.144/rest/Customer/get_customer_info/{"session_id":"dfa4eed6473efa98fb76133329993d67"}/{"login":"ayub578"}
 #https://208.65.111.144/rest/Account/update_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"account_info":{"i_account":"877815","subscriber_email":"ciaotest@ciao.com","login":"ciaotest","password":"ciaotest"}}
 #https://208.65.111.144/rest/Account/terminate_account/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_account":"877771"}
 #https://208.65.111.144/rest/Account/add_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877771","blocked":"Y","id":"23.43.13.3","i_master_account":"877783"}}
 #https://208.65.111.144/rest/Account/get_alias_list/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"i_customer":"1552", "i_master_account":"637824637"}
 #https://208.65.111.144/rest/Account/delete_alias/{"session_id":"95bd4c36c2f629928d3aca1b410d43e5"}/{"alias_info":{"i_account":"877815","blocked":"Y","id":"23.43.13.3","i_master_account":"877815"}}
-#https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877864", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
+#https://208.65.111.144/rest/Account/make_transaction/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"980949", "amount":"1", "action":"Manual Payment", "visible_comment":"test payment", "internal_comment":"Not Available", "suppress_notification":"1"}
 #https://208.65.111.144/rest/Account/get_xdr_list/{"session_id":"9dd4eccdcd7b97039fc6ce95e1a68b9f"}/{"i_account":"877815", "from_date":"2011-10-20 16:27:25", "to_date":"2013-06-30 16:27:25"}
 #https://208.65.111.144/rest/Session/logout/{"session_id":""}
 #https://208.65.111.144/rest/Rate/get_rate_list/{"session_id":"a8bb3035043eb5ffc9e6f8ad9cf04201"}/{"i_tariff":"72", "effective_from":"now"}
+#https://208.65.111.144/rest/Customer/add_customer/{"session_id":"28254c015ab070a05252cc678eb2d0ad"}/{"customer_info":{"i_customer":"1552","name":"aldizhupani","iso_4217":"USD","i_product":"428","product_name":"IVGC-WholeSale White","i_customer_type":"1", "i_parent": "0","credit_limit":"0.0","balance":"0", "opening_balance":"0"}}

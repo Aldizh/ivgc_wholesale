@@ -3,23 +3,24 @@
   <h3><%= t ".banner" %></h3>
 
   <div class="common_form", id="signup_form">
-    <% if flash[:error] %>
-  	  <div class="error" style="margin-bottom: 15px;" >
-  		  <%= flash[:error] %>
-      </div>
-    <% end %>
   <% if I18n.locale != :en %><%= stylesheet_link_tag "locales/" + I18n.locale.to_s %>
     <article class="title" style="padding: 10px 0 0 28px; width: 220px;"><span id="sign_up"> <%= t (".sign") %></span></article>
   <% else %>
     <article class="title" style="padding: 10px 0 0 28px; width: 220px;"><span> <%= t (".sign") %></span></article>
   <% end %>
   <%= form_tag(:action => "signUp") do %>
-    <%= label_tag t(".cname") %>
+    <%= label_tag "First Name" %>
+    <%= text_field_tag 'firstname', session[:firstname] %><br>
+    <%= label_tag "Last Name" %>
+    <%= text_field_tag 'lastname', session[:lastname] %><br>
+    <%= label_tag "Company Name" %>
     <%= text_field_tag 'company_name', session[:company_name] %><br>
     <%= label_tag t(".ip") %>
     <%= text_field_tag 'ip1', session[:ip1] %><br>
     <%= label_tag t(".user") %>
     <%= text_field_tag 'username', session[:username] %><br>
+    <%= label_tag t(".country") %>
+    <%= text_field_tag 'country', session[:country] %><br>
     <%= label_tag t(".pw") %>
     <%= password_field_tag 'password' %><br>
     <%= label_tag t(".email") %>

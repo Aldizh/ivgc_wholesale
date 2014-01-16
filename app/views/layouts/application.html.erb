@@ -52,13 +52,13 @@
 				</section>
 			<% else %>
 				<section id="signout_panel_main" class="login_signout_panel">
-					<%= t("app.status") %> <span><%= session[:current_login] %></span>
+					<%= t("app.status") %> <span><%= session[:customer_login] %></span>
 					<%= link_to t("app.logout"), '/sessions/destroy' %>
 				</section>
 			<% end %>
 			<nav id="main_navs"> <!-- The main menu -->
 				<ul>
-					<!--%= link_to t("app.init"), home_index_path %-->
+					<li><%= link_to t("app.init"), :controller => :accounts, :action => :index %></li>
 					<li><%= link_to t("app.about_us"), about_us_path %></li>
 					<li><%= link_to t("app.services"), services_path %></li>
 					<li><%= link_to t("app.rates"), rates_path %></li>

@@ -17,28 +17,20 @@
 <table>
 	<tbody>
 		<tr>
-			<td><strong><%= "Account Holder's Name:" %></strong></td>
-			<td><%= @result["account_info"]["firstname"] + " " + @result["account_info"]["lastname"] rescue nil %></td>
-		</tr>
-		<tr>
-			<td><strong><%= "Address:" %></strong></td>
-			<td><%= @result["account_info"]["baddr1"] rescue nil %></td>
+			<td><strong><%= "Customer Name:" %></strong></td>
+			<td><%= @result["customer_info"]["firstname"] + " " + @result["customer_info"]["lastname"] rescue nil %></td>
 		</tr>
 		<tr>
 			<td><strong><%= "Login:" %></strong></td>
-			<td><%= @result["account_info"]["login"] %></td>
+			<td><%= @result["customer_info"]["login"] %></td>
 		</tr>
 		<tr>
 			<td><strong><%= "Account balance:" %></strong></td>
-			<td><%= @result["account_info"]["balance"] %></td>
+			<td><%= @result["customer_info"]["balance"] %></td>
 		</tr>
 		<tr>
 			<td><strong><%= "Email: " %></strong></td>
-			<td><%= @result["account_info"]["subscriber_email"] %></td>
-		</tr>
-		<tr>
-			<td><strong><%= "Your primary IP: " %></strong></td>
-			<td><%= @result["account_info"]["id"] %></td>
+			<td><%= @result["customer_info"]["email"] %></td>
 		</tr>
 	</tbody>
 </table>
@@ -57,7 +49,7 @@
 				<% @top_5_dest_by_min.each do |k, v| %>
 	            	<tr>
 	        		<td> <%= v[0] %> </td>
-	        		<td> <%= v[1] %> </td>
+	        		<td> <%= (v[1].to_i/60).round(0) %> </td>
 	       			</tr>
 	    		<% end %>
     		</tbody>

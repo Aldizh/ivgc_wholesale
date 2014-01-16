@@ -8,16 +8,20 @@ Here is some basic account information!<br>
 		border: 1px solid black;">
   <tbody>
       <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Customer Name</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["fullname"] %></td>
+      </tr>
+      <tr>
         <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Account ID</td>
         <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["login"]%></td>
       </tr>
       <tr>
-        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Name</td>
-        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["fullname"] %></td>
-      </tr>
-      <tr>
       	<td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Email</td>
       	<td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["email"] %></td>
+      <tr>
+        <tr>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;">Password</td>
+        <td style="padding:5px; text-align: left; border: 1px solid black; height:30px; width:180px;"><%= @user["password"] %></td>
       <tr>
   </tbody>
 </table><br>

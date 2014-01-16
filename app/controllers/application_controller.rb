@@ -83,6 +83,15 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy_session_id
+    url = "https://208.65.111.144/rest/Session/logout/{'session_id':'#{get_session}'}"
+    begin
+      apiRequest(url)
+    rescue RestClient::InternalServerError => e
+      error_message = e.response[e.response.index('faultstring')+14..-3]
+      if error_message != "Session id is expired or doesn't exist"
+        puts "Something went wrong trying to logout"
+      end
+    end
     @@session_id = nil
   end
 

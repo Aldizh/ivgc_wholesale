@@ -8,12 +8,10 @@
     <% end %>
   <article class="title"><span><%= t ".title" %></span></article>
   <%= form_tag(:action => "doUpdate") do %>
-    <%= label_tag t(".ip") %>
-    <%= text_field_tag 'id', @ip %><br>
     <%= label_tag t(".cname") %>
     <%= text_field_tag 'companyname', @comp_name %><br>
     <%= label_tag t(".username") %>
-    <%= text_field_tag 'username', @user_name %><br>
+    <%= text_field_tag 'username', @username %><br>
     <%= label_tag t(".pw") %>
     <%= password_field_tag 'password', @password %><br>
     <%= label_tag t(".fn") %>
