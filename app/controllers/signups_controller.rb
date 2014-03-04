@@ -17,21 +17,23 @@ class SignupsController < ApplicationController
 
     session[:firstname] = @firstname
     session[:lastname] = @lastname
+    session[:name] = @firstname + @lastname + SecureRandom.hex(2)
     session[:company_name] = @company_name
     session[:ip1] = @ip1
-    session[:username] = @login
+    session[:username] = @login #This is what we use to log in to the partal whatever the customer chose as a login
     session[:password] = @pw
     session[:email] = @email
     session[:country] = @country
     session[:cc] = @cc
     session[:phone] = @phone
-    session[:current_user_id] = @login
+    session[:current_login] = @login
 
     # check if any errors will occurr when attempting to signup
     error = signup_error(@company_name, @ip1, @login, @pw, @email, @cc, @phone)
     if error.nil?
-      customer_url = "https://208.65.111.144/rest/Customer/add_customer/{'session_id':'#{get_session2}'}/{'customer_info':{'firstname':'#{@firstname}','lastname':'#{@lastname}', 'name': '#{@firstname + ' ' + @lastname}', 'companyname':'#{@company_name}','email':'#{@email}','login':'#{@login}','password':'#{@pw}','iso_4217':'USD','i_product':'428','product_name':'IVGC-WholeSale White','i_customer_type':'1', 'i_parent': '0', 'i_rep': '26', 'balance':'0', 'opening_balance':'0', 'credit_limit':'0', 'credit_limit_warning':'-5', 'i_time_zone':'410', 'country':'#{@country}'}}"
+      customer_url = "https://208.65.111.144/rest/Customer/add_customer/{'session_id':'#{get_session2}'}/{'customer_info':{'firstname':'#{@firstname}','lastname':'#{@lastname}', 'name': '#{session[:name]}', 'companyname':'#{@company_name}','email':'#{@email}','login':'#{@login}','password':'#{@pw}','iso_4217':'USD','i_product':'428','product_name':'IVGC-WholeSale White','i_customer_type':'1', 'i_parent': '0', 'i_rep': '26', 'balance':'0', 'opening_balance':'0', 'credit_limit':'0', 'credit_limit_warning':'-5', 'i_time_zone':'410', 'country':'#{@country}'}}"
       customer_result = apiRequest(customer_url)
+      session[:i_customer] = customer_result["i_customer"]
 
       activation_date = Time.new.strftime("%Y-%m-%d")
       url = "https://208.65.111.144/rest/Account/add_account/{'session_id':'#{get_session2}'}/{'account_info':{'i_customer':'#{customer_result["i_customer"]}','i_product':'428','product_name':'IVGC-WholeSale White', 'activation_date':'#{activation_date}','id':'#{@ip1}','balance':'0','opening_balance':'0','h323_password':'#{SecureRandom.hex(8)}','blocked':'N','companyname':'#{@company_name}','phone1':'#{@cc + @phone}' ,'subscriber_email':'#{@email}', 'billing_model':'1', 'i_time_zone':'410'}}"
@@ -45,7 +47,6 @@ class SignupsController < ApplicationController
           redirect_to "/accounts/signUp"    
       end
 
-      session[:current_login] = @login
       session[:i_account] = @result["i_account"]
       flash[:notice] =  "Sign up successful!"
       redirect_to "/accounts/addCredits"
@@ -101,7 +102,9 @@ class SignupsController < ApplicationController
         return 'Unknown error has occurred'   # shouldn't happen
       end
     rescue RuntimeError => e
-      if e.message.include?("Duplicate account id within environment")
+      if e.message.include?("Duplicate customer name within environment")
+        return "This customer already exists"
+      elsif e.message.include?("Duplicate account id within environment")
         return "An account with this ip already exists"
       elsif e.message.include?("Duplicate account login")
         return "This username already exists"

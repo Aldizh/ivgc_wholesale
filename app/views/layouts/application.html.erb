@@ -52,7 +52,7 @@
 				</section>
 			<% else %>
 				<section id="signout_panel_main" class="login_signout_panel">
-					<%= t("app.status") %> <span><%= session[:customer_login] %></span>
+					<%= t("app.status") %> <span><%= session[:username] %></span>
 					<%= link_to t("app.logout"), '/sessions/destroy' %>
 				</section>
 			<% end %>

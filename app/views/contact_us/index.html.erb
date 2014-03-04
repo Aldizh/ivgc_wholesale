@@ -1,15 +1,36 @@
 <div class="content_wrapper">
 <h2 style="margin-left: 50px;"><%= t ".contact" %> </h2>
 <div class="common_form" id="contact_us_form">
-  <%= form_tag(:action => "contactUs") do %>
-    <%= label_tag t(".fullname") %>
-    <%= text_field_tag 'full_name', session[:full_name] %><br>
-    <%= label_tag "Email: " %>
-    <%= text_field_tag 'email', session[:email] %><br>
-    <%= label_tag t(".message") %><br>
-    <%= text_area_tag 'message', session[:message] %><br>
-    <%= submit_tag t(".submit"), :class => "common_btn", :id => "contact_submit_btn" %>
-  <% end %>
+  
+
+  <form name="IVGC Contact Us Form" action="http://ciaocrm.com//modules/Webforms/capture.php" method="post" accept-charset="utf-8">
+    <input name="publicid" value="86adc70941a356f2287820257cf5bc87" type="hidden">
+    <input name="name" value="IVGC Contact Us Form" type="hidden">
+      <label>First Name*</label>
+      <input name="firstname" value="" required="true" type="text"><br>
+      <label>Last Name*</label>
+      <input name="lastname" value="" required="true" type="text"><br>
+      <label>Email*</label>
+      <input name="email" value="" required="true" type="text"><br>
+      <label><%= t(".message")%>*</label>
+      <textarea name="label:Comments/Message" required="true"></textarea><br>
+      <p style="display:none;">
+        <label>Lead Source*</label>
+            <select name="leadsource" required="true">
+            <option value="ivgc.net contact us form">ivgc.net contact us form</option>
+            </select>
+        <label>Ciao Company*</label>
+            <select name="label:Ciao_Company" required="true">
+            <option value="Ciao Telecom">Ciao Telecom</option>
+            </select>
+        <label>Department*</label>
+          <select name="label:Department" required="true">
+          <option value="Sales">Sales</option>
+          </select>
+      </p>
+    <input value="Submit" type="submit">
+  </form>
+
 
     <div style="text-transform: none; width: 290px; background-color: white; padding: 10px; border-radius: 5px;"><%= t ".part2" %><span style="color: #600; font-weight: bold;"><%= t ".email" %></span>. <%= t ".part3" %><span style="color: #600; font-weight: bold;"><%= t ".email2" %></span>.
     </div> 

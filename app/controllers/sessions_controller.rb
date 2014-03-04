@@ -15,6 +15,8 @@ class SessionsController < ApplicationController
         session[:i_customer] = result["customer_info"]["i_customer"]
         session[:customer_login] = result["customer_info"]["login"]
         session[:current_pw] = pw
+        session[:username] = result["customer_info"]["login"]
+        session[:current_login] = result["customer_info"]["login"]
 
         url_list = "https://208.65.111.144/rest/Account/get_account_list/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}'}"
         result_list = apiRequest(url_list)
@@ -23,7 +25,6 @@ class SessionsController < ApplicationController
         result_next = apiRequest(url_next)
 
         puts result_next["account_info"].inspect
-        session[:current_login] = result["customer_info"]["login"]
         session[:i_account] = result_next["account_info"]["i_account"]
         session[:email] = result_next["account_info"]["subscriber_email"]
         if result_next['account_info']['login'] == 'aldizhup'
@@ -33,7 +34,7 @@ class SessionsController < ApplicationController
         end
       end
 
-      if session[:current_login]
+      if session[:username]
         flash[:notice] = "You are successfuly logged in!"
         redirect_to '/accounts'
       else 

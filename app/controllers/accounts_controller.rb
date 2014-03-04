@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
     @@top_5_by_destination = Hash.new
     puts "BEFORE"
     puts session[:i_account]
-    url = "https://208.65.111.144/rest/Customer/get_customer_info/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}'}"
+    url = "https://208.65.111.144/rest/Customer/get_customer_info/{'session_id':'#{get_session2}'}/{'i_customer':'#{session[:i_customer]}', 'name':'#{session[:name]}'}"
     @result = apiRequest(url)
     puts @result.inspect
     @time = Time.now.strftime("%Y-%m-%d") + ' 00:00:00'
