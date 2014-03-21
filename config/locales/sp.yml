@@ -20,7 +20,7 @@ sp:
       - day
   home:
     index:
-      voip: "Servicios Para Resellers Voip"
+      voip: "Servicios de VoIP"
       vline1: "Resellers, Cabinas telefónicas y puntos de venta de soluciones"
       vline2: "Panel de reseller, Tarifas A-Z, Rutas de mejor esfuerzo y CLI"
       vline3: "Niveles de distribución, administración de Clientes y Agentes de venta"
@@ -32,7 +32,7 @@ sp:
       sign_up_whole: "Comprar por mayor rutas"
   sessions:
     new:
-      voip: "Servicios Para Resellers Voip"
+      voip: "Servicios de VoIP"
       vline1: "Resellers, Cabinas telefónicas y puntos de venta de soluciones"
       vline2: "Panel de reseller, Tarifas A-Z, Rutas de mejor esfuerzo y CLI"
       vline3: "Niveles de distribución, administración de Clientes y Agentes de venta"
@@ -193,7 +193,7 @@ sp:
   voip_resellers:
      index:
        title: "Regístrese ahora!"
-       headline: "SERVICIOS RESELLERS VOIP"
+       headline: "SERVICIOS VOIP"
        first_name: "PRIMER NOMBRE: "
        last_name: "APELLIDO: "
        phone: "TELÉFONO: "

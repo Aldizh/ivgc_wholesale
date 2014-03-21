@@ -10,6 +10,7 @@ class VoipResellersController < ApplicationController
 	session[:last_name] = params[:last_name]
 	session[:email] = params[:email]
 	session[:phone] = params[:phone]
+	session[:country] = params[:country][:country_name]
 	session[:comments] = params[:comments]
 
 	from = params[:email]
@@ -39,10 +40,9 @@ class VoipResellersController < ApplicationController
 		   		to 'sales@ivgc.net'
 		   		from "#{from}"
 		   		subject "#{subject}"
-		   		#body "hi"
 		   		body "Sender Name: #{full_name} \n\nEmail: #{from} \n\nPhone: #{phone} \n\nCountry: #{country_name} \n\nLanguage: #{language} \n\nBusiness: #{business} \n\nMonthly Revenue: #{revenue}  \n\nComments: #{comments}"
 			end
-	 	redirect_to "/voip_resellers/thanksForSigningUp"
+	 		redirect_to "/voip_resellers/thanksForSigningUp"
 
 		rescue Exception => e
 	 		flash[:error] = "You message was not sent! Please try again!"
@@ -55,7 +55,24 @@ class VoipResellersController < ApplicationController
  end 
 
  def thanksForSigningUp
- 	@full_name = session[:first_name] + " " + session[:last_name]	
+ 	@full_name = session[:first_name] + " " + session[:last_name]
+ 	uri = URI.parse("http://ciaocrm.com/modules/Webforms/capture.php")
+
+ 	http = Net::HTTP.new(uri.host, uri.port)
+	request = Net::HTTP::Post.new(uri.request_uri)
+	request.set_form_data({
+		'publicid' =>'b9fdb0d1b45cb236384310bf34228476',
+		'name'=>'ciaovoice customer signup form',
+		'leadsource[]' => 'IVGC Signup', 
+		'lastname'=> session[:last_name],
+		'firstname'=> session[:first_name],
+		'email'=> session[:email],
+		'phone'=> session[:email],
+		'country' => session[:country],
+		'label:Ciao_Company' => 'Ciao Telecom',
+		'label:Department' => 'Sales'
+	})
+	response = http.request(request)
  end
 
   def signup_error(first_name, last_name, email, phone)

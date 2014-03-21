@@ -5,8 +5,8 @@
 	overflow: auto;
 }
 #rates_left {
-	width: 55%;
-	float: left;
+	width: auto;
+	float: center;
 	padding:  0;
 }
 #rates_right {
@@ -26,7 +26,7 @@ h4 {
 }
 #rates_left {
 	ul {
-		margin: 20px 0 0 20px;
+		margin: 40px 0 0 40px;
 		list-style: none;
 		li {
 			background-repeat: no-repeat; 

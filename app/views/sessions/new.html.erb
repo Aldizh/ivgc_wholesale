@@ -39,7 +39,7 @@
       <li><%= t ".wline3" %></li>
     </ul>
     <% if !session[:current_login] %>
-      <article><%= link_to t(".sign_up_whole"), signups_path %></article>
+      <article><!--%= link_to t(".sign_up_whole"), signups_path %--><%= link_to t(".sign_up_whole"), voip_resellers_path %></article>
     <% end %>
   </section>
 </div>

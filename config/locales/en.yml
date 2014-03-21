@@ -20,7 +20,7 @@ en:
       - day
   home:
     index:
-      voip: "VOIP Reseller Services"
+      voip: "Reseller VOIP Services"
       vline1: "Reseller, Call-Shops and Point of Sale Turn-Key Solutions"
       vline2: "Reseller Panel, A-Z Rates, Grey and CLI Routes"
       vline3: "2 Levels Distribution system and Customer / Agent management"
@@ -32,7 +32,7 @@ en:
       sign_up_whole: "Buy wholesale routes"
   sessions:
     new:
-      voip: "VOIP Reseller Services"
+      voip: "Resller VOIP Services"
       vline1: "Reseller, Call-Shops and Point of Sale Turn-Key Solutions"
       vline2: "Reseller Panel, A-Z Rates, Grey and CLI Routes"
       vline3: "2 Levels Distribution system and Customer / Agent management"
@@ -191,7 +191,7 @@ en:
       submit: "Create Ticket"
   voip_resellers:
      index:
-       headline: "VOIP RESELLER SERVICES"
+       headline: "VOIP SERVICES"
        title: "Sign up!"
        first_name: "First Name: "
        last_name: "Last Name: "

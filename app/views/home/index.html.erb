@@ -39,38 +39,8 @@
       <li><%= t ".wline3" %></li>
     </ul>
     <% if !session[:current_login] %>
-      <article><%= link_to t(".sign_up_whole"), signups_path %></article>
+      <article><!--%= link_to t(".sign_up_whole"), signups_path %--><%= link_to t(".sign_up_whole"), voip_resellers_path %></article>
     <% end %>
   </section>
 </div>
 <%= javascript_include_tag "olark_contact_us" %>
-<script type='text/javascript'>
-   olark.configure('locale.welcome_title', "Click to Chat");
-   olark.configure('locale.chatting_title', "Live Help: Now Chatting");
-   olark.configure('locale.unavailable_title', "Live Help: Offline");
-   olark.configure('locale.busy_title', "Live Help: Busy");
-   olark.configure('locale.away_message', "Our live support feature is currently offline, Please try again later.");
-   olark.configure('locale.loading_title', "Loading Olark...");
-   olark.configure('locale.welcome_message', "Welcome to my website.  You can use this chat window to chat with me.");
-   olark.configure('locale.busy_message', "All of our representatives are with other customers at this time. We will be with you shortly.");
-   olark.configure('locale.chat_input_text', "Type here and hit  to chat");
-   olark.configure('locale.name_input_text', " and type your Name");
-   olark.configure('locale.email_input_text', " and type your Email");
-   olark.configure('locale.offline_note_message', "We are offline, send us a message");
-   olark.configure('locale.send_button_text', "Send");
-   olark.configure('locale.offline_note_thankyou_text', "Thank you for your message.  We will get back to you as soon as we can.");
-   olark.configure('locale.offline_note_error_text', "You must complete all fields and specify a valid email address");
-   olark.configure('locale.offline_note_sending_text', "Sending...");
-   olark.configure('locale.operator_is_typing_text', "is typing...");
-   olark.configure('locale.operator_has_stopped_typing_text', "has stopped typing");
-   olark.configure('locale.introduction_error_text', "Please leave a name and email address so we can contact you in case we get disconnected");
-   olark.configure('locale.introduction_messages', "Welcome, just fill out some brief information and click 'Start chat' to talk to us");
-   olark.configure('locale.introduction_submit_button_text', "Start chat");
-   olark.configure('locale.disabled_input_text_when_convo_has_ended', "chat ended, refresh for new chat");
-   olark.configure('locale.disabled_panel_text_when_convo_has_ended', "This conversation has ended, but all you need to do is refresh the page to start a new one!");
-   olark.configure('locale.name_input_text', "Pre-Chat Survey NAME");
-   olark.configure('locale.phone_input_text', "Pre-Chat Survey PHONE");
-   olark.configure('locale.email_input_text', "Pre-Chat Survey EMAIL");
-   olark.configure('locale.send_button_text', "Pre-Chat Survey SENDBUTTON");
-
-</script>
