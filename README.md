@@ -1,4 +1,4 @@
 IVGCWholesale
 =============
 
-Automatic Account management platform
+Automatic Account management platform for VoIP service
