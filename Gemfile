@@ -27,7 +27,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-gem 'i18n', '=0.6.4'
+gem 'i18n', '0.8.0'
 gem 'rack', '=1.4.5'
 gem 'jquery-rails'
 gem 'rake'
